@@ -1774,68 +1774,164 @@
           break;
         }
 
-        /* 6. OPEN BOOK (MOVILIDAD TORÁCICA) */
+        /* 6. OPEN BOOK (MOVILIDAD TORÁCICA — VISTA CENITAL + RELOJ 180°) */
         case 'open_book': {
-          const matY = h - 42;
-          drawGridAndMat(ctx, w, h, matY, true);
+          const matY = h - 38;
+          drawGridAndMat(ctx, w, h, matY, false);
 
-          const shoulderCenter = { x: cx - 6, y: matY - 22 };
-          const hip = { x: cx + 38, y: matY - 14 };
-          const knees = { x: cx + 74, y: matY - 8 };
-
-          // Arco sombreado de 180 grados del recorrido torácico
-          const radius = 58;
-          const angle = -s * Math.PI;
+          // Esterilla vista en perspectiva cenital / diagonal
           ctx.save();
-          ctx.fillStyle = 'rgba(56, 189, 248, 0.10)';
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.75)';
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.28)';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.roundRect(cx - 108, 36, 216, h - 72, 10);
+          ctx.fill();
+          ctx.stroke();
+          ctx.restore();
+
+          // Coordenadas anatómicas claras: cabeza arriba-centro, tronco vertical, piernas a 90° hacia la derecha
+          const shoulderCenter = { x: cx - 8, y: cy - 10 };
+          const l5s1 = { x: cx - 8, y: cy + 20 };
+          const hip = { x: cx - 8, y: cy + 36 };
+          const knees = { x: cx + 44, y: cy + 36 };
+          const ankles = { x: cx + 44, y: cy + 72 };
+
+          // Transportador / Abanico de 180° (de derecha 0° a izquierda 180°)
+          const radius = 64;
+          const angle = -s * Math.PI; // 0 (cerrado a la derecha) -> -PI (abierto a la izquierda)
+          ctx.save();
+          const fanGrad = ctx.createRadialGradient(shoulderCenter.x, shoulderCenter.y, 6, shoulderCenter.x, shoulderCenter.y, radius);
+          fanGrad.addColorStop(0, 'rgba(56, 189, 248, 0.32)');
+          fanGrad.addColorStop(1, 'rgba(16, 185, 129, 0.08)');
+          ctx.fillStyle = fanGrad;
           ctx.beginPath();
           ctx.moveTo(shoulderCenter.x, shoulderCenter.y);
           ctx.arc(shoulderCenter.x, shoulderCenter.y, radius, 0, angle, true);
           ctx.closePath();
           ctx.fill();
 
-          ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
-          ctx.lineWidth = 2;
-          ctx.setLineDash([4, 4]);
+          // Semicírculo graduado
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.55)';
+          ctx.lineWidth = 1.8;
+          ctx.setLineDash([4, 3]);
           ctx.beginPath();
           ctx.arc(shoulderCenter.x, shoulderCenter.y, radius, Math.PI, 0, false);
           ctx.stroke();
+          ctx.setLineDash([]);
+
+          // Marcas de grados 0°, 90°, 180°
+          ctx.font = '700 9px Inter, sans-serif';
+          ctx.fillStyle = '#94a3b8';
+          ctx.fillText('0° (Cerrado)', shoulderCenter.x + radius - 18, shoulderCenter.y - 6);
+          ctx.fillText('90°', shoulderCenter.x - 8, shoulderCenter.y - radius - 5);
+          ctx.fillStyle = '#34d399';
+          ctx.fillText('180° (Suelo)', shoulderCenter.x - radius - 14, shoulderCenter.y - 6);
           ctx.restore();
 
-          // Brazo fijo en el suelo (derecha)
-          drawLimb(ctx, shoulderCenter.x, shoulderCenter.y, shoulderCenter.x + radius, shoulderCenter.y, 8.5, '#64748b');
+          // Piernas apiladas a 90° (Muslos y Tibias claramente visibles)
+          drawLimb(ctx, hip.x, hip.y + 4, knees.x, knees.y + 4, 12, '#64748b'); // pierna inferior
+          drawLimb(ctx, knees.x, knees.y + 4, ankles.x, ankles.y, 9.5, '#64748b');
+          drawLimb(ctx, hip.x, hip.y, knees.x, knees.y, 13, '#cbd5e1');          // pierna superior
+          drawLimb(ctx, knees.x, knees.y, ankles.x, ankles.y - 3, 10, '#94a3b8');
 
-          // Torso y piernas fijas de lado
-          drawLimb(ctx, shoulderCenter.x, shoulderCenter.y, hip.x, hip.y, 16, '#334155');
+          // Indicador de bloqueo de rodillas contra el suelo
+          ctx.save();
+          ctx.strokeStyle = '#10b981';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.arc(knees.x, knees.y, 11, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+          drawArrow(ctx, knees.x + 22, knees.y - 12, knees.x + 8, knees.y - 3, '#10b981');
+
+          // Brazo inferior fijo en el suelo (hacia la derecha, 0°)
+          drawLimb(ctx, shoulderCenter.x, shoulderCenter.y, shoulderCenter.x + radius, shoulderCenter.y, 9, '#64748b');
+          drawJoint(ctx, shoulderCenter.x + radius, shoulderCenter.y, 4, '#64748b');
+
+          // Torso y columna vertebral (rotación dorsal arriba, pelvis fija abajo)
+          drawLimb(ctx, shoulderCenter.x, shoulderCenter.y, hip.x, hip.y, 18, '#334155');
           drawVertebrae(ctx, shoulderCenter.x, shoulderCenter.y, hip.x, hip.y, 6, 0, false);
-          drawLimb(ctx, hip.x, hip.y, knees.x, knees.y, 13.5, '#cbd5e1');
 
-          // Brazo superior abriéndose de derecha (0 rad) a izquierda (-PI rad)
+          // Hombro y brazo superior rotando 180° como las páginas de un libro
+          const elbowX = shoulderCenter.x + (radius * 0.52) * Math.cos(angle);
+          const elbowY = shoulderCenter.y + (radius * 0.52) * Math.sin(angle);
           const handX = shoulderCenter.x + radius * Math.cos(angle);
           const handY = shoulderCenter.y + radius * Math.sin(angle);
-          drawLimb(ctx, shoulderCenter.x, shoulderCenter.y, handX, handY, 9.5, '#38bdf8', 'rgba(56,189,248,0.45)');
 
-          drawCallout(ctx, knees.x, knees.y, cx + 14, matY - 62, 'Rodillas ancladas (Bloquea L5)', '#10b981');
+          drawMuscleGlow(ctx, shoulderCenter.x, shoulderCenter.y + 6, 18, 12, 0, s, '#38bdf8');
+          drawLimb(ctx, shoulderCenter.x, shoulderCenter.y, elbowX, elbowY, 10.5, '#f8fafc', 'rgba(56,189,248,0.5)');
+          drawLimb(ctx, elbowX, elbowY, handX, handY, 9, '#38bdf8', 'rgba(56,189,248,0.5)');
 
-          drawHead(ctx, shoulderCenter.x - 14, shoulderCenter.y - 10, 11, 0);
-          drawJoint(ctx, handX, handY, 4.5, '#38bdf8');
+          drawHead(ctx, shoulderCenter.x, shoulderCenter.y - 18, 11, -s * 1.2);
+          drawJoint(ctx, elbowX, elbowY, 4, '#38bdf8');
+          drawJoint(ctx, handX, handY, 5, '#38bdf8');
           drawJoint(ctx, knees.x, knees.y, 5, '#10b981');
-          drawL5S1Badge(ctx, hip.x - 12, hip.y - 3, t);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawCallout(ctx, knees.x, knees.y, cx + 18, cy + 4, 'Rodillas 90° fijas al suelo', '#10b981');
 
           const deg = Math.round(s * 180);
-          drawHUD(ctx, w, h, `Giro Dorsal ${deg}° • Pelvis Anclada`, 'Abre el pecho soltando el aire sin despegar las rodillas', s, s > 0.4 ? '💨 EXHALA AL ABRIR' : '🫁 INHALA AL CERRAR');
+          drawHUD(ctx, w, h, `Apertura Dorsal: ${deg}° / 180°`, 'Las rodillas NO se levantan • Solo gira el pecho y hombro', s, s > 0.4 ? '💨 EXHALA AL ABRIR' : '🫁 INHALA AL VOLVER');
           break;
         }
 
-        /* 7. MOVILIDAD DE CADERA 90/90 */
+        /* 7. MOVILIDAD DE CADERA 90/90 (DOBLE VISTA: PLANTA 90/90 + PERFIL BISAGRA) */
         case 'hip_9090': {
-          const matY = h - 40;
+          const matY = h - 38;
           drawGridAndMat(ctx, w, h, matY, true);
 
-          const hip = { x: cx - 18, y: matY - 12 };
-          // Inclinación pura desde la bisagra de cadera con columna recta
-          const leanAngle = -Math.PI / 2 + (0.08 + s * 0.38);
-          const torsoLen = 64;
+          // SUB-PANEL SUPERIOR DERECHO: Geometría exacta de piernas 90°/90° vista desde arriba
+          const mapX = w - 96;
+          const mapY = 36;
+          ctx.save();
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.roundRect(mapX, mapY, 86, 68, 6);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.font = '700 8.5px Inter, sans-serif';
+          ctx.fillStyle = '#7dd3fc';
+          ctx.fillText('PLANTA 90°/90°', mapX + 10, mapY + 12);
+
+          const pHip = { x: mapX + 38, y: mapY + 42 };
+          // Pierna delantera 90° (muslo al frente, tibia horizontal)
+          ctx.strokeStyle = '#f8fafc';
+          ctx.lineWidth = 4;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(pHip.x, pHip.y);
+          ctx.lineTo(pHip.x, pHip.y - 18);
+          ctx.lineTo(pHip.x + 20, pHip.y - 18);
+          ctx.stroke();
+          // Pierna trasera 90° (muslo al lado, tibia hacia atrás)
+          ctx.strokeStyle = '#94a3b8';
+          ctx.beginPath();
+          ctx.moveTo(pHip.x, pHip.y);
+          ctx.lineTo(pHip.x - 20, pHip.y);
+          ctx.lineTo(pHip.x - 20, pHip.y + 16);
+          ctx.stroke();
+          // Cuadraditos de ángulo recto 90°
+          ctx.strokeStyle = '#10b981';
+          ctx.lineWidth = 1.2;
+          ctx.strokeRect(pHip.x, pHip.y - 18, 6, 6);
+          ctx.strokeRect(pHip.x - 20, pHip.y, 6, 6);
+          ctx.fillStyle = '#10b981';
+          ctx.beginPath(); ctx.arc(pHip.x, pHip.y, 3, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+
+          // ESCENA PRINCIPAL (Perfil de la Bisagra de Cadera con Espalda 100% Recta)
+          const hip = { x: cx - 32, y: matY - 11 };
+          const kneeFront = { x: hip.x + 42, y: matY - 9 };
+          const footFront = { x: hip.x + 68, y: matY - 6 };
+          const kneeBack = { x: hip.x - 36, y: matY - 7 };
+
+          // Inclinación pura desde la bisagra de cadera (de vertical 90° a 55° hacia adelante)
+          const leanAngle = -Math.PI / 2 + (0.06 + s * 0.48);
+          const torsoLen = 68;
           const shoulder = {
             x: hip.x + torsoLen * Math.cos(leanAngle),
             y: hip.y + torsoLen * Math.sin(leanAngle)
@@ -1845,93 +1941,204 @@
             y: hip.y + (torsoLen * 0.32) * Math.sin(leanAngle)
           };
 
-          // Arco angular de bisagra en la cadera
+          // Regla rígida paralela a la espalda que demuestra 0% de curvatura lumbar
+          const nx = -Math.sin(leanAngle);
+          const ny = Math.cos(leanAngle);
           ctx.save();
+          ctx.strokeStyle = '#10b981';
+          ctx.lineWidth = 2;
+          ctx.setLineDash([4, 3]);
+          ctx.beginPath();
+          ctx.moveTo(hip.x - nx * 13, hip.y - ny * 13);
+          ctx.lineTo(shoulder.x - nx * 13, shoulder.y - ny * 13);
+          ctx.stroke();
+          ctx.restore();
+
+          // Transportador de bisagra en la ingle
+          ctx.save();
+          ctx.fillStyle = 'rgba(16, 185, 129, 0.18)';
+          ctx.beginPath();
+          ctx.moveTo(hip.x, hip.y);
+          ctx.arc(hip.x, hip.y, 32, leanAngle, 0, false);
+          ctx.closePath();
+          ctx.fill();
           ctx.strokeStyle = '#10b981';
           ctx.lineWidth = 1.8;
           ctx.beginPath();
-          ctx.arc(hip.x, hip.y, 26, leanAngle, 0, false);
+          ctx.arc(hip.x, hip.y, 32, leanAngle, 0, false);
           ctx.stroke();
           ctx.restore();
 
           // Brillo en cápsula glútea
-          drawMuscleGlow(ctx, hip.x - 4, hip.y + 2, 15, 11, 0, 0.35 + s * 0.65, '#10b981');
+          drawMuscleGlow(ctx, hip.x - 5, hip.y + 2, 16, 12, 0, 0.4 + s * 0.6, '#10b981');
 
-          // Pierna trasera 90°
-          drawLimb(ctx, hip.x, hip.y, hip.x - 44, matY - 8, 12.5, '#64748b');
-          // Pierna delantera 90° en el suelo
-          drawLimb(ctx, hip.x, hip.y, hip.x + 50, matY - 10, 13.5, '#f8fafc');
+          // Pierna trasera a 90° y pierna delantera a 90°
+          drawLimb(ctx, hip.x, hip.y, kneeBack.x, kneeBack.y, 12.5, '#64748b');
+          drawLimb(ctx, hip.x, hip.y, kneeFront.x, kneeFront.y, 14, '#f8fafc');
+          drawLimb(ctx, kneeFront.x, kneeFront.y, footFront.x, footFront.y, 10.5, '#cbd5e1');
+
           // Torso recto + vértebras alineadas
-          drawLimb(ctx, hip.x, hip.y, shoulder.x, shoulder.y, 17, '#334155');
+          drawLimb(ctx, hip.x, hip.y, shoulder.x, shoulder.y, 17.5, '#334155');
           drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
-          // Brazo de apoyo
-          drawLimb(ctx, shoulder.x, shoulder.y, hip.x + 36, matY - 22, 8.5, '#cbd5e1');
 
-          drawCallout(ctx, l5s1.x, l5s1.y, hip.x - 86, hip.y - 68, 'Espalda 100% Recta', '#38bdf8');
+          // Manos apoyadas suavemente al frente para sostener el pecho alto
+          const handSupport = { x: hip.x + 34, y: matY - 8 };
+          const elbowSupport = solveTwoBoneIK(shoulder.x, shoulder.y, handSupport.x, handSupport.y, 28, 28, true);
+          drawLimb(ctx, shoulder.x, shoulder.y, elbowSupport.jx, elbowSupport.jy, 8.5, '#e2e8f0');
+          drawLimb(ctx, elbowSupport.jx, elbowSupport.jy, handSupport.x, handSupport.y, 7.5, '#cbd5e1');
 
-          drawHead(ctx, shoulder.x + 12 * Math.cos(leanAngle), shoulder.y + 12 * Math.sin(leanAngle), 11.5, leanAngle + Math.PI / 2);
+          drawCallout(ctx, l5s1.x - nx * 12, l5s1.y - ny * 12, 12, matY - 96, 'Regla Recta: L5 No Se Dobla', '#10b981');
+
+          drawHead(ctx, shoulder.x + 13 * Math.cos(leanAngle), shoulder.y + 13 * Math.sin(leanAngle), 11.5, leanAngle + Math.PI / 2);
           drawJoint(ctx, hip.x, hip.y, 5.5, '#10b981');
+          drawJoint(ctx, kneeFront.x, kneeFront.y, 4.5, '#38bdf8');
           drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
 
-          drawHUD(ctx, w, h, 'Rotación Capsular Cadera • Columna Recta', 'Inclina el pecho desde la ingle sin redondear L5-S1', s, '💨 BISAGRA SUAVE');
+          const hingeDeg = Math.round(90 - (0.06 + s * 0.48) * (180 / Math.PI));
+          drawHUD(ctx, w, h, `Bisagra en Ingle (${hingeDeg}°) • Columna Recta`, 'Acerca el esternón a la rodilla delantera sin encorvar la espalda', s, s > 0.45 ? '💨 INCLINA DESDE INGLE' : '🫁 PECHO ALTO');
           break;
         }
 
-        /* 8. NEURODINAMIA / DESLIZAMIENTO NEURAL DERECHO */
+        /* 8. NEURODINAMIA / DESLIZAMIENTO NEURAL DERECHO (CON LUPA DEL FORAMEN L5-S1) */
         case 'neuro_floss': {
           const matY = h - 40;
           drawGridAndMat(ctx, w, h, matY, true);
 
-          const shoulder = { x: cx - 60, y: matY - 11 };
-          const l5s1 = { x: cx - 18, y: matY - 10 };
-          const hip = { x: cx + 12, y: matY - 11 };
-          const knee = { x: hip.x + 4, y: hip.y - 48 };
-
-          // Extensión suave de pantorrilla hacia el techo
-          const legAngle = -0.35 - s * 0.95; // de flexionada a casi vertical
-          const ankle = {
-            x: knee.x + 46 * Math.cos(legAngle),
-            y: knee.y + 46 * Math.sin(legAngle)
-          };
-          // Dorsiflexión del pie al subir
-          const toeAngle = legAngle + (s > 0.5 ? 1.85 : 1.15);
-          const toe = {
-            x: ankle.x + 16 * Math.cos(toeAngle),
-            y: ankle.y + 16 * Math.sin(toeAngle)
-          };
-
-          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 16, '#334155');
-          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
-          // Manos sujetando detrás del muslo
-          drawLimb(ctx, shoulder.x + 8, shoulder.y, knee.x - 4, knee.y + 14, 8, '#94a3b8');
-          // Muslo y pantorrilla
-          drawLimb(ctx, hip.x, hip.y, knee.x, knee.y, 13.5, '#e2e8f0');
-          drawLimb(ctx, knee.x, knee.y, ankle.x, ankle.y, 10.5, '#f8fafc');
-          drawLimb(ctx, ankle.x, ankle.y, toe.x, toe.y, 7.5, '#38bdf8');
-
-          // Trazado luminoso animado del Nervio Ciático Derecho (pulsos viajando)
+          // SUB-PANEL ZOOM SUPERIOR DERECHO: Raíz Nerviosa Derecha deslizándose en el Foramen L5-S1
+          const zoomX = w - 108;
+          const zoomY = 35;
           ctx.save();
-          ctx.strokeStyle = '#fbbf24';
-          ctx.lineWidth = 3;
-          ctx.shadowColor = '#fbbf24';
-          ctx.shadowBlur = 10;
-          ctx.setLineDash([5, 4]);
-          ctx.lineDashOffset = -t * 18;
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+          ctx.strokeStyle = 'rgba(251, 191, 36, 0.5)';
+          ctx.lineWidth = 1.2;
           ctx.beginPath();
-          ctx.moveTo(l5s1.x, l5s1.y);
-          ctx.quadraticCurveTo(hip.x + 6, hip.y + 4, knee.x, knee.y);
-          ctx.lineTo(ankle.x, ankle.y);
+          ctx.roundRect(zoomX, zoomY, 98, 62, 6);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.font = '700 8.5px Inter, sans-serif';
+          ctx.fillStyle = '#fbbf24';
+          ctx.fillText('ZOOM FORAMEN DER.', zoomX + 7, zoomY + 12);
+
+          // Hueso L5 y S1 formando el túnel foraminal
+          ctx.fillStyle = '#334155';
+          ctx.beginPath(); ctx.roundRect(zoomX + 12, zoomY + 18, 28, 14, 3); ctx.fill();
+          ctx.beginPath(); ctx.roundRect(zoomX + 12, zoomY + 42, 28, 14, 3); ctx.fill();
+          ctx.fillStyle = '#94a3b8';
+          ctx.font = '700 8px Inter, sans-serif';
+          ctx.fillText('L5', zoomX + 21, zoomY + 28);
+          ctx.fillText('S1', zoomX + 21, zoomY + 52);
+
+          // Nervio deslizándose libremente de izquierda a derecha dentro del foramen (Efecto Seda Dental)
+          const nerveSlide = s * 12;
+          ctx.strokeStyle = '#fbbf24';
+          ctx.lineWidth = 3.5;
+          ctx.beginPath();
+          ctx.moveTo(zoomX + 8, zoomY + 37);
+          ctx.lineTo(zoomX + 88, zoomY + 37);
+          ctx.stroke();
+          // Nodos de referencia en el nervio para ver el deslizamiento longitudinal
+          for (let n = 0; n < 3; n++) {
+            const nx = zoomX + 20 + n * 22 + nerveSlide;
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(nx, zoomY + 37, 2.6, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+
+          // ESCENA PRINCIPAL: Tumbado boca arriba con muslo vertical a 90°
+          const shoulder = { x: cx - 72, y: matY - 11 };
+          const l5s1 = { x: cx - 28, y: matY - 10 };
+          const hip = { x: cx + 4, y: matY - 11 };
+          const knee = { x: hip.x + 2, y: hip.y - 50 }; // Muslo fijo a 90° sujetado por las manos
+
+          // Pierna izquierda apoyada flexionada en descanso (al fondo)
+          drawLimb(ctx, hip.x, hip.y, hip.x + 36, matY - 38, 11, '#475569');
+          drawLimb(ctx, hip.x + 36, matY - 38, hip.x + 62, matY - 4, 9, '#475569');
+
+          // Pantorrilla derecha subiendo de 90° (horizontal) a ~165° (hacia el techo)
+          const legAngle = -0.15 - s * 1.18;
+          const ankle = {
+            x: knee.x + 48 * Math.cos(legAngle),
+            y: knee.y + 48 * Math.sin(legAngle)
+          };
+
+          // Pie haciendo dorsiflexión clara (punta hacia la cara al subir, punta al techo al bajar)
+          const footAngle = legAngle + (s > 0.5 ? 1.95 : 1.25);
+          const toe = {
+            x: ankle.x + 19 * Math.cos(footAngle),
+            y: ankle.y + 19 * Math.sin(footAngle)
+          };
+
+          // Arco punteado del recorrido de bombeo del tobillo
+          ctx.save();
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([3, 3]);
+          ctx.beginPath();
+          ctx.arc(knee.x, knee.y, 48, -1.33, -0.15, false);
           ctx.stroke();
           ctx.restore();
 
-          drawCallout(ctx, knee.x, knee.y, cx - 88, matY - 88, 'Bombeo Ciático Derecho', '#fbbf24');
+          // Torso plano en esterilla + vértebras
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 16.5, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+
+          // Brazos sujetando firmemente detrás del muslo derecho
+          const handsHold = { x: knee.x - 3, y: knee.y + 18 };
+          const elbowHold = { x: (shoulder.x + handsHold.x) / 2, y: matY - 18 };
+          drawLimb(ctx, shoulder.x + 6, shoulder.y, elbowHold.x, elbowHold.y, 8.5, '#94a3b8');
+          drawLimb(ctx, elbowHold.x, elbowHold.y, handsHold.x, handsHold.y, 8, '#cbd5e1');
+
+          // Muslo vertical fijo, pantorrilla móvil y pie articulado
+          drawLimb(ctx, hip.x, hip.y, knee.x, knee.y, 14, '#e2e8f0');
+          drawLimb(ctx, knee.x, knee.y, ankle.x, ankle.y, 11, '#f8fafc', 'rgba(251, 191, 36, 0.3)');
+          drawLimb(ctx, ankle.x, ankle.y, toe.x, toe.y, 8, '#38bdf8');
+
+          // Recorrido Anatómico del Nervio Ciático Derecho con nodos luminosos que se deslizan
+          ctx.save();
+          ctx.strokeStyle = '#fbbf24';
+          ctx.lineWidth = 3.2;
+          ctx.shadowColor = '#fbbf24';
+          ctx.shadowBlur = 10;
+          ctx.beginPath();
+          ctx.moveTo(l5s1.x, l5s1.y);
+          ctx.quadraticCurveTo(hip.x + 6, hip.y + 3, knee.x, knee.y);
+          ctx.lineTo(ankle.x, ankle.y);
+          ctx.stroke();
+
+          // Puntos blancos viajando por el nervio al bombear
+          for (let p = 0.2; p <= 0.85; p += 0.3) {
+            const pt = (p + s * 0.18) % 1;
+            const px = pt < 0.5
+              ? l5s1.x + (knee.x - l5s1.x) * (pt * 2)
+              : knee.x + (ankle.x - knee.x) * ((pt - 0.5) * 2);
+            const py = pt < 0.5
+              ? l5s1.y + (knee.y - l5s1.y) * (pt * 2)
+              : knee.y + (ankle.y - knee.y) * ((pt - 0.5) * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(px, py, 2.4, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+
+          // Flecha en la punta del pie indicando flexión dorsal
+          if (s > 0.55) {
+            drawArrow(ctx, toe.x, toe.y - 4, toe.x - 14, toe.y + 6, '#38bdf8');
+            drawCallout(ctx, toe.x, toe.y, cx - 88, matY - 98, 'Punta del pie hacia ti', '#38bdf8');
+          } else {
+            drawCallout(ctx, handsHold.x, handsHold.y, cx - 94, matY - 98, 'Manos fijan muslo a 90°', '#10b981');
+          }
 
           drawHead(ctx, shoulder.x - 20, matY - 14, 11.5, -Math.PI / 2);
           drawJoint(ctx, knee.x, knee.y, 4.5);
-          drawJoint(ctx, ankle.x, ankle.y, 4, '#fbbf24');
+          drawJoint(ctx, ankle.x, ankle.y, 4.5, '#fbbf24');
+          drawJoint(ctx, handsHold.x, handsHold.y, 4, '#10b981');
           drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
 
-          drawHUD(ctx, w, h, 'Deslizamiento Nervio Ciático Derecho', s > 0.5 ? 'Extiende rodilla + punta del pie a la cara (sin forzar)' : 'Flexiona rodilla relajando tensión en el foramen', s, '⚡ FLUJO NEURAL');
+          drawHUD(ctx, w, h, 'Bombeo Ciático Derecho (Seda Dental)', s > 0.5 ? 'SUBE: Estira rodilla suave + trae punta del pie (1 seg)' : 'BAJA: Dobla rodilla + relaja el tobillo (sin mantener tirón)', s, s > 0.5 ? '⚡ TENSIÓN SUAVE' : '🔓 DESCARGA NERVIO');
           break;
         }
 
@@ -2250,27 +2457,68 @@
           break;
         }
 
-        /* 14. PRESS PALLOF EN POLEA */
+        /* 14. PRESS PALLOF EN POLEA (DOBLE VISTA: FRONTAL + PLANTA CENITAL DE PALANCA) */
         case 'pallof_press': {
           const floorY = h - 36;
           drawGridAndMat(ctx, w, h, floorY, false);
 
-          // Columna de polea a la izquierda
-          ctx.strokeStyle = '#64748b';
-          ctx.lineWidth = 4.5;
+          // SUB-PANEL SUPERIOR DERECHO: Vista Cenital (Desde arriba) mostrando cómo se estiran los brazos al frente
+          const topX = w - 108;
+          const topY = 34;
+          ctx.save();
+          ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+          ctx.strokeStyle = 'rgba(16, 185, 129, 0.5)';
+          ctx.lineWidth = 1.2;
           ctx.beginPath();
-          ctx.moveTo(28, 30);
-          ctx.lineTo(28, floorY);
+          ctx.roundRect(topX, topY, 98, 68, 6);
+          ctx.fill();
           ctx.stroke();
 
-          const bodyX = cx + 14;
+          ctx.font = '700 8.5px Inter, sans-serif';
+          ctx.fillStyle = '#6ee7b7';
+          ctx.fillText('VISTA DESDE ARRIBA', topX + 8, topY + 12);
+
+          const tBody = { x: topX + 58, y: topY + 26 };
+          const tHands = { x: tBody.x, y: tBody.y + 10 + s * 22 }; // Manos alejándose del pecho hacia abajo
+          // Cable desde polea izquierda hasta las manos
+          ctx.strokeStyle = '#f59e0b';
+          ctx.lineWidth = 2;
+          ctx.setLineDash([3, 2]);
+          ctx.beginPath();
+          ctx.moveTo(topX + 8, tHands.y);
+          ctx.lineTo(tHands.x, tHands.y);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          // Hombros y brazos vistos desde arriba
+          ctx.fillStyle = '#334155';
+          ctx.beginPath(); ctx.ellipse(tBody.x, tBody.y, 16, 7, 0, 0, Math.PI * 2); ctx.fill();
+          ctx.strokeStyle = '#f8fafc';
+          ctx.lineWidth = 3;
+          ctx.beginPath();
+          ctx.moveTo(tBody.x - 12, tBody.y + 2);
+          ctx.lineTo(tHands.x, tHands.y);
+          ctx.lineTo(tBody.x + 12, tBody.y + 2);
+          ctx.stroke();
+          ctx.fillStyle = '#f59e0b';
+          ctx.beginPath(); ctx.arc(tHands.x, tHands.y, 3.5, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+
+          // ESCENA PRINCIPAL: Torre de polea a la izquierda + Atleta en perspectiva 3/4
+          ctx.strokeStyle = '#64748b';
+          ctx.lineWidth = 5;
+          ctx.beginPath();
+          ctx.moveTo(26, 32);
+          ctx.lineTo(26, floorY);
+          ctx.stroke();
+
+          const bodyX = cx - 8;
           const pelvis = { x: bodyX, y: floorY - 58 };
           const l5s1 = { x: bodyX, y: floorY - 74 };
-          const chest = { x: bodyX, y: floorY - 102 };
+          const chest = { x: bodyX, y: floorY - 104 };
 
-          // Eje central anti-rotación
+          // Plomada central anti-rotación (hombros y pelvis clavados en el eje)
           ctx.save();
-          ctx.strokeStyle = 'rgba(16, 185, 129, 0.35)';
+          ctx.strokeStyle = 'rgba(16, 185, 129, 0.4)';
           ctx.lineWidth = 1.5;
           ctx.setLineDash([4, 3]);
           ctx.beginPath();
@@ -2279,43 +2527,59 @@
           ctx.stroke();
           ctx.restore();
 
-          // Cable amarillo tenso desde la polea al centro del pecho
-          const hands = { x: bodyX, y: chest.y + 12 };
+          // En perspectiva 3/4 las manos avanzan desde el esternón hacia adelante-derecha (creando palanca visible)
+          const hands = {
+            x: chest.x + 6 + s * 28,
+            y: chest.y + 14 + s * 6
+          };
+          const pulleyAnchor = { x: 26, y: chest.y + 14 };
+
+          // Polea amarilla y cable tenso
+          ctx.fillStyle = '#f59e0b';
+          ctx.beginPath(); ctx.arc(pulleyAnchor.x, pulleyAnchor.y, 4.5, 0, Math.PI * 2); ctx.fill();
           ctx.save();
           ctx.strokeStyle = '#f59e0b';
           ctx.lineWidth = 3;
           ctx.setLineDash([5, 3]);
           ctx.beginPath();
-          ctx.moveTo(28, hands.y);
+          ctx.moveTo(pulleyAnchor.x, pulleyAnchor.y);
           ctx.lineTo(hands.x, hands.y);
           ctx.stroke();
           ctx.restore();
 
-          // Flecha de tracción lateral de la polea
-          drawArrow(ctx, hands.x - 24, hands.y - 8, 38, hands.y - 8, '#f59e0b');
+          // Vector de fuerza de la polea intentando girar el tronco hacia la izquierda
+          drawArrow(ctx, hands.x - 16, hands.y - 10, pulleyAnchor.x + 12, pulleyAnchor.y - 10, '#f59e0b');
 
-          // Oblicuos iluminados resistiendo el giro
-          drawMuscleGlow(ctx, bodyX - 9, l5s1.y - 4, 9, 18, 0, 0.4 + s * 0.6, '#10b981');
-          drawMuscleGlow(ctx, bodyX + 9, l5s1.y - 4, 9, 18, 0, 0.4 + s * 0.6, '#10b981');
+          // Oblicuos y transverso iluminados frenando el giro
+          drawMuscleGlow(ctx, bodyX - 10, l5s1.y - 4, 10, 19, 0, 0.45 + s * 0.55, '#10b981');
+          drawMuscleGlow(ctx, bodyX + 10, l5s1.y - 4, 10, 19, 0, 0.45 + s * 0.55, '#10b981');
 
-          // Torso y piernas firmes + vértebras
-          drawLimb(ctx, chest.x, chest.y, pelvis.x, pelvis.y, 21, '#334155');
+          // Torso y piernas en base atlética firme + vértebras
+          drawLimb(ctx, chest.x, chest.y, pelvis.x, pelvis.y, 22, '#334155');
           drawVertebrae(ctx, chest.x, chest.y + 4, pelvis.x, pelvis.y - 2, 5, 0, false);
-          drawLimb(ctx, pelvis.x - 9, pelvis.y, pelvis.x - 16, floorY - 4, 11.5, '#e2e8f0');
-          drawLimb(ctx, pelvis.x + 9, pelvis.y, pelvis.x + 16, floorY - 4, 11.5, '#e2e8f0');
+          drawLimb(ctx, pelvis.x - 9, pelvis.y, pelvis.x - 18, floorY - 4, 12, '#e2e8f0');
+          drawLimb(ctx, pelvis.x + 9, pelvis.y, pelvis.x + 18, floorY - 4, 12, '#e2e8f0');
 
-          // Brazos empujando al frente (perspectiva frontal: manos crecen y juntan al extender)
-          const armSpread = 14 - s * 10;
-          drawLimb(ctx, chest.x - 12, chest.y + 4, hands.x - armSpread, hands.y, 8, '#f8fafc');
-          drawLimb(ctx, chest.x + 12, chest.y + 4, hands.x + armSpread, hands.y, 8, '#f8fafc');
+          // Brazos articulados (Hombro -> Codo -> Manos) extendiéndose claramente al frente
+          const elbowL = { x: chest.x - 12 + s * 16, y: chest.y + 18 - s * 2 };
+          const elbowR = { x: chest.x + 12 + s * 16, y: chest.y + 18 - s * 2 };
+          drawLimb(ctx, chest.x - 11, chest.y + 3, elbowL.x, elbowL.y, 8.5, '#cbd5e1');
+          drawLimb(ctx, elbowL.x, elbowL.y, hands.x, hands.y, 8, '#f8fafc');
+          drawLimb(ctx, chest.x + 11, chest.y + 3, elbowR.x, elbowR.y, 8.5, '#e2e8f0');
+          drawLimb(ctx, elbowR.x, elbowR.y, hands.x, hands.y, 8, '#f8fafc', 'rgba(56,189,248,0.4)');
 
-          drawCallout(ctx, bodyX + 10, l5s1.y - 6, bodyX + 26, l5s1.y - 24, 'Oblicuos Anti-Giro', '#10b981');
+          // Flecha azul de extensión de brazos
+          if (s > 0.35) {
+            drawArrow(ctx, chest.x + 8, hands.y + 12, hands.x + 4, hands.y + 12, '#38bdf8');
+          }
+
+          drawCallout(ctx, bodyX - 10, l5s1.y, 12, floorY - 56, 'Oblicuos frenan giro (0° rotación)', '#10b981');
 
           drawHead(ctx, chest.x, chest.y - 18, 11, 0);
-          drawJoint(ctx, hands.x, hands.y, 4.5 + s * 2, '#f59e0b');
+          drawJoint(ctx, hands.x, hands.y, 5.5, '#f59e0b');
           drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
 
-          drawHUD(ctx, w, h, 'Core Anti-Rotación • Eje Inamovible', 'Extiende brazos al frente resistiendo el tirón lateral', s, s > 0.5 ? '💨 EXTIENDE + RESISTE' : '🫁 VUELVE AL PECHO');
+          drawHUD(ctx, w, h, 'Press Pallof: Palanca Anti-Rotación', s > 0.5 ? 'BRAZOS ESTIRADOS: Máxima palanca sin que giren los hombros' : 'MANOS AL ESTERNÓN: Mantén costillas y pelvis bloqueadas', s, s > 0.5 ? '💨 EMPUJA + RESISTE' : '🫁 REGRESA AL PECHO');
           break;
         }
 
