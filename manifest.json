@@ -1,0 +1,18 @@
+{
+  "name": "Plan Clínico L5-S1 | Usuario",
+  "short_name": "Plan L5-S1",
+  "description": "Sistema interactivo de rehabilitación biomecánica, control postural, modo guiado por voz y registro de cargas para L5-S1.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1120",
+  "theme_color": "#0b1120",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

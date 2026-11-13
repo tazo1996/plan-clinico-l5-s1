@@ -1,0 +1,2841 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1120" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Plan Clínico L5-S1 | Usuario</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card: #151f32;
+      --card-alt: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --border: #283548;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding-bottom: 110px;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar oculta en pestañas móviles */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .ex-card {
+      background: linear-gradient(180deg, #162238 0%, #111a2e 100%);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .ex-card:hover {
+      border-color: #3b4f6b;
+    }
+
+    .ex-card.completed {
+      border-color: var(--emerald);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, #111a2e 100%);
+    }
+
+    .canvas-stage {
+      background: radial-gradient(circle at 50% 45%, #17253f 0%, #090e1a 100%);
+      border: 1px solid #263650;
+      border-radius: 0.85rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 2px 12px rgba(0,0,0,0.65);
+    }
+
+    .serie-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 0.5rem;
+      border: 1px solid #334155;
+      background: #0b1120;
+      color: #94a3b8;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .serie-btn:hover {
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .serie-btn.done {
+      background: var(--emerald);
+      color: #042f2e;
+      border-color: var(--emerald);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+    }
+
+    .tab-btn {
+      background: #151f32;
+      color: #94a3b8;
+      border: 1px solid #283548;
+      padding: 0.65rem 1.1rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #082f49;
+      border-color: var(--accent);
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25);
+    }
+
+    .speed-chip {
+      background: #0f172a;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      padding: 0.3rem 0.65rem;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .speed-chip.active {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border-color: #10b981;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.25s ease-out; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER STICKY -->
+  <header class="sticky top-0 z-50 bg-[#0b1120]/95 backdrop-blur-md border-b border-slate-800 px-4 py-3">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-sky-500/15 border border-sky-400/30 text-sky-400 font-extrabold text-sm">L5</span>
+            <h1 class="text-lg sm:text-xl font-extrabold tracking-tight text-white">Plan Clínico L5-S1 <span class="text-sky-400 font-semibold">| Usuario</span></h1>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Control de Anterolistesis, Protrusión Central y Hernia Lateroforaminal Derecha L5-S1
+          </p>
+        </div>
+
+        <!-- Controles Globales de Animación Biomecánica + Reset -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="flex items-center gap-1 bg-slate-900/90 p-1 rounded-lg border border-slate-800" title="Periodización automática del día">
+            <span class="text-[11px] text-slate-400 px-1.5 font-medium">Fase:</span>
+            <select id="phaseModeSelect" onchange="applyPhaseMode(this.value)" class="bg-slate-950 text-sky-300 text-xs font-semibold border border-slate-700 rounded px-2 py-1 focus:outline-none focus:border-sky-400">
+              <option value="estandar">🟢 Día Estándar (Completo)</option>
+              <option value="postmoto">🏍️ Post-Moto / Descarga</option>
+              <option value="consolidacion">🏋️ Consolidación Fuerza</option>
+              <option value="pretrekking">🥾 Pre-Trekking (Activación)</option>
+            </select>
+          </div>
+          <button id="SpineXRayBtn" onclick="toggleSpineXRay(this)" class="speed-chip active" title="Mostrar vértebras y alineación L5-S1">
+            🦴 Rayos-X: ON
+          </button>
+          <button id="wakeLockBtn" onclick="toggleWakeLock(this)" class="speed-chip" title="Mantener pantalla encendida durante la rutina">
+            📱 Pantalla: Auto
+          </button>
+          <div class="flex items-center gap-1 bg-slate-900/90 p-1 rounded-lg border border-slate-800" title="Velocidad de las figuras animadas">
+            <button class="speed-chip active" onclick="setGlobalSpeed(1, this)">1x</button>
+            <button class="speed-chip" onclick="setGlobalSpeed(0.45, this)">0.5x</button>
+            <button class="speed-chip" onclick="setGlobalSpeed(0, this)">⏸</button>
+          </div>
+          <button onclick="resetProgress()" class="text-xs text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 px-2.5 py-1.5 rounded-lg transition">
+            Reiniciar día
+          </button>
+        </div>
+      </div>
+
+      <!-- Barra de progreso diario -->
+      <div class="mt-3">
+        <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+          <div id="progressFill" class="h-full bg-gradient-to-r from-sky-400 to-emerald-400 transition-all duration-300" style="width: 0%"></div>
+        </div>
+        <div class="flex justify-between items-center text-[11px] text-slate-400 mt-1 flex-wrap gap-2">
+          <span id="progressText">0 de 0 series completadas hoy (0%)</span>
+          <span id="phaseBannerText" class="text-sky-400 font-medium">Modo activo: Día Estándar (Todas las series disponibles)</span>
+          <span class="flex items-center gap-1.5 text-emerald-400 font-medium">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Punto Verde = L5-S1 Estabilizado Neutro
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="max-w-5xl mx-auto px-4 pt-4">
+    <!-- Navegación por Pestañas -->
+    <div class="flex gap-2 overflow-x-auto no-scrollbar pb-3">
+      <button class="tab-btn active" onclick="openTab('casa', this)">🏠 Rutina Casa (Diaria)</button>
+      <button class="tab-btn" onclick="openTab('movilidad', this)">🔓 Movilidad & Nervio (Extra)</button>
+      <button class="tab-btn" onclick="openTab('gym', this)">🏋️ Gimnasio + Consolidación</button>
+      <button class="tab-btn" onclick="openTab('ergo', this)">🏍️ Moto, Trekking & Semáforo</button>
+      <button class="tab-btn" onclick="openTab('diario', this)">📊 Diario & Evolución L5-S1</button>
+    </div>
+
+    <!-- ==========================================
+         PESTAÑA 1: RUTINA CASA (DIARIA)
+         ========================================== -->
+    <section id="casa" class="tab-content active space-y-4 mt-2">
+      <div class="bg-sky-500/10 border-l-4 border-sky-400 p-3.5 rounded-r-xl flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-slate-200">
+        <div class="max-w-2xl">
+          <strong>Objetivo diario (12–15 min):</strong> Descomprimir el segmento <strong>L5-S1</strong>, frenar el deslizamiento anterior (anterolistesis) encendiendo el transverso abdominal y liberar la tensión del psoas tras ir en moto o estar sentado.
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="guidedRoutineBtn" onclick="toggleGuidedRoutine()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold px-3.5 py-2 rounded-xl text-xs shadow-lg shadow-emerald-500/20 transition flex items-center gap-1.5">
+            🔊 Iniciar Rutina Guiada por Voz (Manos Libres)
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4">
+        <!-- Casa 1: Retroversión Pélvica -->
+        <article class="ex-card p-4 sm:p-5" data-ex="casa-1">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Fase 1 • Control Anti-Listesis</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">1. Retroversión Pélvica + Activación del Transverso</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">10 reps × 8s isométrico</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="pelvic_tilt"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Túmbate boca arriba en la esterilla con rodillas flexionadas. Toma aire hacia las costillas y, al soltarlo, <strong>aplana suavemente la curva lumbar contra la esterilla</strong> basculando el pubis hacia el ombligo y metiendo el abdomen bajo.</p>
+              <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs p-2.5 rounded-lg">
+                💡 <strong>Qué ver en la figura:</strong> Observa cómo desaparece el hueco bajo L5-S1 al contraer el transverso (flechas verdes hacia abajo) y la pelvis rota hacia atrás sin levantar el glúteo del suelo.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series (10 reps):</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                </div>
+                <button onclick="startTimer(8, 'Isométrico Retroversión L5-S1 (8s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Timer 8s Isométrico
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Casa 2: Dead Bug con Banda -->
+        <article class="ex-card p-4 sm:p-5" data-ex="casa-2">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-sky-400">Anti-Extensión Lumbar Pura</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">2. Dead Bug con Tracción de Banda Elástica</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 8 reps/lado</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="dead_bug"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Ata la banda elástica a un soporte bajo detrás de tu cabeza. Sujétala con los brazos rectos apuntando al techo (activa el core de forma refleja). Con la zona lumbar pegada al suelo, levanta ambas piernas a 90° y estira una pierna lentamente sin que la cintura se despegue ni un milímetro.</p>
+              <div class="bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs p-2.5 rounded-lg">
+                ⚠️ <strong>Control técnico:</strong> Si al bajar el talón notas que L5 quiere arquearse, detén la pierna un poco más arriba. La espalda baja permanece soldada a la esterilla.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(45, 'Descanso Dead Bug (45s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Descanso 45s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Casa 3: Monster Walks -->
+        <article class="ex-card p-4 sm:p-5" data-ex="casa-3">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Estabilidad Pélvica para Montaña</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">3. Monster Walks (Caminata Lateral con Banda)</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 12 pasos/lado</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="monster_walk"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Coloca una banda elástica cerrada justo por encima de las rodillas. Adopta un cuarto de sentadilla atlética con el abdomen firme y columna neutra. Da pasos laterales abriendo y cerrando sin juntar del todo los pies para mantener la tensión en los glúteos medios.</p>
+              <div class="bg-sky-500/10 border border-sky-500/30 text-sky-200 text-xs p-2.5 rounded-lg">
+                🏔️ <strong>Por qué te quita el dolor en subidas:</strong> Un glúteo medio potente evita que la pelvis caiga de lado en cada zancada de trekking, protegiendo el foramen derecho L5-S1.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(45, 'Descanso Monster Walks (45s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Descanso 45s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Casa 4: Puente de Glúteo -->
+        <article class="ex-card p-4 sm:p-5" data-ex="casa-4">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Fuerza Extensora de Cadera</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">4. Puente de Glúteo Neutro con Banda (Glute Bridge)</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 10 reps (5s arriba)</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="glute_bridge"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Boca arriba con la banda por encima de las rodillas. Empuja las rodillas ligeramente hacia afuera, activa el abdomen y sube la pelvis apretando fuerte los glúteos hasta alinear hombro, cadera y rodilla en una diagonal perfecta.</p>
+              <div class="bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs p-2.5 rounded-lg">
+                🚫 <strong>Límite superior exacto:</strong> Observa la línea verde punteada en la animación: detente en la diagonal recta. Subir más arqueando la cintura pellizca la faceta L5-S1.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(5, 'Isométrico Glúteo Arriba (5s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Hold 5s Arriba
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Casa 5: Liberación de Psoas -->
+        <article class="ex-card p-4 sm:p-5" data-ex="casa-5">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-amber-400">Obligatorio Post-Moto y Pre-Trekking</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">5. Liberación de Psoas en Caballero + Isquios con Banda</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">2 × 30s por lado</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="psoas_stretch"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>En posición de caballero (rodilla en esterilla), mantén el tronco totalmente vertical, mete el ombligo y <strong>aprieta fuerte el glúteo de la pierna atrasada</strong> (retroversión). Desliza la pelvis solo 2–3 cm hacia adelante en bloque sin arquear la espalda.</p>
+              <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs p-2.5 rounded-lg">
+                🏍️ <strong>Efecto directo:</strong> El psoas nace en tus vértebras lumbares. Al soltarlo en retroversión, deja de tirar de la vértebra L5 hacia adelante cuando caminas cuesta arriba.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Lados (Izq / Der):</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">I</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">D</button>
+                </div>
+                <button onclick="startTimer(30, 'Estiramiento Psoas en Retroversión (30s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Timer 30s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PESTAÑA 2: MOVILIDAD & NERVIO (EXTRA)
+         ========================================== -->
+    <section id="movilidad" class="tab-content space-y-4 mt-2">
+      <div class="bg-emerald-500/10 border-l-4 border-emerald-400 p-3.5 rounded-r-xl text-xs sm:text-sm text-slate-200">
+        <strong>Principio de Articulaciones Vecinas + Neurodinamia Derecha:</strong> Al darle movilidad rotacional a tu espalda dorsal (torácica) y a tus caderas, tu segmento <strong>L5-S1</strong> deja de verse forzado a rotar. Incluye el bombeo neural para la estenosis lateroforaminal derecha.
+      </div>
+
+      <div class="grid grid-cols-1 gap-4">
+        <!-- Mov 1: Open Book -->
+        <article class="ex-card p-4 sm:p-5" data-ex="mov-1">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-sky-400">Movilidad Dorsal • Descarga Facetaria</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">1. Open Book (Libro Abierto Torácico en Suelo)</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">2 series × 8–10 aperturas/lado</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="open_book"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Tumbado de lado con las rodillas flexionadas a 90° y pegadas contra el suelo (esto bloquea L5-S1). Abre el brazo de arriba dibujando un arco amplio de 180° hasta llevar el hombro hacia el lado opuesto mientras sueltas el aire.</p>
+              <div class="bg-sky-500/10 border border-sky-500/30 text-sky-200 text-xs p-2.5 rounded-lg">
+                🔓 <strong>Clave:</strong> Las rodillas no se levantan del suelo. Todo el giro ocurre en las costillas y columna dorsal.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                </div>
+                <button onclick="startTimer(45, 'Movilidad Open Book (45s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Timer 45s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Mov 2: Cadera 90/90 -->
+        <article class="ex-card p-4 sm:p-5" data-ex="mov-2">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Desbloqueo de Cápsula Glútea</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">2. Movilidad de Cadera 90/90 con Bisagra Recta</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">2 series × 30s por lado</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="hip_9090"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Sentado en la esterilla con la pierna delantera doblada a 90° y la trasera también a 90° hacia el costado. Con la espalda totalmente recta (pecho alto, sin encorvar L5-S1), inclínate suavemente desde el pliegue de la ingle hacia adelante y regresa.</p>
+              <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs p-2.5 rounded-lg">
+                💡 <strong>Truco técnico:</strong> Apoya las manos a los lados si lo necesitas para mantener la columna completamente erguida mientras cede la cadera.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Lados:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">I</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">D</button>
+                </div>
+                <button onclick="startTimer(30, 'Movilidad Cadera 90/90 (30s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Timer 30s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Mov 3: Neurodinamia Derecha -->
+        <article class="ex-card p-4 sm:p-5" data-ex="mov-3">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-amber-400">Específico Estenosis Foramen Derecho L5-S1</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">3. Deslizamiento Neural Suave (Neurodinamia Ciático Derecho)</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">2 series × 15 bombeos suaves</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="neuro_floss"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Tumbado boca arriba, sujeta tu muslo derecho por detrás con ambas manos (cadera a 90°). Extiende suavemente la rodilla hacia arriba llevando la punta del pie hacia la cara y baja enseguida apuntando con los dedos al techo.</p>
+              <div class="bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs p-2.5 rounded-lg">
+                ⚡ <strong>Importante:</strong> Es un bombeo rítmico y fluido (observa el recorrido amarillo del nervio en la animación), nunca un estiramiento agresivo mantenido. Oxigena la raíz nerviosa derecha.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                </div>
+                <button onclick="startTimer(45, 'Bombeo Neurodinámico Suave (45s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Timer 45s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PESTAÑA 3: GIMNASIO + CONSOLIDACIÓN
+         ========================================== -->
+    <section id="gym" class="tab-content space-y-4 mt-2">
+      <div class="bg-sky-500/10 border-l-4 border-sky-400 p-3.5 rounded-r-xl text-xs sm:text-sm text-slate-200">
+        <strong>Entrenamiento de Fuerza Sin Cizallamiento (2–3 días/semana):</strong> Eliminamos la sentadilla con barra pesada tras nuca y el peso muerto desde el suelo, priorizando ejercicios unilaterales de pierna, remos con soporte pectoral y core anti-rotación.
+      </div>
+
+      <div class="grid grid-cols-1 gap-4">
+        <!-- Gym 1: Step-Up -->
+        <article class="ex-card p-4 sm:p-5" data-ex="gym-1">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Bloque A1 • Fuerza Específica para Subidas</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">1. Subidas al Cajón (Step-Ups) con Mancuernas</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 10–12 reps/pierna</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="step_up"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Apoya todo el pie en un cajón medio (rodilla a 90° o algo menos). Sube empujando <strong>exclusivamente con el talón de la pierna de arriba</strong> manteniendo el torso compacto y el abdomen duro, sin impulsarte con el pie de abajo.</p>
+              <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs p-2.5 rounded-lg">
+                🏔️ <strong>Transferencia 1:1 al Trekking:</strong> Acostumbra a tu glúteo mayor a levantar tu peso en pendiente manteniendo L5-S1 bloqueado.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(60, 'Descanso Step-Up (60s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Descanso 60s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Gym 2: Sentadilla Búlgara -->
+        <article class="ex-card p-4 sm:p-5" data-ex="gym-2">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Bloque A2 • Hipertrofia Glúteo/Cuádriceps Sin Carga Axial</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">2. Sentadilla Búlgara / Split Squat con Mancuernas</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 8–10 reps/pierna</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="bulgarian_squat"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Empeine trasero apoyado en un banco. Baja flexionando la rodilla delantera hasta 90° con una ligerísima inclinación neutra del torso hacia adelante (paralelo a la tibia delantera) y el abdomen firme.</p>
+              <div class="bg-sky-500/10 border border-sky-500/30 text-sky-200 text-xs p-2.5 rounded-lg">
+                💪 <strong>Doble ventaja:</strong> Trabajas las piernas al 100% con la mitad de peso compresivo sobre el disco L5-S1 mientras estiras activamente el psoas de la pierna atrasada.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(75, 'Descanso Sentadilla Búlgara (75s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Descanso 75s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Gym 3: Prensa Unilateral -->
+        <article class="ex-card p-4 sm:p-5" data-ex="gym-3">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-sky-400">Bloque A3 • Protección Total contra Retroversión Forzada</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">3. Prensa de Piernas a Una Pierna (Unilateral)</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 12 reps/pierna</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="leg_press"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Coloca una sola pierna en la plataforma y deja la otra apoyada en el suelo fuera de la máquina. Baja controlado hasta 90° de flexión de rodilla manteniendo el sacro pegado al respaldo.</p>
+              <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs p-2.5 rounded-lg">
+                🛡️ <strong>Por qué a una pierna:</strong> En la prensa bilateral la pelvis suele despegarse al bajar ("butt wink"), pellizcando la hernia L5-S1. La pierna en el suelo bloquea tu pelvis en posición segura.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(60, 'Descanso Prensa Unilateral (60s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Descanso 60s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Gym 4: Remo con Pecho Apoyado -->
+        <article class="ex-card p-4 sm:p-5" data-ex="gym-4">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-sky-400">Bloque B • Tracción Dorsal con Carga Cero en L5-S1</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">4. Remo con Pecho Apoyado en Banco a 45° + Jalón al Pecho</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 12 reps</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="chest_row"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Apoya el pecho sobre el respaldo de un banco inclinado a 45° y tracciona las mancuernas llevando los codos hacia la cadera. Combínalo con jalón al pecho en polea alta manteniendo las costillas bajas.</p>
+              <div class="bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs p-2.5 rounded-lg">
+                🚫 <strong>Sustitución clave:</strong> Evita el remo con barra inclinado en el aire; el banco a 45° absorbe el 100% de la palanca de cizallamiento sobre L5-S1.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(60, 'Descanso Remo Apoyado (60s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Descanso 60s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Gym 5: Peso Muerto B-Stance -->
+        <article class="ex-card p-4 sm:p-5" data-ex="gym-5">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-amber-400">Consolidación (Semana 4+) • Bisagra de Cadera Controlada</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">5. Peso Muerto Rumano B-Stance con Mancuernas</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 10 reps/lado</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="bstance_rdl"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Coloca un pie firme delante y el otro medio paso atrás apoyando solo la punta ("pata de cabra" para equilibrio). Lleva la cadera hacia atrás en bisagra pura bajando las mancuernas solo hasta mitad de la espinilla con la columna 100% neutra.</p>
+              <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs p-2.5 rounded-lg">
+                🔥 <strong>Rango seguro:</strong> No bajes hasta el suelo. Detenerse a media tibia garantiza que el movimiento ocurra en el glúteo e isquiotibiales sin doblar L5-S1.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(60, 'Descanso B-Stance RDL (60s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Descanso 60s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Gym 6: Press Pallof + Paseo Granjero -->
+        <article class="ex-card p-4 sm:p-5" data-ex="gym-6">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Bloque C • Core Anti-Rotación y Anti-Inclinación</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">6. Press Pallof en Polea + Paseo del Granjero a 1 Mano</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 12 reps + 25m/mano</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="pallof_press"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>De pie lateral a la polea a la altura del esternón, extiende ambos brazos al frente resistiendo la fuerza del cable que intenta girarte. Al terminar, camina 25 metros con una mancuerna pesada en una sola mano manteniendo los hombros nivelados.</p>
+              <div class="bg-sky-500/10 border border-sky-500/30 text-sky-200 text-xs p-2.5 rounded-lg">
+                🛡️ <strong>Faja natural:</strong> Blinda oblicuos, transverso y cuadrado lumbar sin un solo grado de flexión ni cizallamiento en el disco.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(45, 'Descanso Core Anti-Rotación (45s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Descanso 45s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PESTAÑA 4: MOTO, TREKKING & SEMÁFORO
+         ========================================== -->
+    <section id="ergo" class="tab-content space-y-4 mt-2">
+      <div class="bg-amber-500/10 border-l-4 border-amber-400 p-3.5 rounded-r-xl text-xs sm:text-sm text-slate-200">
+        <strong>Ingeniería Postural en Tiempo Real:</strong> Observa en las animaciones biomecánicas cómo corregir la postura sobre la moto y el ángulo de zancada en las subidas abruptas de montaña.
+      </div>
+
+      <div class="grid grid-cols-1 gap-4">
+        <!-- Ergo 1: Moto -->
+        <article class="ex-card p-4 sm:p-5">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-amber-400">Ergonomía en Conducción • Trayectos Largos</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">🏍️ Postura en Moto y Descompresión de 60 Segundos</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-amber-300 border border-slate-700 px-2.5 py-1 rounded-md">Apoyo Isquiático + Pies Atrás</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="moto_posture"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p><strong>En marcha:</strong> Cuando llevas los pies adelantados y te dejas caer sobre el coxis, la columna forma una "C" que aplasta el disco L5-S1 por delante y empuja la hernia hacia atrás. Acerca el glúteo al escalón lumbar del asiento y retrasa los pies debajo de tus caderas en zonas de baches.</p>
+              <p><strong>Al aparcar (Protocolo 60s):</strong> Camina 1 minuto dando pasos largos apretando el glúteo trasero antes de agacharte o coger peso del baúl.</p>
+              <div class="pt-2 border-t border-slate-800 flex justify-end">
+                <button onclick="startTimer(60, 'Descompresión Post-Moto (60s)')" class="bg-amber-500/20 hover:bg-amber-400 hover:text-slate-950 text-amber-300 border border-amber-400/40 px-3.5 py-1.5 rounded-lg text-xs font-bold transition">
+                  ⏱️ Iniciar 60s Descompresión Post-Moto
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Ergo 2: Trekking -->
+        <article class="ex-card p-4 sm:p-5">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Biomecánica de Pendientes • Subidas Iniciales</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">🥾 Técnica de Zancada Corta (-30%) + Empuje de Bastones</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-emerald-300 border border-slate-700 px-2.5 py-1 rounded-md">Primeros 20 min de subida</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="trekking_uphill"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p><strong>Cadencia alta y paso corto:</strong> En subidas abruptas, dar zancadas largas obliga a flexionar mucho la cadera; el psoas tira con fuerza de L5 hacia adelante (cizallamiento). Acorta el paso un 30% pisando con todo el talón para que trabaje el glúteo.</p>
+              <p><strong>Mochila y bastones:</strong> Ajusta el cinturón lumbar acolchado sobre el hueso duro de la pelvis (crestas ilíacas) y acorta 5 cm los bastones en subida para descargar un 20% de peso axial.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Primera hora de la mañana -->
+        <article class="ex-card p-4 sm:p-5">
+          <h3 class="text-base font-bold text-white mb-1">🌅 Regla de la Primera Hora de la Mañana (Hidratación Discal)</h3>
+          <p class="text-sm text-slate-300">
+            Durante la noche el disco L5-S1 absorbe agua y aumenta su volumen y presión interna. Durante los primeros <strong>45 minutos tras levantarte de la cama</strong>, evita doblar la espalda en frío para ponerte los calcetines o atarte las zapatillas: apoya el pie sobre una silla o el borde de la cama manteniendo la espalda recta.
+          </p>
+        </article>
+      </div>
+
+      <!-- Semáforo Clínico -->
+      <div class="pt-2">
+        <h3 class="text-base font-bold text-white mb-3">🚦 Semáforo Clínico de Control de Síntomas</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="ex-card p-4 border-t-4 border-t-emerald-500">
+            <div class="font-bold text-emerald-400 text-sm mb-1">🟢 Luz Verde (Óptimo)</div>
+            <p class="text-xs text-slate-300">Fatiga muscular en glúteos, cuádriceps o abdomen. Ligera sensación de trabajo en la cintura que desaparece en menos de 15–20 minutos tras terminar.</p>
+          </div>
+          <div class="ex-card p-4 border-t-4 border-t-amber-500">
+            <div class="font-bold text-amber-400 text-sm mb-1">🟡 Luz Amarilla (Ajustar)</div>
+            <p class="text-xs text-slate-300">Notar rigidez o sobrecarga lumbar a la mañana siguiente del gimnasio. Reduce un 20% el peso de las mancuernas o acorta 5 cm la bajada.</p>
+          </div>
+          <div class="ex-card p-4 border-t-4 border-t-rose-500">
+            <div class="font-bold text-rose-400 text-sm mb-1">🔴 Luz Roja (Pausar)</div>
+            <p class="text-xs text-slate-300">Dolor eléctrico punzante que baje hacia el glúteo/gemelo derecho, hormigueo continuo en el pie o pérdida de fuerza al ponerte de puntillas o talones.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PESTAÑA 5: DIARIO & EVOLUCIÓN L5-S1
+         ========================================== -->
+    <section id="diario" class="tab-content space-y-4 mt-2">
+      <div class="bg-emerald-500/10 border-l-4 border-emerald-400 p-3.5 rounded-r-xl flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-slate-200">
+        <div>
+          <strong>Registro Biométrico y Control de Cargas del Usuario:</strong> Cruza la respuesta matutina de tu disco L5-S1 con los pesos del gimnasio y tus salidas en moto o montaña.
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="exportClinicalData()" class="bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+            ⬇️ Exportar JSON
+          </button>
+          <label class="bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
+            ⬆️ Importar JSON
+            <input type="file" accept=".json" class="hidden" onchange="importClinicalData(event)" />
+          </label>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <!-- Formulario Check-In Diario -->
+        <article class="ex-card p-4 sm:p-5 md:col-span-5 space-y-3">
+          <h2 class="text-base font-bold text-white">📝 Check-in Clínico de Hoy</h2>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1.5">1. ¿Cómo amaneció tu segmento L5-S1 hoy?</label>
+            <div class="grid grid-cols-3 gap-2" id="semaphoreSelectGroup">
+              <button type="button" onclick="selectDailySemaphore('verde', this)" class="sem-btn active bg-emerald-500/20 border border-emerald-500 text-emerald-300 py-2 rounded-lg text-xs font-bold">🟢 Verde</button>
+              <button type="button" onclick="selectDailySemaphore('amarillo', this)" class="sem-btn bg-slate-900 border border-slate-700 text-amber-300 py-2 rounded-lg text-xs font-bold">🟡 Amarilla</button>
+              <button type="button" onclick="selectDailySemaphore('rojo', this)" class="sem-btn bg-slate-900 border border-slate-700 text-rose-300 py-2 rounded-lg text-xs font-bold">🔴 Roja</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs text-slate-400 mb-1.5">2. Actividad de impacto en las últimas 24h:</label>
+            <div class="flex flex-wrap gap-2">
+              <label class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-2.5 py-1.5 rounded-lg text-xs text-slate-200 cursor-pointer">
+                <input type="checkbox" id="actMoto" class="accent-sky-400" /> 🏍️ Ruta en Moto
+              </label>
+              <label class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-2.5 py-1.5 rounded-lg text-xs text-slate-200 cursor-pointer">
+                <input type="checkbox" id="actTrek" class="accent-emerald-400" /> 🥾 Trekking / Montaña
+              </label>
+              <label class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-2.5 py-1.5 rounded-lg text-xs text-slate-200 cursor-pointer">
+                <input type="checkbox" id="actGym" class="accent-amber-400" /> 🏋️ Gimnasio Fuerza
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">3. Notas (sensaciones, pesadez o mejoras):</label>
+            <input id="dailyNoteInput" type="text" placeholder="Ej: Cero dolor en subida tras estirar psoas..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-400" />
+          </div>
+
+          <button onclick="saveDailyJournalEntry()" class="w-full bg-sky-400 hover:bg-sky-300 text-slate-950 font-extrabold py-2 rounded-lg text-xs transition">
+            💾 Guardar Registro del Día
+          </button>
+        </article>
+
+        <!-- Resumen de Pesos de Gimnasio + Historial -->
+        <article class="ex-card p-4 sm:p-5 md:col-span-7 space-y-3">
+          <div class="flex items-center justify-between">
+            <h2 class="text-base font-bold text-white">📈 Evolución Reciente & Cargas de Gimnasio</h2>
+            <span id="streakCounter" class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-md">0 registros</span>
+          </div>
+
+          <div id="weightsSummaryBox" class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1"></div>
+
+          <div class="border-t border-slate-800 pt-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Historial del Semáforo L5-S1</h3>
+            <div id="journalHistoryList" class="space-y-2 max-h-56 overflow-y-auto pr-1 text-xs"></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- TEMPORIZADOR FLOTANTE INFERIOR -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 bg-[#070b14]/95 backdrop-blur-md border-t-2 border-sky-500 px-4 py-2.5 shadow-2xl">
+    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div id="timerDisplay" class="text-2xl sm:text-3xl font-extrabold tabular-nums text-sky-400 min-w-[76px]">00:30</div>
+        <div>
+          <div id="timerTitle" class="text-xs sm:text-sm font-bold text-white">Temporizador Clínico de Series</div>
+          <div id="timerState" class="text-[11px] text-slate-400">Selecciona un tiempo o pulsa Iniciar</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1.5 flex-wrap">
+        <button onclick="startTimer(8, 'Isométrico Transverso (8s)')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1.5 rounded-lg text-xs font-semibold">8s</button>
+        <button onclick="startTimer(30, 'Estiramiento / Serie (30s)')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1.5 rounded-lg text-xs font-semibold">30s</button>
+        <button onclick="startTimer(45, 'Descanso Corto (45s)')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1.5 rounded-lg text-xs font-semibold">45s</button>
+        <button onclick="startTimer(60, 'Descanso Fuerza / Post-Moto (60s)')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-2.5 py-1.5 rounded-lg text-xs font-semibold">60s</button>
+        <button id="playPauseBtn" onclick="toggleTimer()" class="bg-sky-400 hover:bg-sky-300 text-slate-950 px-3.5 py-1.5 rounded-lg text-xs font-extrabold transition">▶ Iniciar</button>
+        <button onclick="stopTimer()" class="bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 px-2.5 py-1.5 rounded-lg text-xs font-bold">↺</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOTOR DE ANIMACIÓN BIOMECÁNICA HD & LÓGICA DE LA APP -->
+  <script>
+    /* =====================================================
+       1. PESTAÑAS Y PROGRESO DIARIO (LOCALSTORAGE)
+       ===================================================== */
+    const STORAGE_KEY = 'l5s1_progress_usuario_v3';
+    const WEIGHTS_KEY = 'l5s1_gym_weights_usuario_v1';
+    const JOURNAL_KEY = 'l5s1_clinical_journal_usuario_v1';
+    const PHASE_KEY   = 'l5s1_phase_mode_usuario_v1';
+
+    function openTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      if (btn) btn.classList.add('active');
+      resizeAllCanvases();
+      if (tabId === 'diario') renderJournalAndWeights();
+    }
+
+    function updateProgressUI() {
+      const allBtns = document.querySelectorAll('.serie-btn');
+      const doneBtns = document.querySelectorAll('.serie-btn.done');
+      const total = allBtns.length;
+      const done = doneBtns.length;
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressText').textContent = `${done} de ${total} series completadas hoy (${pct}%)`;
+
+      document.querySelectorAll('.ex-card[data-ex]').forEach(card => {
+        const cBtns = card.querySelectorAll('.serie-btn');
+        const cDone = card.querySelectorAll('.serie-btn.done');
+        if (cBtns.length > 0 && cBtns.length === cDone.length) {
+          card.classList.add('completed');
+        } else {
+          card.classList.remove('completed');
+        }
+      });
+    }
+
+    function saveProgress() {
+      const states = [];
+      document.querySelectorAll('.serie-btn').forEach((btn, idx) => {
+        if (btn.classList.contains('done')) states.push(idx);
+      });
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(states)); } catch (e) {}
+    }
+
+    function loadProgress() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        const allBtns = document.querySelectorAll('.serie-btn');
+        saved.forEach(idx => { if (allBtns[idx]) allBtns[idx].classList.add('done'); });
+      } catch (e) {}
+      updateProgressUI();
+    }
+
+    function toggleSerie(btn) {
+      btn.classList.toggle('done');
+      saveProgress();
+      updateProgressUI();
+    }
+
+    function resetProgress() {
+      document.querySelectorAll('.serie-btn').forEach(btn => btn.classList.remove('done'));
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      updateProgressUI();
+    }
+
+    /* =====================================================
+       2. TEMPORIZADOR CON AVISO SONORO (WEB AUDIO API)
+       ===================================================== */
+    let timerInterval = null;
+    let remainingSeconds = 30;
+    let defaultSeconds = 30;
+    let isRunning = false;
+
+    function playBeep() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        [0, 0.18].forEach(delay => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, ctx.currentTime + delay);
+          gain.gain.setValueAtTime(0.18, ctx.currentTime + delay);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.15);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + delay);
+          osc.stop(ctx.currentTime + delay + 0.15);
+        });
+      } catch (e) {}
+    }
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60).toString().padStart(2, '0');
+      const s = (sec % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function renderTimer() {
+      document.getElementById('timerDisplay').textContent = formatTime(remainingSeconds);
+    }
+
+    function startTimer(seconds, label) {
+      clearInterval(timerInterval);
+      defaultSeconds = seconds;
+      remainingSeconds = seconds;
+      isRunning = true;
+      document.getElementById('timerTitle').textContent = label || 'Temporizador Activo';
+      document.getElementById('timerState').textContent = 'En curso... mantén L5-S1 neutro';
+      document.getElementById('playPauseBtn').textContent = '⏸ Pausar';
+      renderTimer();
+
+      timerInterval = setInterval(() => {
+        remainingSeconds--;
+        renderTimer();
+        if (remainingSeconds <= 0) {
+          clearInterval(timerInterval);
+          isRunning = false;
+          document.getElementById('timerState').textContent = '¡Serie completada!';
+          document.getElementById('playPauseBtn').textContent = '▶ Repetir';
+          playBeep();
+        }
+      }, 1000);
+    }
+
+    function toggleTimer() {
+      if (isRunning) {
+        clearInterval(timerInterval);
+        isRunning = false;
+        document.getElementById('timerState').textContent = 'En pausa';
+        document.getElementById('playPauseBtn').textContent = '▶ Reanudar';
+      } else {
+        if (remainingSeconds <= 0) remainingSeconds = defaultSeconds;
+        startTimer(remainingSeconds, document.getElementById('timerTitle').textContent);
+      }
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+      isRunning = false;
+      remainingSeconds = defaultSeconds;
+      renderTimer();
+      document.getElementById('timerState').textContent = 'Reiniciado';
+      document.getElementById('playPauseBtn').textContent = '▶ Iniciar';
+    }
+
+    /* =====================================================
+       3. MOTOR DE ANIMACIÓN BIOMECÁNICA HD (CANVAS 2D)
+       ===================================================== */
+    let animSpeed = 1;
+    let animClock = 0;
+    let lastFrameTime = performance.now();
+    let showSpineXRay = true;
+
+    function toggleSpineXRay(btn) {
+      showSpineXRay = !showSpineXRay;
+      btn.classList.toggle('active', showSpineXRay);
+      btn.textContent = showSpineXRay ? '🦴 Rayos-X Columna: ON' : '🦴 Rayos-X Columna: OFF';
+    }
+
+    function setGlobalSpeed(speed, btn) {
+      animSpeed = speed;
+      btn.parentElement.querySelectorAll('.speed-chip').forEach(el => el.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    const canvases = [];
+
+    function resizeAllCanvases() {
+      const dpr = window.devicePixelRatio || 1;
+      canvases.forEach(item => {
+        const rect = item.canvas.parentElement.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          item.canvas.width = rect.width * dpr;
+          item.canvas.height = rect.height * dpr;
+          item.w = rect.width;
+          item.h = rect.height;
+          item.dpr = dpr;
+        }
+      });
+    }
+
+    // Primitivas anatómicas de alta nitidez
+    function drawGridAndMat(ctx, w, h, matY, hasMat = true) {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(148, 163, 184, 0.06)';
+      ctx.lineWidth = 1;
+      for (let x = 20; x < w; x += 24) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+      }
+      for (let y = 20; y < h; y += 24) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+      }
+      // Línea de suelo de referencia sutil
+      if (!hasMat && matY) {
+        ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(16, matY + 2);
+        ctx.lineTo(w - 16, matY + 2);
+        ctx.stroke();
+      }
+      if (hasMat) {
+        // Sombra bajo la esterilla
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+        ctx.beginPath();
+        ctx.roundRect(22, matY + 4, w - 44, 6, 3);
+        ctx.fill();
+
+        // Esterilla acolchada
+        const grad = ctx.createLinearGradient(24, matY, w - 24, matY + 7);
+        grad.addColorStop(0, '#0369a1');
+        grad.addColorStop(0.5, '#38bdf8');
+        grad.addColorStop(1, '#0369a1');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.roundRect(24, matY, w - 48, 6.5, 3.5);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    // Segmento anatómico con volumen muscular orgánico (fusiforme / ahusado)
+    function drawLimb(ctx, x1, y1, x2, y2, thickness, color = '#e2e8f0', glowColor = null) {
+      ctx.save();
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      const len = Math.hypot(dx, dy);
+      if (len < 1) { ctx.restore(); return; }
+      const angle = Math.atan2(dy, dx);
+
+      if (glowColor) {
+        ctx.shadowColor = glowColor;
+        ctx.shadowBlur = 14;
+      }
+
+      ctx.translate(x1, y1);
+      ctx.rotate(angle);
+
+      const r1 = thickness * 0.48;
+      const rMid = thickness * 0.60; // vientre muscular
+      const r2 = thickness * 0.36;   // inserción distal
+
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(0, 0, r1, Math.PI * 0.5, Math.PI * 1.5);
+      ctx.quadraticCurveTo(len * 0.42, -rMid, len, -r2);
+      ctx.arc(len, 0, r2, -Math.PI * 0.5, Math.PI * 0.5);
+      ctx.quadraticCurveTo(len * 0.42, rMid, 0, r1);
+      ctx.closePath();
+      ctx.fill();
+
+      // Brillo tridimensional superior
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.16)';
+      ctx.lineWidth = 1.1;
+      ctx.beginPath();
+      ctx.moveTo(r1 * 0.5, -r1 * 0.55);
+      ctx.quadraticCurveTo(len * 0.42, -rMid * 0.72, len - r2 * 0.5, -r2 * 0.55);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    // Columna vertebral en Rayos-X (vértebras individuales + alineación L5-S1)
+    function drawVertebrae(ctx, x1, y1, x2, y2, count = 6, archOffset = 0, isWarning = false) {
+      if (!showSpineXRay) return;
+      ctx.save();
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      const len = Math.hypot(dx, dy);
+      if (len < 5) { ctx.restore(); return; }
+      const nx = -dy / len;
+      const ny = dx / len;
+
+      // Línea de eje espinal
+      ctx.strokeStyle = isWarning ? 'rgba(244, 63, 94, 0.5)' : 'rgba(56, 189, 248, 0.45)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      for (let i = 0; i <= count; i++) {
+        const t = i / count;
+        const curve = Math.sin(t * Math.PI) * archOffset;
+        const vx = x1 + dx * t + nx * curve;
+        const vy = y1 + dy * t + ny * curve;
+        if (i === 0) ctx.moveTo(vx, vy);
+        else ctx.lineTo(vx, vy);
+      }
+      ctx.stroke();
+
+      // Cuerpos vertebrales
+      for (let i = 1; i < count; i++) {
+        const t = i / count;
+        const curve = Math.sin(t * Math.PI) * archOffset;
+        const vx = x1 + dx * t + nx * curve;
+        const vy = y1 + dy * t + ny * curve;
+        const isL5 = i >= count - 2;
+        ctx.fillStyle = isL5
+          ? (isWarning ? '#fb7185' : '#34d399')
+          : 'rgba(226, 232, 240, 0.75)';
+        ctx.beginPath();
+        ctx.arc(vx, vy, isL5 ? 2.8 : 2.1, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    // Resaltado muscular anatómico pulsante (Glúteo, Transverso, Psoas, Oblicuos)
+    function drawMuscleGlow(ctx, x, y, rx, ry, angle, intensity, color = '#10b981', label = null) {
+      if (intensity <= 0.05) return;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      const grad = ctx.createRadialGradient(0, 0, 1, 0, 0, Math.max(rx, ry));
+      grad.addColorStop(0, color);
+      grad.addColorStop(1, 'rgba(16, 185, 129, 0)');
+      ctx.globalAlpha = Math.min(0.75, intensity * 0.65);
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      if (label && intensity > 0.35) {
+        ctx.save();
+        ctx.font = '700 9.5px Inter, sans-serif';
+        ctx.fillStyle = '#6ee7b7';
+        ctx.fillText(label, x - rx * 0.6, y - ry - 4);
+        ctx.restore();
+      }
+    }
+
+    // Callout flotante con línea guía hacia una estructura anatómica
+    function drawCallout(ctx, targetX, targetY, boxX, boxY, text, color = '#38bdf8') {
+      ctx.save();
+      ctx.font = '700 9.5px Inter, sans-serif';
+      const padX = 6;
+      const tw = ctx.measureText(text).width + padX * 2;
+      const th = 17;
+
+      // Línea guía punteada
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([2, 2]);
+      ctx.beginPath();
+      ctx.moveTo(targetX, targetY);
+      ctx.lineTo(boxX + tw / 2, boxY + th / 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Punto en el objetivo
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(targetX, targetY, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Pastilla de texto
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(boxX, boxY, tw, th, 4);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#f8fafc';
+      ctx.fillText(text, boxX + padX, boxY + 11.5);
+      ctx.restore();
+    }
+
+    function drawJoint(ctx, x, y, r = 4.5, color = '#38bdf8') {
+      ctx.save();
+      ctx.fillStyle = '#0f172a';
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // Indicador brillante del segmento L5-S1 con anillo de descompresión
+    function drawL5S1Badge(ctx, x, y, pulse = 0, isWarning = false) {
+      ctx.save();
+      const baseColor = isWarning ? '#f43f5e' : '#10b981';
+      ctx.fillStyle = isWarning ? 'rgba(244, 63, 94, 0.30)' : 'rgba(16, 185, 129, 0.30)';
+      ctx.beginPath();
+      ctx.arc(x, y, 11 + Math.sin(pulse * 4.5) * 2.8, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = baseColor;
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.arc(x, y, 5.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Etiqueta mini L5-S1
+      if (showSpineXRay) {
+        ctx.font = '800 8.5px Inter, sans-serif';
+        ctx.fillStyle = isWarning ? '#fda4af' : '#6ee7b7';
+        ctx.fillText(isWarning ? 'L5¡!' : 'L5-S1', x - 11, y - 9);
+      }
+      ctx.restore();
+    }
+
+    function drawHead(ctx, x, y, r = 12, angle = 0) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.fillStyle = '#1e293b';
+      ctx.strokeStyle = '#f8fafc';
+      ctx.lineWidth = 2.4;
+      ctx.beginPath();
+      ctx.arc(0, 0, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      // Visor / dirección de la mirada
+      ctx.fillStyle = '#38bdf8';
+      ctx.beginPath();
+      ctx.arc(r * 0.48, -r * 0.18, 2.4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // HUD Clínico con barra de tempo en vivo y guía de respiración
+    function drawHUD(ctx, w, h, topText, bottomText, phasePct = 0, breathText = null) {
+      ctx.save();
+      // Etiqueta superior izquierda
+      const topW = Math.min(w - 20, Math.max(195, topText.length * 6.3 + 34));
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.86)';
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect(8, 8, topW, 23, 6);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#10b981';
+      ctx.beginPath();
+      ctx.arc(19, 19.5, 3.8, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = '600 10.5px Inter, sans-serif';
+      ctx.fillText(topText, 28, 23);
+
+      // Chip de respiración arriba a la derecha
+      if (breathText && w > 250) {
+        const isExhale = breathText.includes('EXHALA') || breathText.includes('HOLD');
+        const bw = ctx.measureText(breathText).width + 16;
+        ctx.fillStyle = isExhale ? 'rgba(16, 185, 129, 0.22)' : 'rgba(56, 189, 248, 0.18)';
+        ctx.strokeStyle = isExhale ? '#10b981' : '#38bdf8';
+        ctx.beginPath();
+        ctx.roundRect(w - bw - 8, 8, bw, 21, 5);
+        ctx.fill();
+        ctx.stroke();
+        ctx.fillStyle = isExhale ? '#6ee7b7' : '#7dd3fc';
+        ctx.font = '700 9.5px Inter, sans-serif';
+        ctx.fillText(breathText, w - bw, 22);
+      }
+
+      // Etiqueta de fase dinámica abajo + barra de progreso de la repetición
+      if (bottomText) {
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.90)';
+        ctx.strokeStyle = 'rgba(51, 65, 85, 0.8)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.roundRect(8, h - 29, w - 16, 22, 5);
+        ctx.fill();
+        ctx.stroke();
+
+        // Barra de fase biomecánica integrada en la base del HUD
+        const barW = (w - 20) * Math.max(0, Math.min(1, phasePct));
+        ctx.fillStyle = phasePct > 0.65 ? '#10b981' : '#38bdf8';
+        ctx.beginPath();
+        ctx.roundRect(10, h - 9.5, barW, 2, 1);
+        ctx.fill();
+
+        ctx.fillStyle = '#e2e8f0';
+        ctx.font = '600 10px Inter, sans-serif';
+        ctx.fillText(bottomText, 15, h - 15);
+      }
+      ctx.restore();
+    }
+
+    function drawArrow(ctx, x1, y1, x2, y2, color = '#10b981') {
+      const headlen = 6;
+      const angle = Math.atan2(y2 - y1, x2 - x1);
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x2, y2);
+      ctx.lineTo(x2 - headlen * Math.cos(angle - Math.PI / 6), y2 - headlen * Math.sin(angle - Math.PI / 6));
+      ctx.lineTo(x2 - headlen * Math.cos(angle + Math.PI / 6), y2 - headlen * Math.sin(angle + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Cinemática inversa de 2 segmentos (cadera -> rodilla -> tobillo)
+    function solveTwoBoneIK(x1, y1, x2, y2, L1, L2, flip = false) {
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      const d = Math.min(L1 + L2 - 0.5, Math.hypot(dx, dy));
+      const a = Math.atan2(dy, dx);
+      const cosAngle = (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d);
+      const b = Math.acos(Math.max(-1, Math.min(1, cosAngle)));
+      const theta = flip ? a - b : a + b;
+      return {
+        jx: x1 + L1 * Math.cos(theta),
+        jy: y1 + L1 * Math.sin(theta)
+      };
+    }
+
+    /* =====================================================
+        ESCENAS BIOMECÁNICAS ESPECÍFICAS (16 EJERCICIOS)
+       ===================================================== */
+    function renderExerciseScene(ctx, type, w, h, t) {
+      ctx.clearRect(0, 0, w, h);
+      const cx = w / 2;
+      const cy = h / 2;
+      // Ciclo suave 0 -> 1 -> 0 con meseta isométrica
+      const rawSin = (Math.sin(t * 2.1) + 1) / 2;
+      const s = Math.min(1, Math.max(0, (rawSin - 0.1) / 0.8)); // pausa arriba y abajo
+
+      switch (type) {
+        /* 1. RETROVERSIÓN PÉLVICA + TRANSVERSO */
+        case 'pelvic_tilt': {
+          const matY = h - 42;
+          drawGridAndMat(ctx, w, h, matY, true);
+
+          const shoulder = { x: cx - 72, y: matY - 12 };
+          const hip = { x: cx + 10, y: matY - 11 };
+          const foot = { x: cx + 82, y: matY - 4 };
+          const knee = { x: cx + 52, y: matY - 58 };
+
+          // En reposo (s=0) hay arco lumbar; en retroversión (s=1) se aplana contra la esterilla
+          const lumbarArchY = (matY - 22) + s * 11;
+          const l5s1 = { x: cx - 18, y: lumbarArchY };
+
+          // Indicador del hueco lumbar que desaparece
+          if (s < 0.65) {
+            ctx.save();
+            ctx.fillStyle = `rgba(245, 158, 11, ${(1 - s) * 0.35})`;
+            ctx.beginPath();
+            ctx.ellipse(cx - 18, matY - 5, 22, (1 - s) * 6, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+          }
+
+          // Faja del transverso abdominal comprimiendo hacia la esterilla
+          drawMuscleGlow(ctx, cx - 22, lumbarArchY - 9, 34, 13, 0, s, '#10b981');
+          if (s > 0.25) {
+            drawArrow(ctx, cx - 30, lumbarArchY - 30, cx - 30, lumbarArchY - 12, '#10b981');
+            drawArrow(ctx, cx - 12, lumbarArchY - 30, cx - 12, lumbarArchY - 12, '#10b981');
+            // Flecha curva de rotación pélvica posterior
+            drawCallout(ctx, cx - 20, lumbarArchY - 12, cx - 95, matY - 92, 'Transverso ON (Cierra hueco)', '#10b981');
+          } else {
+            drawCallout(ctx, cx - 18, matY - 6, cx - 88, matY - 92, 'Hueco lumbar en reposo', '#f59e0b');
+          }
+
+          // Torso articulado (Hombro -> L5-S1 -> Cadera)
+          drawLimb(ctx, shoulder.x, shoulder.y, l5s1.x, l5s1.y, 16, '#334155');
+          drawLimb(ctx, l5s1.x, l5s1.y, hip.x, hip.y, 16, '#1e293b');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, (1 - s) * -9, false);
+
+          // Piernas flexionadas
+          drawLimb(ctx, hip.x, hip.y, knee.x, knee.y, 14, '#cbd5e1');
+          drawLimb(ctx, knee.x, knee.y, foot.x, foot.y, 11, '#94a3b8');
+          // Brazo descansando
+          drawLimb(ctx, shoulder.x + 6, shoulder.y, cx - 15, matY - 6, 8.5, '#64748b');
+
+          drawHead(ctx, shoulder.x - 22, matY - 15, 12, -Math.PI / 2);
+          drawJoint(ctx, shoulder.x, shoulder.y, 4);
+          drawJoint(ctx, hip.x, hip.y, 5, '#38bdf8');
+          drawJoint(ctx, knee.x, knee.y, 4.5);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          const phaseLabel = s > 0.6 ? 'RETROVERSIÓN ACTIVA: Lumbar 100% sellada a la esterilla' : 'PREPARACIÓN: Toma aire costal antes de bascular pelvis';
+          drawHUD(ctx, w, h, 'L5-S1 Aplanado • Transverso ON', phaseLabel, s, s > 0.5 ? '💨 EXHALA + APRIETA' : '🫁 INHALA COSTAL');
+          break;
+        }
+
+        /* 2. DEAD BUG CON TRACCIÓN DE BANDA */
+        case 'dead_bug': {
+          const matY = h - 40;
+          drawGridAndMat(ctx, w, h, matY, true);
+
+          const anchor = { x: 24, y: matY - 18 };
+          const shoulder = { x: cx - 55, y: matY - 11 };
+          const l5s1 = { x: cx - 15, y: matY - 10 }; // Soldado al suelo
+          const hip = { x: cx + 15, y: matY - 11 };
+          const hands = { x: shoulder.x + 4, y: matY - 72 };
+
+          // Anclaje visual de la banda
+          ctx.fillStyle = '#f59e0b';
+          ctx.beginPath();
+          ctx.arc(anchor.x, anchor.y, 4, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Banda elástica tensa desde anclaje trasero hasta las manos
+          ctx.save();
+          ctx.strokeStyle = '#f59e0b';
+          ctx.lineWidth = 3.5;
+          ctx.setLineDash([5, 3]);
+          ctx.beginPath();
+          ctx.moveTo(anchor.x, anchor.y);
+          ctx.lineTo(hands.x, hands.y);
+          ctx.stroke();
+          ctx.restore();
+          drawArrow(ctx, hands.x - 18, hands.y + 12, hands.x - 4, hands.y + 3, '#f59e0b');
+
+          // Arco fantasma de trayectoria del talón
+          ctx.save();
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([3, 3]);
+          ctx.beginPath();
+          ctx.moveTo(hip.x + 38, hip.y - 46);
+          ctx.quadraticCurveTo(hip.x + 70, hip.y - 40, hip.x + 90, hip.y - 14);
+          ctx.stroke();
+          ctx.restore();
+
+          // Pierna izquierda fija a 90/90
+          const kneeFixed = { x: hip.x, y: hip.y - 46 };
+          const footFixed = { x: hip.x + 38, y: hip.y - 46 };
+          drawLimb(ctx, hip.x, hip.y, kneeFixed.x, kneeFixed.y, 11, '#64748b');
+          drawLimb(ctx, kneeFixed.x, kneeFixed.y, footFixed.x, footFixed.y, 9, '#64748b');
+
+          // Pierna derecha extendiéndose sin tocar suelo
+          const kneeMovX = hip.x + s * 44;
+          const kneeMovY = (hip.y - 46) + s * 28;
+          const footMovX = hip.x + 38 + s * 52;
+          const footMovY = (hip.y - 46) + s * 32;
+
+          // Brillo en core anti-extensión
+          drawMuscleGlow(ctx, cx - 18, matY - 19, 30, 11, 0, 0.45 + s * 0.55, '#10b981');
+
+          // Torso plano en esterilla + Rayos X
+          drawLimb(ctx, shoulder.x, shoulder.y, l5s1.x, l5s1.y, 16, '#334155');
+          drawLimb(ctx, l5s1.x, l5s1.y, hip.x, hip.y, 16, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+
+          // Pierna activa en primer plano
+          drawLimb(ctx, hip.x, hip.y, kneeMovX, kneeMovY, 13, '#f8fafc', 'rgba(56,189,248,0.35)');
+          drawLimb(ctx, kneeMovX, kneeMovY, footMovX, footMovY, 10, '#e2e8f0');
+
+          // Brazos verticales sosteniendo la banda
+          drawLimb(ctx, shoulder.x, shoulder.y, hands.x, hands.y, 9, '#f8fafc');
+
+          if (s > 0.45) {
+            drawCallout(ctx, l5s1.x, l5s1.y, cx - 22, matY - 94, 'Lumbar 0 mm de hueco', '#10b981');
+          }
+
+          drawHead(ctx, shoulder.x - 20, matY - 14, 11.5, -Math.PI / 2);
+          drawJoint(ctx, hip.x, hip.y, 5);
+          drawJoint(ctx, kneeMovX, kneeMovY, 4);
+          drawJoint(ctx, hands.x, hands.y, 4.5, '#f59e0b');
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Tracción Banda + Lumbar Pegada', s > 0.5 ? 'Extiende pierna lento sin que L5 se despegue' : 'Posición base 90/90 • Tensión constante en banda', s, s > 0.4 ? '💨 EXHALA AL ESTIRAR' : '🫁 INHALA ARRIBA');
+          break;
+        }
+
+        /* 3. MONSTER WALKS (VISTA FRONTAL ARTICULADA) */
+        case 'monster_walk': {
+          const floorY = h - 38;
+          drawGridAndMat(ctx, w, h, floorY, true);
+
+          // Desplazamiento lateral y apertura de compás
+          const stepSpread = 16 + s * 24;
+          const bodyShift = (s - 0.5) * 14;
+          const pelvis = { x: cx + bodyShift, y: floorY - 68 };
+          const l5s1 = { x: cx + bodyShift, y: floorY - 82 };
+          const chest = { x: cx + bodyShift, y: floorY - 114 };
+
+          // Línea de nivel pélvico horizontal (evita caída de pelvis / Trendelenburg)
+          ctx.save();
+          ctx.strokeStyle = 'rgba(16, 185, 129, 0.4)';
+          ctx.lineWidth = 1.3;
+          ctx.setLineDash([4, 4]);
+          ctx.beginPath();
+          ctx.moveTo(pelvis.x - 48, pelvis.y);
+          ctx.lineTo(pelvis.x + 48, pelvis.y);
+          ctx.stroke();
+          ctx.restore();
+
+          const kneeL = { x: pelvis.x - stepSpread, y: floorY - 36 };
+          const kneeR = { x: pelvis.x + stepSpread, y: floorY - 36 };
+          const footL = { x: pelvis.x - stepSpread - 4, y: floorY - 4 };
+          const footR = { x: pelvis.x + stepSpread + 4, y: floorY - 4 };
+
+          // Torso en cuarto de sentadilla + vértebras
+          drawLimb(ctx, chest.x, chest.y, pelvis.x, pelvis.y, 22, '#334155');
+          drawVertebrae(ctx, chest.x, chest.y + 4, pelvis.x, pelvis.y - 2, 5, 0, false);
+
+          // Glúteo medio iluminado a los lados de la cadera
+          drawMuscleGlow(ctx, pelvis.x - 14, pelvis.y + 2, 11, 14, -0.2, 0.4 + s * 0.6, '#10b981');
+          drawMuscleGlow(ctx, pelvis.x + 14, pelvis.y + 2, 11, 14, 0.2, 0.4 + s * 0.6, '#10b981');
+
+          // Piernas izquierda y derecha
+          drawLimb(ctx, pelvis.x - 8, pelvis.y, kneeL.x, kneeL.y, 13, '#e2e8f0');
+          drawLimb(ctx, kneeL.x, kneeL.y, footL.x, footL.y, 10, '#cbd5e1');
+          drawLimb(ctx, pelvis.x + 8, pelvis.y, kneeR.x, kneeR.y, 13, '#e2e8f0');
+          drawLimb(ctx, kneeR.x, kneeR.y, footR.x, footR.y, 10, '#cbd5e1');
+
+          // Banda elástica azul sobre las rodillas
+          ctx.strokeStyle = '#38bdf8';
+          ctx.lineWidth = 5.5;
+          ctx.beginPath();
+          ctx.moveTo(kneeL.x - 5, kneeL.y);
+          ctx.lineTo(kneeR.x + 5, kneeR.y);
+          ctx.stroke();
+
+          // Brazos en guardia atlética
+          drawLimb(ctx, chest.x - 10, chest.y + 4, chest.x - 22, chest.y + 24, 8, '#94a3b8');
+          drawLimb(ctx, chest.x + 10, chest.y + 4, chest.x + 22, chest.y + 24, 8, '#94a3b8');
+
+          drawCallout(ctx, pelvis.x + 14, pelvis.y, pelvis.x + 36, pelvis.y - 26, 'Glúteo Medio ON', '#10b981');
+
+          drawHead(ctx, chest.x, chest.y - 18, 11, 0);
+          drawJoint(ctx, kneeL.x, kneeL.y, 4);
+          drawJoint(ctx, kneeR.x, kneeR.y, 4);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawArrow(ctx, kneeL.x - 6, kneeL.y, kneeL.x - 22, kneeL.y, '#38bdf8');
+          drawArrow(ctx, kneeR.x + 6, kneeR.y, kneeR.x + 22, kneeR.y, '#38bdf8');
+
+          drawHUD(ctx, w, h, 'Glúteo Medio Activo • Pelvis Nivelada', 'Paso lateral corto empujando rodillas contra la banda', s, '🔥 TENSIÓN CONTINUA');
+          break;
+        }
+
+        /* 4. PUENTE DE GLÚTEO NEUTRO */
+        case 'glute_bridge': {
+          const matY = h - 40;
+          drawGridAndMat(ctx, w, h, matY, true);
+
+          const shoulder = { x: cx - 64, y: matY - 11 };
+          const knee = { x: cx + 48, y: matY - 56 };
+          const foot = { x: cx + 70, y: matY - 4 };
+
+          // La cadera sube hasta la línea recta hombro-rodilla (sin pasarla)
+          const targetHipX = (shoulder.x + knee.x) / 2 + 4;
+          const targetHipY = (shoulder.y + knee.y) / 2;
+          const hip = {
+            x: targetHipX,
+            y: (matY - 11) + s * (targetHipY - (matY - 11))
+          };
+          const l5s1 = {
+            x: (shoulder.x + hip.x) / 2 + 5,
+            y: (shoulder.y + hip.y) / 2
+          };
+
+          // Línea guía de tope diagonal neutro + zona prohibida de hiperextensión
+          ctx.save();
+          ctx.strokeStyle = 'rgba(16, 185, 129, 0.55)';
+          ctx.lineWidth = 1.8;
+          ctx.setLineDash([5, 4]);
+          ctx.beginPath();
+          ctx.moveTo(shoulder.x, shoulder.y - 8);
+          ctx.lineTo(knee.x, knee.y - 8);
+          ctx.stroke();
+          ctx.restore();
+
+          // Brillo en glúteo mayor al subir
+          drawMuscleGlow(ctx, hip.x + 4, hip.y + 7, 18, 12, -0.35, s, '#10b981');
+
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 17, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+          drawLimb(ctx, hip.x, hip.y, knee.x, knee.y, 14, '#f8fafc');
+          drawLimb(ctx, knee.x, knee.y, foot.x, foot.y, 10.5, '#cbd5e1');
+
+          // Banda verde cerca de las rodillas
+          ctx.strokeStyle = '#10b981';
+          ctx.lineWidth = 5;
+          ctx.beginPath();
+          ctx.moveTo(knee.x - 10, knee.y + 5);
+          ctx.lineTo(knee.x - 3, knee.y - 6);
+          ctx.stroke();
+
+          if (s > 0.65) {
+            drawCallout(ctx, hip.x, hip.y - 6, cx - 72, matY - 96, 'Tope Diagonal (No arquear)', '#10b981');
+          }
+
+          drawHead(ctx, shoulder.x - 20, matY - 14, 11.5, -Math.PI / 2);
+          drawJoint(ctx, shoulder.x, shoulder.y, 4);
+          drawJoint(ctx, hip.x, hip.y, 5, '#10b981');
+          drawJoint(ctx, knee.x, knee.y, 4.5);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Bloque Hombro-Cadera-Rodilla Recto', s > 0.7 ? 'HOLD 5s ARRIBA: Glúteo al 100%, cero hiperextensión' : 'Subiendo en bloque con costillas cerradas', s, s > 0.7 ? '⏱️ HOLD 5s ARRIBA' : '💨 SUBE EN BLOQUE');
+          break;
+        }
+
+        /* 5. LIBERACIÓN DE PSOAS EN CABALLERO */
+        case 'psoas_stretch': {
+          const matY = h - 38;
+          drawGridAndMat(ctx, w, h, matY, true);
+
+          // Avance sutil en bloque (3cm reales equivalentes a 16px) con torso 100% vertical
+          const shift = s * 16;
+          const kneeBack = { x: cx - 18, y: matY - 5 };
+          const footBack = { x: cx - 64, y: matY - 5 };
+          const hip = { x: cx - 12 + shift, y: matY - 56 };
+          const l5s1 = { x: hip.x, y: hip.y - 18 };
+          const shoulder = { x: hip.x, y: hip.y - 52 };
+          const kneeFront = { x: cx + 38 + shift * 0.3, y: matY - 54 };
+          const footFront = { x: cx + 40, y: matY - 5 };
+
+          // Plomada vertical de referencia
+          ctx.save();
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
+          ctx.setLineDash([3, 3]);
+          ctx.beginPath();
+          ctx.moveTo(shoulder.x, shoulder.y - 24);
+          ctx.lineTo(shoulder.x, matY);
+          ctx.stroke();
+          ctx.restore();
+
+          // Glúteo trasero activado en retroversión
+          drawMuscleGlow(ctx, hip.x - 10, hip.y + 2, 14, 14, 0, 0.35 + s * 0.65, '#10b981');
+
+          // Pierna atrasada (rodilla en esterilla)
+          drawLimb(ctx, hip.x, hip.y, kneeBack.x, kneeBack.y, 13.5, '#cbd5e1');
+          drawLimb(ctx, kneeBack.x, kneeBack.y, footBack.x, footBack.y, 10, '#94a3b8');
+
+          // Torso vertical neutro + vértebras
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 17, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+
+          // Línea anatómica luminosa del músculo Psoas estirándose (de L1-L5 a fémur)
+          ctx.save();
+          ctx.strokeStyle = '#f59e0b';
+          ctx.lineWidth = 4;
+          ctx.shadowColor = '#f59e0b';
+          ctx.shadowBlur = 8;
+          ctx.beginPath();
+          ctx.moveTo(l5s1.x + 1, l5s1.y - 6);
+          ctx.quadraticCurveTo(hip.x + 8, hip.y + 6, kneeBack.x + 5, kneeBack.y - 22);
+          ctx.stroke();
+          ctx.restore();
+
+          // Pierna adelantada
+          drawLimb(ctx, hip.x, hip.y, kneeFront.x, kneeFront.y, 13.5, '#f8fafc');
+          drawLimb(ctx, kneeFront.x, kneeFront.y, footFront.x, footFront.y, 10.5, '#e2e8f0');
+          // Manos apoyadas en rodilla delantera
+          drawLimb(ctx, shoulder.x, shoulder.y + 6, kneeFront.x - 4, kneeFront.y - 4, 8, '#94a3b8');
+
+          drawCallout(ctx, hip.x + 6, hip.y + 8, hip.x + 28, hip.y - 36, 'Psoas elongándose', '#f59e0b');
+          drawCallout(ctx, hip.x - 10, hip.y + 2, hip.x - 98, hip.y - 10, 'Glúteo ON', '#10b981');
+
+          drawHead(ctx, shoulder.x, shoulder.y - 17, 11.5, 0);
+          drawJoint(ctx, hip.x, hip.y, 5, '#f59e0b');
+          drawJoint(ctx, kneeBack.x, kneeBack.y, 4.5);
+          drawJoint(ctx, kneeFront.x, kneeFront.y, 4.5);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawArrow(ctx, hip.x - 24, hip.y, hip.x - 8, hip.y, '#10b981');
+          drawHUD(ctx, w, h, 'Psoas Liberado + Retroversión Activa', 'Aprieta glúteo trasero y avanza solo 2-3 cm en bloque', s, '🫁 RESPIRA PROFUNDO');
+          break;
+        }
+
+        /* 6. OPEN BOOK (MOVILIDAD TORÁCICA) */
+        case 'open_book': {
+          const matY = h - 42;
+          drawGridAndMat(ctx, w, h, matY, true);
+
+          const shoulderCenter = { x: cx - 6, y: matY - 22 };
+          const hip = { x: cx + 38, y: matY - 14 };
+          const knees = { x: cx + 74, y: matY - 8 };
+
+          // Arco sombreado de 180 grados del recorrido torácico
+          const radius = 58;
+          const angle = -s * Math.PI;
+          ctx.save();
+          ctx.fillStyle = 'rgba(56, 189, 248, 0.10)';
+          ctx.beginPath();
+          ctx.moveTo(shoulderCenter.x, shoulderCenter.y);
+          ctx.arc(shoulderCenter.x, shoulderCenter.y, radius, 0, angle, true);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+          ctx.lineWidth = 2;
+          ctx.setLineDash([4, 4]);
+          ctx.beginPath();
+          ctx.arc(shoulderCenter.x, shoulderCenter.y, radius, Math.PI, 0, false);
+          ctx.stroke();
+          ctx.restore();
+
+          // Brazo fijo en el suelo (derecha)
+          drawLimb(ctx, shoulderCenter.x, shoulderCenter.y, shoulderCenter.x + radius, shoulderCenter.y, 8.5, '#64748b');
+
+          // Torso y piernas fijas de lado
+          drawLimb(ctx, shoulderCenter.x, shoulderCenter.y, hip.x, hip.y, 16, '#334155');
+          drawVertebrae(ctx, shoulderCenter.x, shoulderCenter.y, hip.x, hip.y, 6, 0, false);
+          drawLimb(ctx, hip.x, hip.y, knees.x, knees.y, 13.5, '#cbd5e1');
+
+          // Brazo superior abriéndose de derecha (0 rad) a izquierda (-PI rad)
+          const handX = shoulderCenter.x + radius * Math.cos(angle);
+          const handY = shoulderCenter.y + radius * Math.sin(angle);
+          drawLimb(ctx, shoulderCenter.x, shoulderCenter.y, handX, handY, 9.5, '#38bdf8', 'rgba(56,189,248,0.45)');
+
+          drawCallout(ctx, knees.x, knees.y, cx + 14, matY - 62, 'Rodillas ancladas (Bloquea L5)', '#10b981');
+
+          drawHead(ctx, shoulderCenter.x - 14, shoulderCenter.y - 10, 11, 0);
+          drawJoint(ctx, handX, handY, 4.5, '#38bdf8');
+          drawJoint(ctx, knees.x, knees.y, 5, '#10b981');
+          drawL5S1Badge(ctx, hip.x - 12, hip.y - 3, t);
+
+          const deg = Math.round(s * 180);
+          drawHUD(ctx, w, h, `Giro Dorsal ${deg}° • Pelvis Anclada`, 'Abre el pecho soltando el aire sin despegar las rodillas', s, s > 0.4 ? '💨 EXHALA AL ABRIR' : '🫁 INHALA AL CERRAR');
+          break;
+        }
+
+        /* 7. MOVILIDAD DE CADERA 90/90 */
+        case 'hip_9090': {
+          const matY = h - 40;
+          drawGridAndMat(ctx, w, h, matY, true);
+
+          const hip = { x: cx - 18, y: matY - 12 };
+          // Inclinación pura desde la bisagra de cadera con columna recta
+          const leanAngle = -Math.PI / 2 + (0.08 + s * 0.38);
+          const torsoLen = 64;
+          const shoulder = {
+            x: hip.x + torsoLen * Math.cos(leanAngle),
+            y: hip.y + torsoLen * Math.sin(leanAngle)
+          };
+          const l5s1 = {
+            x: hip.x + (torsoLen * 0.32) * Math.cos(leanAngle),
+            y: hip.y + (torsoLen * 0.32) * Math.sin(leanAngle)
+          };
+
+          // Arco angular de bisagra en la cadera
+          ctx.save();
+          ctx.strokeStyle = '#10b981';
+          ctx.lineWidth = 1.8;
+          ctx.beginPath();
+          ctx.arc(hip.x, hip.y, 26, leanAngle, 0, false);
+          ctx.stroke();
+          ctx.restore();
+
+          // Brillo en cápsula glútea
+          drawMuscleGlow(ctx, hip.x - 4, hip.y + 2, 15, 11, 0, 0.35 + s * 0.65, '#10b981');
+
+          // Pierna trasera 90°
+          drawLimb(ctx, hip.x, hip.y, hip.x - 44, matY - 8, 12.5, '#64748b');
+          // Pierna delantera 90° en el suelo
+          drawLimb(ctx, hip.x, hip.y, hip.x + 50, matY - 10, 13.5, '#f8fafc');
+          // Torso recto + vértebras alineadas
+          drawLimb(ctx, hip.x, hip.y, shoulder.x, shoulder.y, 17, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+          // Brazo de apoyo
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x + 36, matY - 22, 8.5, '#cbd5e1');
+
+          drawCallout(ctx, l5s1.x, l5s1.y, hip.x - 86, hip.y - 68, 'Espalda 100% Recta', '#38bdf8');
+
+          drawHead(ctx, shoulder.x + 12 * Math.cos(leanAngle), shoulder.y + 12 * Math.sin(leanAngle), 11.5, leanAngle + Math.PI / 2);
+          drawJoint(ctx, hip.x, hip.y, 5.5, '#10b981');
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Rotación Capsular Cadera • Columna Recta', 'Inclina el pecho desde la ingle sin redondear L5-S1', s, '💨 BISAGRA SUAVE');
+          break;
+        }
+
+        /* 8. NEURODINAMIA / DESLIZAMIENTO NEURAL DERECHO */
+        case 'neuro_floss': {
+          const matY = h - 40;
+          drawGridAndMat(ctx, w, h, matY, true);
+
+          const shoulder = { x: cx - 60, y: matY - 11 };
+          const l5s1 = { x: cx - 18, y: matY - 10 };
+          const hip = { x: cx + 12, y: matY - 11 };
+          const knee = { x: hip.x + 4, y: hip.y - 48 };
+
+          // Extensión suave de pantorrilla hacia el techo
+          const legAngle = -0.35 - s * 0.95; // de flexionada a casi vertical
+          const ankle = {
+            x: knee.x + 46 * Math.cos(legAngle),
+            y: knee.y + 46 * Math.sin(legAngle)
+          };
+          // Dorsiflexión del pie al subir
+          const toeAngle = legAngle + (s > 0.5 ? 1.85 : 1.15);
+          const toe = {
+            x: ankle.x + 16 * Math.cos(toeAngle),
+            y: ankle.y + 16 * Math.sin(toeAngle)
+          };
+
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 16, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+          // Manos sujetando detrás del muslo
+          drawLimb(ctx, shoulder.x + 8, shoulder.y, knee.x - 4, knee.y + 14, 8, '#94a3b8');
+          // Muslo y pantorrilla
+          drawLimb(ctx, hip.x, hip.y, knee.x, knee.y, 13.5, '#e2e8f0');
+          drawLimb(ctx, knee.x, knee.y, ankle.x, ankle.y, 10.5, '#f8fafc');
+          drawLimb(ctx, ankle.x, ankle.y, toe.x, toe.y, 7.5, '#38bdf8');
+
+          // Trazado luminoso animado del Nervio Ciático Derecho (pulsos viajando)
+          ctx.save();
+          ctx.strokeStyle = '#fbbf24';
+          ctx.lineWidth = 3;
+          ctx.shadowColor = '#fbbf24';
+          ctx.shadowBlur = 10;
+          ctx.setLineDash([5, 4]);
+          ctx.lineDashOffset = -t * 18;
+          ctx.beginPath();
+          ctx.moveTo(l5s1.x, l5s1.y);
+          ctx.quadraticCurveTo(hip.x + 6, hip.y + 4, knee.x, knee.y);
+          ctx.lineTo(ankle.x, ankle.y);
+          ctx.stroke();
+          ctx.restore();
+
+          drawCallout(ctx, knee.x, knee.y, cx - 88, matY - 88, 'Bombeo Ciático Derecho', '#fbbf24');
+
+          drawHead(ctx, shoulder.x - 20, matY - 14, 11.5, -Math.PI / 2);
+          drawJoint(ctx, knee.x, knee.y, 4.5);
+          drawJoint(ctx, ankle.x, ankle.y, 4, '#fbbf24');
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Deslizamiento Nervio Ciático Derecho', s > 0.5 ? 'Extiende rodilla + punta del pie a la cara (sin forzar)' : 'Flexiona rodilla relajando tensión en el foramen', s, '⚡ FLUJO NEURAL');
+          break;
+        }
+
+        /* 9. STEP-UPS AL CAJÓN CON MANCUERNAS */
+        case 'step_up': {
+          const floorY = h - 34;
+          drawGridAndMat(ctx, w, h, floorY, false);
+
+          // Cajón pliométrico a la derecha
+          const boxX = cx + 6;
+          const boxY = floorY - 38;
+          ctx.fillStyle = '#1e293b';
+          ctx.strokeStyle = '#38bdf8';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.roundRect(boxX, boxY, 56, 38, 4);
+          ctx.fill();
+          ctx.stroke();
+
+          const footTop = { x: boxX + 24, y: boxY - 3 };
+          // Interpolación del cuerpo subiendo al cajón
+          const hip = {
+            x: (cx - 16) + s * 36,
+            y: (floorY - 68) - s * 34
+          };
+          const shoulder = {
+            x: hip.x + (1 - s) * 8,
+            y: hip.y - 48
+          };
+          const l5s1 = {
+            x: (hip.x + shoulder.x) / 2,
+            y: hip.y - 16
+          };
+
+          // IK para la pierna delantera apoyada en el cajón
+          const kneeTop = solveTwoBoneIK(hip.x, hip.y, footTop.x, footTop.y, 34, 34, false);
+          // Pierna trasera que sube sin impulsar
+          const footBack = {
+            x: (cx - 38) + s * 54,
+            y: floorY - 3 - s * 34
+          };
+          const kneeBack = solveTwoBoneIK(hip.x, hip.y, footBack.x, footBack.y, 34, 34, false);
+
+          // Glúteo de la pierna del cajón encendido
+          drawMuscleGlow(ctx, hip.x - 4, hip.y + 4, 15, 13, 0, 0.35 + s * 0.65, '#10b981');
+
+          // Pierna trasera
+          drawLimb(ctx, hip.x, hip.y, kneeBack.jx, kneeBack.jy, 11.5, '#64748b');
+          drawLimb(ctx, kneeBack.jx, kneeBack.jy, footBack.x, footBack.y, 9.5, '#64748b');
+
+          // Torso compacto + vértebras
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 17, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+
+          // Pierna de trabajo sobre el cajón
+          drawLimb(ctx, hip.x, hip.y, kneeTop.jx, kneeTop.jy, 14, '#f8fafc');
+          drawLimb(ctx, kneeTop.jx, kneeTop.jy, footTop.x, footTop.y, 10.5, '#e2e8f0');
+
+          // Brazo con mancuerna
+          const hand = { x: shoulder.x, y: shoulder.y + 38 };
+          drawLimb(ctx, shoulder.x, shoulder.y, hand.x, hand.y, 8.5, '#cbd5e1');
+          ctx.fillStyle = '#38bdf8';
+          ctx.fillRect(hand.x - 9, hand.y - 3, 18, 7);
+
+          drawCallout(ctx, footTop.x, boxY, cx - 88, floorY - 98, 'Empuje 100% Talón', '#10b981');
+
+          drawHead(ctx, shoulder.x, shoulder.y - 16, 11, 0);
+          drawJoint(ctx, hip.x, hip.y, 5, '#10b981');
+          drawJoint(ctx, kneeTop.jx, kneeTop.jy, 4.5);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawArrow(ctx, footTop.x, boxY + 24, footTop.x, boxY + 5, '#10b981');
+          drawHUD(ctx, w, h, 'Impulso 100% Talón Superior • Core Firme', 'Sube sin impulsarte con el pie de abajo', s, s > 0.4 ? '💨 EXHALA AL SUBIR' : '🫁 BAJA CONTROLADO');
+          break;
+        }
+
+        /* 10. SENTADILLA BÚLGARA / SPLIT SQUAT */
+        case 'bulgarian_squat': {
+          const floorY = h - 34;
+          drawGridAndMat(ctx, w, h, floorY, false);
+
+          // Banco trasero a la izquierda
+          const benchX = cx - 78;
+          const benchY = floorY - 32;
+          ctx.fillStyle = '#1e293b';
+          ctx.strokeStyle = '#64748b';
+          ctx.lineWidth = 2;
+          ctx.fillRect(benchX, benchY, 32, 8);
+          ctx.fillRect(benchX + 12, benchY + 8, 6, 24);
+
+          const footRear = { x: benchX + 24, y: benchY - 2 };
+          const footFront = { x: cx + 38, y: floorY - 3 };
+
+          // Descenso vertical controlado
+          const drop = s * 26;
+          const hip = { x: cx + 2, y: (floorY - 72) + drop };
+          const shoulder = { x: hip.x + 8, y: hip.y - 48 }; // ligera inclinación paralela a tibia
+          const l5s1 = { x: hip.x + 2, y: hip.y - 16 };
+
+          const kneeFront = solveTwoBoneIK(hip.x, hip.y, footFront.x, footFront.y, 35, 35, false);
+          const kneeRear = solveTwoBoneIK(hip.x, hip.y, footRear.x, footRear.y, 34, 34, true);
+
+          // Líneas punteadas paralelas (Torso // Tibia delantera)
+          if (s > 0.4) {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([3, 3]);
+            ctx.beginPath();
+            ctx.moveTo(shoulder.x + 12, shoulder.y);
+            ctx.lineTo(hip.x + 12, hip.y);
+            ctx.moveTo(kneeFront.jx + 10, kneeFront.jy);
+            ctx.lineTo(footFront.x + 10, footFront.y);
+            ctx.stroke();
+            ctx.restore();
+          }
+
+          drawMuscleGlow(ctx, hip.x - 4, hip.y + 4, 15, 12, 0, s, '#10b981');
+
+          // Pierna trasera (estirando psoas)
+          drawLimb(ctx, hip.x, hip.y, kneeRear.jx, kneeRear.jy, 11.5, '#94a3b8');
+          drawLimb(ctx, kneeRear.jx, kneeRear.jy, footRear.x, footRear.y, 9.5, '#64748b');
+
+          // Torso neutro + vértebras
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 17, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+
+          // Pierna delantera principal
+          drawLimb(ctx, hip.x, hip.y, kneeFront.jx, kneeFront.jy, 14, '#f8fafc');
+          drawLimb(ctx, kneeFront.jx, kneeFront.jy, footFront.x, footFront.y, 10.5, '#e2e8f0');
+
+          // Mancuerna en mano
+          const hand = { x: shoulder.x - 2, y: shoulder.y + 38 };
+          drawLimb(ctx, shoulder.x, shoulder.y, hand.x, hand.y, 8.5, '#cbd5e1');
+          ctx.fillStyle = '#38bdf8';
+          ctx.fillRect(hand.x - 9, hand.y - 3, 18, 7);
+
+          drawCallout(ctx, shoulder.x, shoulder.y + 20, cx - 88, floorY - 102, 'Torso // Tibia', '#38bdf8');
+
+          drawHead(ctx, shoulder.x + 2, shoulder.y - 16, 11, 0);
+          drawJoint(ctx, hip.x, hip.y, 5, '#10b981');
+          drawJoint(ctx, kneeFront.jx, kneeFront.jy, 4.5);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Descenso Vertical • Mitad de Carga Axial', 'Torso paralelo a la tibia sin arquear cintura', s, s > 0.5 ? '🫁 ABAJO 90°' : '💨 EMPUJA ARRIBA');
+          break;
+        }
+
+        /* 11. PRENSA UNILATERAL A 45 GRADOS */
+        case 'leg_press': {
+          const floorY = h - 34;
+          drawGridAndMat(ctx, w, h, floorY, false);
+
+          // Respaldo de la prensa
+          ctx.strokeStyle = '#475569';
+          ctx.lineWidth = 6.5;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(cx - 72, floorY - 58);
+          ctx.lineTo(cx - 22, floorY - 12);
+          ctx.stroke();
+
+          const hip = { x: cx - 26, y: floorY - 18 };
+          const shoulder = { x: cx - 64, y: floorY - 52 };
+          const l5s1 = { x: cx - 38, y: floorY - 29 };
+
+          // Pierna de seguridad apoyada en el suelo (bloquea pelvis)
+          drawLimb(ctx, hip.x, hip.y, cx + 10, floorY - 26, 10.5, '#64748b');
+          drawLimb(ctx, cx + 10, floorY - 26, cx + 16, floorY - 3, 9, '#64748b');
+
+          // Plataforma móvil a 45°
+          const pressDist = 36 + (1 - s) * 28;
+          const footPress = { x: hip.x + pressDist, y: hip.y - pressDist * 0.75 };
+          const kneePress = solveTwoBoneIK(hip.x, hip.y, footPress.x, footPress.y, 34, 34, true);
+
+          // Plataforma azul con guías
+          ctx.strokeStyle = '#38bdf8';
+          ctx.lineWidth = 5.5;
+          ctx.beginPath();
+          ctx.moveTo(footPress.x - 10, footPress.y - 18);
+          ctx.lineTo(footPress.x + 14, footPress.y + 16);
+          ctx.stroke();
+
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 16, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+          drawLimb(ctx, hip.x, hip.y, kneePress.jx, kneePress.jy, 13.5, '#f8fafc');
+          drawLimb(ctx, kneePress.jx, kneePress.jy, footPress.x, footPress.y, 10.5, '#e2e8f0');
+
+          drawCallout(ctx, cx + 16, floorY - 5, cx + 22, floorY - 34, 'Pie en suelo bloquea pelvis', '#10b981');
+
+          drawHead(ctx, shoulder.x - 10, shoulder.y - 12, 11, -0.6);
+          drawJoint(ctx, hip.x, hip.y, 5, '#10b981');
+          drawJoint(ctx, kneePress.jx, kneePress.jy, 4.5);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Sacro Pegado al Respaldo • Unilateral', 'Baja solo hasta 90° en rodilla (cero butt-wink)', s, s > 0.5 ? '🫁 FRENA A 90°' : '💨 EMPUJA PLATAFORMA');
+          break;
+        }
+
+        /* 12. REMO CON PECHO APOYADO EN BANCO A 45° */
+        case 'chest_row': {
+          const floorY = h - 34;
+          drawGridAndMat(ctx, w, h, floorY, false);
+
+          // Banco inclinado a 45° acolchado
+          ctx.strokeStyle = '#38bdf8';
+          ctx.lineWidth = 6.5;
+          ctx.beginPath();
+          ctx.moveTo(cx - 48, floorY - 12);
+          ctx.lineTo(cx + 34, floorY - 78);
+          ctx.stroke();
+
+          const hip = { x: cx - 18, y: floorY - 42 };
+          const shoulder = { x: cx + 22, y: floorY - 74 };
+          const l5s1 = { x: cx - 4, y: floorY - 53 };
+
+          // Flechas de soporte del banco (0% cizallamiento)
+          drawArrow(ctx, cx + 6, floorY - 46, cx + 1, floorY - 52, '#38bdf8');
+
+          // Dorsal iluminado al traccionar
+          drawMuscleGlow(ctx, cx + 4, floorY - 64, 18, 9, -0.68, s, '#10b981');
+
+          // Piernas apoyadas atrás para estabilidad
+          drawLimb(ctx, hip.x, hip.y, cx - 58, floorY - 4, 12.5, '#cbd5e1');
+          // Torso descansando sobre el banco + vértebras
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 17, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+
+          // Brazo traccionando mancuerna hacia la cadera
+          const elbowX = shoulder.x - s * 22;
+          const elbowY = shoulder.y + 18 - s * 16;
+          const handX = shoulder.x + 8 - s * 16;
+          const handY = shoulder.y + 42 - s * 20;
+
+          drawLimb(ctx, shoulder.x, shoulder.y, elbowX, elbowY, 9.5, '#f8fafc');
+          drawLimb(ctx, elbowX, elbowY, handX, handY, 8.5, '#e2e8f0');
+          ctx.fillStyle = '#f59e0b';
+          ctx.fillRect(handX - 8, handY - 3, 16, 6);
+
+          drawCallout(ctx, cx + 4, floorY - 58, cx - 96, floorY - 95, 'Banco absorbe carga (0% L5)', '#38bdf8');
+
+          drawHead(ctx, shoulder.x + 12, shoulder.y - 10, 11, 0.5);
+          drawJoint(ctx, shoulder.x, shoulder.y, 4.5);
+          drawJoint(ctx, elbowX, elbowY, 4);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Pecho Apoyado = 0% Cizallamiento L5-S1', 'Lleva codos hacia la cadera juntando escápulas', s, s > 0.5 ? '💨 TRACCIONA' : '🫁 CONTROLA BAJADA');
+          break;
+        }
+
+        /* 13. PESO MUERTO B-STANCE CON MANCUERNAS */
+        case 'bstance_rdl': {
+          const floorY = h - 34;
+          drawGridAndMat(ctx, w, h, floorY, false);
+
+          const footFront = { x: cx + 12, y: floorY - 3 };
+          const footKick = { x: cx - 18, y: floorY - 3 };
+
+          // Bisagra pura de cadera: el glúteo viaja hacia atrás mientras el tronco baja recto
+          const hip = { x: cx - 4 - s * 22, y: floorY - 64 + s * 6 };
+          const kneeFront = { x: cx + 8, y: floorY - 34 };
+          const hingeAngle = -Math.PI / 2 + s * 1.02; // nunca pasa de horizontal, espalda recta
+          const torsoLen = 52;
+          const shoulder = {
+            x: hip.x + torsoLen * Math.cos(hingeAngle),
+            y: hip.y + torsoLen * Math.sin(hingeAngle)
+          };
+          const l5s1 = {
+            x: hip.x + (torsoLen * 0.32) * Math.cos(hingeAngle),
+            y: hip.y + (torsoLen * 0.32) * Math.sin(hingeAngle)
+          };
+
+          // Línea de tope seguro a media espinilla
+          const midShinY = (kneeFront.y + footFront.y) / 2;
+          ctx.save();
+          ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([4, 3]);
+          ctx.beginPath();
+          ctx.moveTo(kneeFront.x - 10, midShinY);
+          ctx.lineTo(kneeFront.x + 36, midShinY);
+          ctx.stroke();
+          ctx.restore();
+
+          drawMuscleGlow(ctx, hip.x - 4, hip.y + 10, 14, 18, 0.2, s, '#10b981');
+
+          // Pierna trasera en puntera ("pata de cabra")
+          drawLimb(ctx, hip.x, hip.y, cx - 14, floorY - 32, 10.5, '#64748b');
+          drawLimb(ctx, cx - 14, floorY - 32, footKick.x, footKick.y, 8.5, '#64748b');
+
+          // Pierna delantera principal
+          drawLimb(ctx, hip.x, hip.y, kneeFront.x, kneeFront.y, 13.5, '#f8fafc');
+          drawLimb(ctx, kneeFront.x, kneeFront.y, footFront.x, footFront.y, 10.5, '#e2e8f0');
+
+          // Torso neutro rígido + vértebras
+          drawLimb(ctx, hip.x, hip.y, shoulder.x, shoulder.y, 17, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+
+          // Mancuerna bajando rozando el muslo solo hasta mitad de espinilla
+          const hand = { x: kneeFront.x + 6, y: Math.min(midShinY, shoulder.y + 36) };
+          drawLimb(ctx, shoulder.x, shoulder.y, hand.x, hand.y, 8.5, '#cbd5e1');
+          ctx.fillStyle = '#f59e0b';
+          ctx.fillRect(hand.x - 8, hand.y - 3, 16, 6);
+
+          if (s > 0.55) {
+            drawCallout(ctx, hand.x + 8, midShinY, cx + 22, midShinY - 26, 'Tope Media Tibia', '#f59e0b');
+          }
+
+          drawHead(ctx, shoulder.x + 12 * Math.cos(hingeAngle), shoulder.y + 12 * Math.sin(hingeAngle), 11, hingeAngle + Math.PI / 2);
+          drawJoint(ctx, hip.x, hip.y, 5, '#10b981');
+          drawJoint(ctx, kneeFront.x, kneeFront.y, 4.5);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawArrow(ctx, hip.x, hip.y, hip.x - 22, hip.y, '#38bdf8');
+          drawHUD(ctx, w, h, 'Bisagra Pura de Cadera • Tope Media Tibia', 'Lleva el glúteo atrás manteniendo la columna bloqueada', s, s > 0.5 ? '🫁 BISAGRA ATRÁS' : '💨 EXTIENDE CADERA');
+          break;
+        }
+
+        /* 14. PRESS PALLOF EN POLEA */
+        case 'pallof_press': {
+          const floorY = h - 36;
+          drawGridAndMat(ctx, w, h, floorY, false);
+
+          // Columna de polea a la izquierda
+          ctx.strokeStyle = '#64748b';
+          ctx.lineWidth = 4.5;
+          ctx.beginPath();
+          ctx.moveTo(28, 30);
+          ctx.lineTo(28, floorY);
+          ctx.stroke();
+
+          const bodyX = cx + 14;
+          const pelvis = { x: bodyX, y: floorY - 58 };
+          const l5s1 = { x: bodyX, y: floorY - 74 };
+          const chest = { x: bodyX, y: floorY - 102 };
+
+          // Eje central anti-rotación
+          ctx.save();
+          ctx.strokeStyle = 'rgba(16, 185, 129, 0.35)';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([4, 3]);
+          ctx.beginPath();
+          ctx.moveTo(bodyX, chest.y - 26);
+          ctx.lineTo(bodyX, floorY);
+          ctx.stroke();
+          ctx.restore();
+
+          // Cable amarillo tenso desde la polea al centro del pecho
+          const hands = { x: bodyX, y: chest.y + 12 };
+          ctx.save();
+          ctx.strokeStyle = '#f59e0b';
+          ctx.lineWidth = 3;
+          ctx.setLineDash([5, 3]);
+          ctx.beginPath();
+          ctx.moveTo(28, hands.y);
+          ctx.lineTo(hands.x, hands.y);
+          ctx.stroke();
+          ctx.restore();
+
+          // Flecha de tracción lateral de la polea
+          drawArrow(ctx, hands.x - 24, hands.y - 8, 38, hands.y - 8, '#f59e0b');
+
+          // Oblicuos iluminados resistiendo el giro
+          drawMuscleGlow(ctx, bodyX - 9, l5s1.y - 4, 9, 18, 0, 0.4 + s * 0.6, '#10b981');
+          drawMuscleGlow(ctx, bodyX + 9, l5s1.y - 4, 9, 18, 0, 0.4 + s * 0.6, '#10b981');
+
+          // Torso y piernas firmes + vértebras
+          drawLimb(ctx, chest.x, chest.y, pelvis.x, pelvis.y, 21, '#334155');
+          drawVertebrae(ctx, chest.x, chest.y + 4, pelvis.x, pelvis.y - 2, 5, 0, false);
+          drawLimb(ctx, pelvis.x - 9, pelvis.y, pelvis.x - 16, floorY - 4, 11.5, '#e2e8f0');
+          drawLimb(ctx, pelvis.x + 9, pelvis.y, pelvis.x + 16, floorY - 4, 11.5, '#e2e8f0');
+
+          // Brazos empujando al frente (perspectiva frontal: manos crecen y juntan al extender)
+          const armSpread = 14 - s * 10;
+          drawLimb(ctx, chest.x - 12, chest.y + 4, hands.x - armSpread, hands.y, 8, '#f8fafc');
+          drawLimb(ctx, chest.x + 12, chest.y + 4, hands.x + armSpread, hands.y, 8, '#f8fafc');
+
+          drawCallout(ctx, bodyX + 10, l5s1.y - 6, bodyX + 26, l5s1.y - 24, 'Oblicuos Anti-Giro', '#10b981');
+
+          drawHead(ctx, chest.x, chest.y - 18, 11, 0);
+          drawJoint(ctx, hands.x, hands.y, 4.5 + s * 2, '#f59e0b');
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Core Anti-Rotación • Eje Inamovible', 'Extiende brazos al frente resistiendo el tirón lateral', s, s > 0.5 ? '💨 EXTIENDE + RESISTE' : '🫁 VUELVE AL PECHO');
+          break;
+        }
+
+        /* 15. COMPARATIVA POSTURA EN MOTO (DERRUMBADA VS ACTIVA) */
+        case 'moto_posture': {
+          const floorY = h - 36;
+          drawGridAndMat(ctx, w, h, floorY, false);
+
+          // Silueta de asiento escalonado y manillar de scooter/moto
+          ctx.strokeStyle = '#475569';
+          ctx.lineWidth = 5;
+          ctx.beginPath();
+          ctx.moveTo(cx - 58, floorY - 36);
+          ctx.lineTo(cx - 38, floorY - 22);
+          ctx.lineTo(cx + 2, floorY - 22);
+          ctx.lineTo(cx + 38, floorY - 12);
+          ctx.lineTo(cx + 55, floorY - 72);
+          ctx.stroke();
+
+          // Ruedas estilizadas
+          ctx.strokeStyle = '#334155';
+          ctx.lineWidth = 4;
+          ctx.beginPath(); ctx.arc(cx - 55, floorY - 12, 14, 0, Math.PI * 2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(cx + 58, floorY - 12, 14, 0, Math.PI * 2); ctx.stroke();
+
+          // Alterna entre postura derrumbada en C (s < 0.45) y postura neutra activa (s >= 0.45)
+          const isGood = s >= 0.45;
+          const hip = { x: cx - 22, y: floorY - 28 };
+          const handlebar = { x: cx + 44, y: floorY - 68 };
+          const l5s1 = { x: isGood ? cx - 20 : cx - 34, y: floorY - 46 };
+          const shoulder = { x: cx - 10, y: floorY - 74 };
+
+          // Pies: adelantados (malo) vs debajo de cadera (bueno)
+          const foot = isGood ? { x: cx + 2, y: floorY - 14 } : { x: cx + 32, y: floorY - 16 };
+          const knee = { x: cx + 10, y: floorY - 38 };
+
+          drawLimb(ctx, shoulder.x, shoulder.y, l5s1.x, l5s1.y, 15, isGood ? '#334155' : '#7f1d1d');
+          drawLimb(ctx, l5s1.x, l5s1.y, hip.x, hip.y, 15, isGood ? '#334155' : '#7f1d1d');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, isGood ? 0 : -10, !isGood);
+          drawLimb(ctx, hip.x, hip.y, knee.x, knee.y, 12.5, '#cbd5e1');
+          drawLimb(ctx, knee.x, knee.y, foot.x, foot.y, 10, '#94a3b8');
+          drawLimb(ctx, shoulder.x, shoulder.y, handlebar.x, handlebar.y, 8, '#e2e8f0');
+
+          if (isGood) {
+            drawCallout(ctx, foot.x, foot.y, cx - 96, floorY - 92, 'Pies bajo caderas + Isquiones', '#10b981');
+          } else {
+            drawCallout(ctx, l5s1.x, l5s1.y, cx - 98, floorY - 92, 'Columna en "C" aplasta disco', '#f43f5e');
+          }
+
+          drawHead(ctx, shoulder.x + 2, shoulder.y - 15, 11, 0.2);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t, !isGood);
+
+          drawHUD(
+            ctx,
+            w,
+            h,
+            isGood ? '✅ POSTURA CORRECTA: Pelvis Neutra + Pies Atrás' : '❌ EVITAR: Pelvis Caída en "C" Comprime L5-S1',
+            'Apoya isquiones en el tope del asiento y retrasa los pies en baches',
+            s,
+            isGood ? '🟢 DISCO PROTEGIDO' : '🔴 TENSIÓN DISCAL'
+          );
+          break;
+        }
+
+        /* 16. SUBIDA ABRUPTA DE TREKKING CON BASTONES */
+        case 'trekking_uphill': {
+          // Rampa de pendiente de montaña
+          ctx.strokeStyle = '#38bdf8';
+          ctx.lineWidth = 4;
+          ctx.beginPath();
+          ctx.moveTo(20, h - 28);
+          ctx.lineTo(w - 20, h - 82);
+          ctx.stroke();
+
+          // Ciclo de paso corto ascendente
+          const progress = (t * 0.45) % 1;
+          const baseX = cx - 22 + progress * 34;
+          const slopeY = (x) => (h - 28) - ((x - 20) / (w - 40)) * 54;
+
+          const hip = { x: baseX, y: slopeY(baseX) - 56 };
+          const shoulder = { x: hip.x + 8, y: hip.y - 44 };
+          const l5s1 = { x: hip.x + 3, y: hip.y - 15 };
+
+          // Mochila ajustada a la pelvis (cinturón lumbar verde)
+          ctx.fillStyle = '#0284c7';
+          ctx.beginPath();
+          ctx.roundRect(shoulder.x - 22, shoulder.y - 2, 14, 34, 4);
+          ctx.fill();
+          ctx.strokeStyle = '#10b981';
+          ctx.lineWidth = 3.5;
+          ctx.beginPath();
+          ctx.moveTo(hip.x - 10, hip.y);
+          ctx.lineTo(hip.x + 8, hip.y);
+          ctx.stroke();
+
+          const stride = Math.sin(t * 4) * 14; // zancada corta controlada
+          const foot1 = { x: baseX + 14 + stride, y: slopeY(baseX + 14 + stride) - 2 };
+          const foot2 = { x: baseX - 8 - stride, y: slopeY(baseX - 8 - stride) - 2 };
+          const knee1 = solveTwoBoneIK(hip.x, hip.y, foot1.x, foot1.y, 30, 30, false);
+          const knee2 = solveTwoBoneIK(hip.x, hip.y, foot2.x, foot2.y, 30, 30, false);
+
+          drawMuscleGlow(ctx, hip.x - 5, hip.y + 3, 13, 11, 0, 0.65, '#10b981');
+
+          drawLimb(ctx, hip.x, hip.y, knee2.jx, knee2.jy, 10.5, '#64748b');
+          drawLimb(ctx, knee2.jx, knee2.jy, foot2.x, foot2.y, 9, '#64748b');
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 16, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 5, 0, false);
+          drawLimb(ctx, hip.x, hip.y, knee1.jx, knee1.jy, 12.5, '#f8fafc');
+          drawLimb(ctx, knee1.jx, knee1.jy, foot1.x, foot1.y, 10, '#e2e8f0');
+
+          // Brazo y bastón de trekking descargando peso
+          const hand = { x: shoulder.x + 22, y: shoulder.y + 18 };
+          drawLimb(ctx, shoulder.x, shoulder.y, hand.x, hand.y, 8, '#cbd5e1');
+          ctx.strokeStyle = '#f59e0b';
+          ctx.lineWidth = 2.8;
+          ctx.beginPath();
+          ctx.moveTo(hand.x, hand.y - 6);
+          ctx.lineTo(hand.x + 8, slopeY(hand.x + 8));
+          ctx.stroke();
+
+          drawCallout(ctx, hip.x - 6, hip.y, hip.x - 95, hip.y - 32, 'Cinturón en Cresta Ilíaca', '#10b981');
+
+          drawHead(ctx, shoulder.x + 3, shoulder.y - 14, 10.5, 0.15);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Zancada Corta (-30%) + Cinturón en Pelvis', 'Pisa con todo el talón y descarga un 20% con bastones', progress, '🥾 PASO CORTO ACTIVO');
+          break;
+        }
+      }
+    }
+
+    function initLoop() {
+      document.querySelectorAll('.bio-canvas').forEach(canvas => {
+        canvases.push({
+          canvas,
+          ctx: canvas.getContext('2d'),
+          type: canvas.getAttribute('data-anim'),
+          w: 300,
+          h: 220,
+          dpr: window.devicePixelRatio || 1
+        });
+      });
+
+      resizeAllCanvases();
+      window.addEventListener('resize', resizeAllCanvases);
+
+      function animate(now) {
+        const dt = (now - lastFrameTime) / 1000;
+        lastFrameTime = now;
+        animClock += dt * animSpeed;
+
+        canvases.forEach(item => {
+          // Solo renderiza los canvas de la pestaña activa para máxima fluidez
+          if (item.canvas.offsetParent !== null) {
+            item.ctx.save();
+            item.ctx.scale(item.dpr, item.dpr);
+            renderExerciseScene(item.ctx, item.type, item.w, item.h, animClock);
+            item.ctx.restore();
+          }
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    /* =====================================================
+       4. ESCALADO COMPLETO: WAKE LOCK, VOZ GUIADA, PESOS,
+          DIARIO CLÍNICO, PERIODIZACIÓN Y SERVICE WORKER
+       ===================================================== */
+
+    // 4.1 Wake Lock (Pantalla siempre encendida en gimnasio / esterilla)
+    let wakeLockSentinel = null;
+    async function toggleWakeLock(btn) {
+      if (!('wakeLock' in navigator)) {
+        alert('Tu navegador no soporta Wake Lock API, pero el temporizador seguirá sonando.');
+        return;
+      }
+      try {
+        if (wakeLockSentinel) {
+          await wakeLockSentinel.release();
+          wakeLockSentinel = null;
+          btn.classList.remove('active');
+          btn.textContent = '📱 Pantalla: Auto';
+        } else {
+          wakeLockSentinel = await navigator.wakeLock.request('screen');
+          btn.classList.add('active');
+          btn.textContent = '📱 Pantalla: Fija ON';
+          wakeLockSentinel.addEventListener('release', () => {
+            btn.classList.remove('active');
+            btn.textContent = '📱 Pantalla: Auto';
+          });
+        }
+      } catch (e) {
+        btn.textContent = '📱 Pantalla: Auto';
+      }
+    }
+
+    // 4.2 Modo Rutina Guiada por Voz (Manos libres para la Rutina de Casa)
+    let guidedRunning = false;
+    let guidedStepIdx = 0;
+
+    const GUIDED_STEPS = [
+      { ex: 'casa-1', seconds: 10, title: '1. Retroversión Pélvica (Serie 1)', voice: 'Túmbate boca arriba. Inhala hacia las costillas, exhala y aplana la zona lumbar contra la esterilla durante diez segundos.' },
+      { ex: 'casa-1', seconds: 10, title: '1. Retroversión Pélvica (Serie 2)', voice: 'Segunda serie de retroversión pélvica. Sella L cinco S uno contra el suelo activando el transverso.' },
+      { ex: 'casa-2', seconds: 35, title: '2. Dead Bug con Banda (Serie 1)', voice: 'Dead Bug con banda elástica. Sube piernas a noventa grados y extiende lento sin despegar la cintura.' },
+      { ex: 'casa-2', seconds: 35, title: '2. Dead Bug con Banda (Serie 2)', voice: 'Segunda serie de Dead Bug. Exhala al estirar la pierna manteniendo cero hueco lumbar.' },
+      { ex: 'casa-3', seconds: 35, title: '3. Monster Walks con Banda', voice: 'Ponte de pie con la banda en las rodillas. Da pasos laterales en cuarto de sentadilla activando el glúteo medio.' },
+      { ex: 'casa-4', seconds: 35, title: '4. Puente de Glúteo Neutro', voice: 'Túmbate boca arriba para puente de glúteo. Sube en bloque hasta la diagonal hombro cadera rodilla sin arquear la espalda.' },
+      { ex: 'casa-5', seconds: 30, title: '5. Liberación de Psoas (Lado Izquierdo)', voice: 'Posición de caballero. Aprieta el glúteo atrasado y desliza la pelvis dos centímetros hacia adelante.' },
+      { ex: 'casa-5', seconds: 30, title: '5. Liberación de Psoas (Lado Derecho)', voice: 'Cambia de pierna para liberar el psoas del otro lado manteniendo el tronco vertical.' }
+    ];
+
+    function speakText(text) {
+      try {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utter = new SpeechSynthesisUtterance(text);
+          utter.lang = 'es-ES';
+          utter.rate = 1.02;
+          window.speechSynthesis.speak(utter);
+        }
+      } catch (e) {}
+    }
+
+    function toggleGuidedRoutine() {
+      const btn = document.getElementById('guidedRoutineBtn');
+      if (guidedRunning) {
+        guidedRunning = false;
+        stopTimer();
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        btn.textContent = '🔊 Iniciar Rutina Guiada por Voz (Manos Libres)';
+        btn.classList.remove('bg-rose-500', 'text-white');
+        btn.classList.add('bg-emerald-500', 'text-slate-950');
+        return;
+      }
+
+      guidedRunning = true;
+      guidedStepIdx = 0;
+      btn.textContent = '⏹ Detener Rutina Guiada por Voz';
+      btn.classList.remove('bg-emerald-500', 'text-slate-950');
+      btn.classList.add('bg-rose-500', 'text-white');
+      runNextGuidedStep();
+    }
+
+    function runNextGuidedStep() {
+      if (!guidedRunning) return;
+      if (guidedStepIdx >= GUIDED_STEPS.length) {
+        guidedRunning = false;
+        speakText('Rutina diaria L cinco S uno completada. Excelente trabajo.');
+        const btn = document.getElementById('guidedRoutineBtn');
+        btn.textContent = '✅ Rutina Guiada Completada';
+        btn.classList.remove('bg-rose-500', 'text-white');
+        btn.classList.add('bg-emerald-500', 'text-slate-950');
+        return;
+      }
+
+      const step = GUIDED_STEPS[guidedStepIdx];
+      const card = document.querySelector(`.ex-card[data-ex="${step.ex}"]`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      speakText(step.voice);
+
+      clearInterval(timerInterval);
+      defaultSeconds = step.seconds;
+      remainingSeconds = step.seconds;
+      isRunning = true;
+      document.getElementById('timerTitle').textContent = `🔊 ${step.title}`;
+      document.getElementById('timerState').textContent = `Paso ${guidedStepIdx + 1} de ${GUIDED_STEPS.length} • Manos libres activo`;
+      document.getElementById('playPauseBtn').textContent = '⏸ Pausar';
+      renderTimer();
+
+      timerInterval = setInterval(() => {
+        remainingSeconds--;
+        renderTimer();
+        if (remainingSeconds <= 0) {
+          clearInterval(timerInterval);
+          playBeep();
+          // Marca una serie disponible de esa tarjeta como hecha
+          if (card) {
+            const nextBtn = card.querySelector('.serie-btn:not(.done)');
+            if (nextBtn) {
+              nextBtn.classList.add('done');
+              saveProgress();
+              updateProgressUI();
+            }
+          }
+          guidedStepIdx++;
+          setTimeout(runNextGuidedStep, 1800);
+        }
+      }, 1000);
+    }
+
+    // 4.3 Periodización Automática por Fases
+    const PHASE_CONFIG = {
+      estandar: {
+        banner: 'Modo activo: Día Estándar (Todas las series disponibles)',
+        highlight: []
+      },
+      postmoto: {
+        banner: '🏍️ Modo Post-Moto / Descarga: Prioriza Retroversión (#1), Puente (#4), Psoas (#5) y Neurodinamia',
+        highlight: ['casa-1', 'casa-4', 'casa-5', 'mov-3']
+      },
+      consolidacion: {
+        banner: '🏋️ Modo Consolidación Fuerza: Prioriza Bloque Unilateral de Gimnasio + Peso Muerto B-Stance',
+        highlight: ['gym-1', 'gym-2', 'gym-4', 'gym-5', 'gym-6']
+      },
+      pretrekking: {
+        banner: '🥾 Modo Pre-Trekking: Activación rápida de Glúteo Medio (Monster Walks), Psoas y Cadera 90/90',
+        highlight: ['casa-1', 'casa-3', 'casa-5', 'mov-2']
+      }
+    };
+
+    function applyPhaseMode(mode, save = true) {
+      const cfg = PHASE_CONFIG[mode] || PHASE_CONFIG.estandar;
+      const bannerEl = document.getElementById('phaseBannerText');
+      if (bannerEl) bannerEl.textContent = cfg.banner;
+
+      document.querySelectorAll('.ex-card[data-ex]').forEach(card => {
+        const id = card.getAttribute('data-ex');
+        if (cfg.highlight.length === 0) {
+          card.style.opacity = '1';
+          card.style.outline = 'none';
+        } else if (cfg.highlight.includes(id)) {
+          card.style.opacity = '1';
+          card.style.outline = '2px solid #38bdf8';
+        } else {
+          card.style.opacity = '0.55';
+          card.style.outline = 'none';
+        }
+      });
+
+      if (save) {
+        try { localStorage.setItem(PHASE_KEY, mode); } catch (e) {}
+      }
+    }
+
+    // 4.4 selectores de Peso (kg) en los ejercicios de Gimnasio
+    const GYM_EX_NAMES = {
+      'gym-1': 'Step-Up Cajón',
+      'gym-2': 'Sentadilla Búlgara',
+      'gym-3': 'Prensa 1 Pierna',
+      'gym-4': 'Remo Banco 45°',
+      'gym-5': 'Peso Muerto B-Stance',
+      'gym-6': 'Press Pallof / Granjero'
+    };
+
+    function loadGymWeights() {
+      try {
+        return JSON.parse(localStorage.getItem(WEIGHTS_KEY) || '{"gym-1":10,"gym-2":12,"gym-3":45,"gym-4":16,"gym-5":14,"gym-6":15}');
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveGymWeight(exId, val) {
+      const weights = loadGymWeights();
+      weights[exId] = parseFloat(val) || 0;
+      try { localStorage.setItem(WEIGHTS_KEY, JSON.stringify(weights)); } catch (e) {}
+      renderJournalAndWeights();
+    }
+
+    function injectGymWeightInputs() {
+      const weights = loadGymWeights();
+      Object.keys(GYM_EX_NAMES).forEach(exId => {
+        const card = document.querySelector(`.ex-card[data-ex="${exId}"]`);
+        if (!card) return;
+        const footer = card.querySelector('.border-t');
+        if (!footer || footer.querySelector('.weight-control')) return;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'weight-control flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-2.5 py-1 rounded-lg';
+        wrap.innerHTML = `
+          <span class="text-[11px] text-slate-400 font-medium">Carga:</span>
+          <input type="number" step="0.5" min="0" max="250" value="${weights[exId] || 10}"
+            onchange="saveGymWeight('${exId}', this.value)"
+            class="w-14 bg-slate-950 text-emerald-400 font-bold text-xs text-center border border-slate-700 rounded py-0.5 focus:outline-none focus:border-sky-400" />
+          <span class="text-[11px] text-slate-400 font-semibold">kg</span>
+        `;
+        footer.insertBefore(wrap, footer.lastElementChild);
+      });
+    }
+
+    // 4.5 Diario del Semáforo Clínico L5-S1 y Exportación JSON
+    let currentSemaphoreSelection = 'verde';
+
+    function selectDailySemaphore(color, btn) {
+      currentSemaphoreSelection = color;
+      document.querySelectorAll('#semaphoreSelectGroup .sem-btn').forEach(b => {
+        b.className = 'sem-btn bg-slate-900 border border-slate-700 text-slate-300 py-2 rounded-lg text-xs font-bold';
+      });
+      if (color === 'verde') {
+        btn.className = 'sem-btn active bg-emerald-500/20 border border-emerald-500 text-emerald-300 py-2 rounded-lg text-xs font-bold';
+      } else if (color === 'amarillo') {
+        btn.className = 'sem-btn active bg-amber-500/20 border border-amber-500 text-amber-300 py-2 rounded-lg text-xs font-bold';
+      } else {
+        btn.className = 'sem-btn active bg-rose-500/20 border border-rose-500 text-rose-300 py-2 rounded-lg text-xs font-bold';
+      }
+    }
+
+    function loadJournalEntries() {
+      try { return JSON.parse(localStorage.getItem(JOURNAL_KEY) || '[]'); } catch (e) { return []; }
+    }
+
+    function saveDailyJournalEntry() {
+      const entries = loadJournalEntries();
+      const note = document.getElementById('dailyNoteInput').value.trim();
+      const acts = [];
+      if (document.getElementById('actMoto').checked) acts.push('🏍️ Moto');
+      if (document.getElementById('actTrek').checked) acts.push('🥾 Trekking');
+      if (document.getElementById('actGym').checked) acts.push('🏋️ Gym');
+
+      const todayStr = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
+      entries.unshift({
+        date: todayStr,
+        status: currentSemaphoreSelection,
+        activities: acts,
+        note: note || 'Control rutinario completado',
+        weights: loadGymWeights()
+      });
+
+      try { localStorage.setItem(JOURNAL_KEY, JSON.stringify(entries.slice(0, 60))); } catch (e) {}
+      document.getElementById('dailyNoteInput').value = '';
+      renderJournalAndWeights();
+    }
+
+    function renderJournalAndWeights() {
+      const weights = loadGymWeights();
+      const wBox = document.getElementById('weightsSummaryBox');
+      if (wBox) {
+        wBox.innerHTML = Object.keys(GYM_EX_NAMES).map(k => `
+          <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-2.5">
+            <div class="text-[11px] text-slate-400 truncate">${GYM_EX_NAMES[k]}</div>
+            <div class="text-sm font-extrabold text-sky-400 mt-0.5">${weights[k] || 0} kg</div>
+          </div>
+        `).join('');
+      }
+
+      const entries = loadJournalEntries();
+      const streakEl = document.getElementById('streakCounter');
+      if (streakEl) streakEl.textContent = `${entries.length} registros guardados`;
+
+      const listEl = document.getElementById('journalHistoryList');
+      if (!listEl) return;
+      if (entries.length === 0) {
+        listEl.innerHTML = `<div class="text-slate-400 bg-slate-900/60 border border-slate-800 rounded-lg p-3">Aún no hay registros en tu diario clínico. Guarda tu primer Check-in a la izquierda.</div>`;
+        return;
+      }
+
+      listEl.innerHTML = entries.map(item => {
+        const badge = item.status === 'verde'
+          ? '<span class="text-emerald-400 font-bold">🟢 Verde</span>'
+          : item.status === 'amarillo'
+          ? '<span class="text-amber-400 font-bold">🟡 Amarilla</span>'
+          : '<span class="text-rose-400 font-bold">🔴 Roja</span>';
+        const acts = (item.activities && item.activities.length) ? item.activities.join(' • ') : 'Día estándar';
+        return `
+          <div class="bg-slate-900/80 border border-slate-800 rounded-lg p-2.5 flex flex-col gap-1">
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-white">${item.date}</span>
+              ${badge}
+            </div>
+            <div class="text-[11px] text-sky-300">${acts}</div>
+            <div class="text-slate-300">${item.note}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function exportClinicalData() {
+      const payload = {
+        app: 'Plan Clínico L5-S1 | Usuario',
+        exportedAt: new Date().toISOString(),
+        weights: loadGymWeights(),
+        journal: loadJournalEntries()
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `historial_l5s1_usuario_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importClinicalData(ev) {
+      const file = ev.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (data.weights) localStorage.setItem(WEIGHTS_KEY, JSON.stringify(data.weights));
+          if (data.journal) localStorage.setItem(JOURNAL_KEY, JSON.stringify(data.journal));
+          injectGymWeightInputs();
+          renderJournalAndWeights();
+          alert('Datos clínicos importados correctamente.');
+        } catch (err) {
+          alert('El archivo JSON no tiene un formato válido.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadProgress();
+      injectGymWeightInputs();
+      renderJournalAndWeights();
+      const savedPhase = localStorage.getItem(PHASE_KEY) || 'estandar';
+      const phaseSel = document.getElementById('phaseModeSelect');
+      if (phaseSel) phaseSel.value = savedPhase;
+      applyPhaseMode(savedPhase, false);
+      initLoop();
+
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      }
+    });
+  </script>
+</body>
+</html>
