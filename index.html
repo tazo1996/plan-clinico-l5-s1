@@ -135,6 +135,183 @@
       from { opacity: 0; transform: translateY(5px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* =====================================================
+       FALLBACK CSS OFFLINE COMPLETO (SIN COBERTURA / MONTAÑA)
+       Garantiza el diseño completo aunque no cargue el CDN
+       ===================================================== */
+    .max-w-5xl { max-width: 64rem; }
+    .max-w-2xl { max-width: 42rem; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .px-3\.5 { padding-left: 0.875rem; padding-right: 0.875rem; }
+    .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+    .px-2\.5 { padding-left: 0.625rem; padding-right: 0.625rem; }
+    .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+    .px-1\.5 { padding-left: 0.375rem; padding-right: 0.375rem; }
+    .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+    .py-2\.5 { padding-top: 0.625rem; padding-bottom: 0.625rem; }
+    .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    .py-1\.5 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
+    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
+    .pt-4 { padding-top: 1rem; }
+    .pt-3 { padding-top: 0.75rem; }
+    .pt-2 { padding-top: 0.5rem; }
+    .pt-1 { padding-top: 0.25rem; }
+    .pb-3 { padding-bottom: 0.75rem; }
+    .p-4 { padding: 1rem; }
+    .p-3\.5 { padding: 0.875rem; }
+    .p-3 { padding: 0.75rem; }
+    .p-2\.5 { padding: 0.625rem; }
+    .p-2 { padding: 0.5rem; }
+    .p-1 { padding: 0.25rem; }
+    .mt-3 { margin-top: 0.75rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mt-1 { margin-top: 0.25rem; }
+    .mt-0\.5 { margin-top: 0.125rem; }
+    .mb-3 { margin-bottom: 0.75rem; }
+    .mb-2\.5 { margin-bottom: 0.625rem; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mb-1\.5 { margin-bottom: 0.375rem; }
+    .mb-1 { margin-bottom: 0.25rem; }
+    .mr-1 { margin-right: 0.25rem; }
+    .flex { display: flex; }
+    .inline-flex { display: inline-flex; }
+    .grid { display: grid; }
+    .block { display: block; }
+    .hidden { display: none; }
+    .flex-col { flex-direction: column; }
+    .flex-wrap { flex-wrap: wrap; }
+    .items-center { align-items: center; }
+    .items-start { align-items: flex-start; }
+    .justify-between { justify-content: space-between; }
+    .justify-center { justify-content: center; }
+    .justify-end { justify-content: flex-end; }
+    .gap-4 { gap: 1rem; }
+    .gap-3 { gap: 0.75rem; }
+    .gap-2\.5 { gap: 0.625rem; }
+    .gap-2 { gap: 0.5rem; }
+    .gap-1\.5 { gap: 0.375rem; }
+    .gap-1 { gap: 0.25rem; }
+    .space-y-4 > * + * { margin-top: 1rem; }
+    .space-y-3 > * + * { margin-top: 0.75rem; }
+    .space-y-2\.5 > * + * { margin-top: 0.625rem; }
+    .space-y-2 > * + * { margin-top: 0.5rem; }
+    .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-cols-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+    .col-span-2 { grid-column: span 2 / span 2; }
+    .w-full { width: 100%; }
+    .w-14 { width: 3.5rem; }
+    .w-8 { width: 2rem; }
+    .w-2 { width: 0.5rem; }
+    .h-full { height: 100%; }
+    .h-52 { height: 13rem; }
+    .h-8 { height: 2rem; }
+    .h-2 { height: 0.5rem; }
+    .max-h-64 { max-height: 16rem; }
+    .overflow-x-auto { overflow-x: auto; }
+    .overflow-y-auto { overflow-y: auto; }
+    .overflow-hidden { overflow: hidden; }
+    .sticky { position: sticky; }
+    .fixed { position: fixed; }
+    .top-0 { top: 0; }
+    .bottom-0 { bottom: 0; }
+    .left-0 { left: 0; }
+    .right-0 { right: 0; }
+    .z-50 { z-index: 50; }
+    .rounded-xl { border-radius: 0.75rem; }
+    .rounded-r-xl { border-top-right-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+    .rounded-lg { border-radius: 0.5rem; }
+    .rounded-md { border-radius: 0.375rem; }
+    .rounded-full { border-radius: 9999px; }
+    .rounded { border-radius: 0.25rem; }
+    .border { border-width: 1px; border-style: solid; border-color: #334155; }
+    .border-b { border-bottom: 1px solid #1e293b; }
+    .border-t { border-top: 1px solid #1e293b; }
+    .border-t-2 { border-top: 2px solid #0ea5e9; }
+    .border-t-4 { border-top-width: 4px; border-top-style: solid; }
+    .border-l-4 { border-left-width: 4px; border-left-style: solid; }
+    .border-slate-800 { border-color: #1e293b; }
+    .border-slate-700 { border-color: #334155; }
+    .border-sky-400 { border-color: #38bdf8; }
+    .border-sky-500 { border-color: #0ea5e9; }
+    .border-emerald-400 { border-color: #34d399; }
+    .border-emerald-500 { border-color: #10b981; }
+    .border-amber-400 { border-color: #fbbf24; }
+    .border-amber-500 { border-color: #f59e0b; }
+    .border-rose-500 { border-color: #f43f5e; }
+    .border-t-emerald-500 { border-top-color: #10b981; }
+    .border-t-amber-500 { border-top-color: #f59e0b; }
+    .border-t-rose-500 { border-top-color: #f43f5e; }
+    .bg-slate-950 { background-color: #020617; }
+    .bg-slate-900 { background-color: #0f172a; }
+    .bg-slate-900\/90 { background-color: rgba(15, 23, 42, 0.9); }
+    .bg-slate-900\/80 { background-color: rgba(15, 23, 42, 0.8); }
+    .bg-slate-800 { background-color: #1e293b; }
+    .bg-sky-400 { background-color: #38bdf8; }
+    .bg-emerald-500 { background-color: #10b981; }
+    .bg-emerald-400 { background-color: #34d399; }
+    .bg-rose-500 { background-color: #f43f5e; }
+    .bg-sky-500\/10 { background-color: rgba(14, 165, 233, 0.1); }
+    .bg-sky-500\/15 { background-color: rgba(14, 165, 233, 0.15); }
+    .bg-emerald-500\/10 { background-color: rgba(16, 185, 129, 0.1); }
+    .bg-emerald-500\/20 { background-color: rgba(16, 185, 129, 0.2); }
+    .bg-amber-500\/10 { background-color: rgba(245, 158, 11, 0.1); }
+    .bg-amber-500\/20 { background-color: rgba(245, 158, 11, 0.2); }
+    .bg-rose-500\/10 { background-color: rgba(244, 63, 94, 0.1); }
+    .bg-rose-500\/15 { background-color: rgba(244, 63, 94, 0.15); }
+    .bg-rose-500\/20 { background-color: rgba(244, 63, 94, 0.2); }
+    .text-white { color: #ffffff; }
+    .text-slate-950 { color: #020617; }
+    .text-slate-200 { color: #e2e8f0; }
+    .text-slate-300 { color: #cbd5e1; }
+    .text-slate-400 { color: #94a3b8; }
+    .text-sky-200 { color: #bae6fd; }
+    .text-sky-300 { color: #7dd3fc; }
+    .text-sky-400 { color: #38bdf8; }
+    .text-emerald-300 { color: #6ee7b7; }
+    .text-emerald-400 { color: #34d399; }
+    .text-amber-300 { color: #fcd34d; }
+    .text-amber-400 { color: #fbbf24; }
+    .text-rose-300 { color: #fda4af; }
+    .text-rose-400 { color: #fb7185; }
+    .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+    .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+    .text-base { font-size: 1rem; line-height: 1.5rem; }
+    .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+    .text-xs { font-size: 0.75rem; line-height: 1rem; }
+    .font-extrabold { font-weight: 800; }
+    .font-bold { font-weight: 700; }
+    .font-semibold { font-weight: 600; }
+    .font-medium { font-weight: 500; }
+    .uppercase { text-transform: uppercase; }
+    .tracking-wider { letter-spacing: 0.05em; }
+    .tracking-tight { letter-spacing: -0.025em; }
+    .text-center { text-align: center; }
+    .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+    .cursor-pointer { cursor: pointer; }
+    .transition { transition: all 0.15s ease; }
+
+    @media (min-width: 640px) {
+      .sm\:p-5 { padding: 1.25rem; }
+      .sm\:h-56 { height: 14rem; }
+      .sm\:text-xl { font-size: 1.25rem; }
+      .sm\:text-lg { font-size: 1.125rem; }
+      .sm\:text-sm { font-size: 0.875rem; }
+      .sm\:text-3xl { font-size: 1.875rem; }
+      .sm\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    }
+    @media (min-width: 768px) {
+      .md\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+      .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .md\:grid-cols-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+      .md\:col-span-5 { grid-column: span 5 / span 5; }
+      .md\:col-span-7 { grid-column: span 7 / span 7; }
+    }
   </style>
 </head>
 <body>
@@ -170,6 +347,9 @@
           <button id="wakeLockBtn" onclick="toggleWakeLock(this)" class="speed-chip" title="Mantener pantalla encendida durante la rutina">
             📱 Pantalla: Auto
           </button>
+          <span id="headerStreakChip" class="speed-chip active" title="Racha de días cuidando tu L5-S1">
+            🔥 Racha: 0 días
+          </span>
           <div class="flex items-center gap-1 bg-slate-900/90 p-1 rounded-lg border border-slate-800" title="Velocidad de las figuras animadas">
             <button class="speed-chip active" onclick="setGlobalSpeed(1, this)">1x</button>
             <button class="speed-chip" onclick="setGlobalSpeed(0.45, this)">0.5x</button>
@@ -926,29 +1106,59 @@
          PESTAÑA 5: SEMÁFORO CLÍNICO & DIARIO L5-S1
          ========================================== -->
     <section id="diario" class="tab-content space-y-4 mt-2">
-      <!-- 1. SEMÁFORO CLÍNICO ARRIBA DEL TODO -->
+      <!-- 0. CALENDARIO SEMANAL RECOMENDADO + RECORDATORIO DIARIO -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <article class="ex-card p-4 sm:p-5 md:col-span-8 space-y-2.5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-base font-bold text-white">🗓️ Planificador Semanal L5-S1 (Distribución Óptima)</h3>
+            <span id="todayScheduleBadge" class="text-xs font-bold text-sky-300 bg-sky-500/15 border border-sky-400/30 px-2.5 py-1 rounded-md">Hoy: Cargando...</span>
+          </div>
+          <p class="text-xs text-slate-400">Toca cualquier día para abrir directamente la rutina que toca hacer:</p>
+          <div id="weeklyCalendarGrid" class="grid grid-cols-2 sm:grid-cols-7 gap-2 pt-1"></div>
+        </article>
+
+        <!-- Recordatorio Diario (Notificación) -->
+        <article class="ex-card p-4 sm:p-5 md:col-span-4 flex flex-col justify-between space-y-3">
+          <div>
+            <h3 class="text-base font-bold text-white">🔔 Recordatorio Diario</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Elige a qué hora quieres recibir un aviso para tu Rutina L5-S1 y Check-in:</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <input id="reminderTimeInput" type="time" value="20:00" onchange="saveReminderSettings()" class="bg-slate-950 border border-slate-700 text-sky-300 font-bold text-sm rounded-lg px-3 py-1.5 w-full focus:outline-none focus:border-sky-400" />
+            <button id="reminderToggleBtn" onclick="toggleDailyReminder()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold px-3 py-2 rounded-lg text-xs whitespace-nowrap transition">
+              Activar 🔔
+            </button>
+          </div>
+          <div class="flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800 pt-2">
+            <span id="reminderStatusText">Estado: Desactivado</span>
+            <button onclick="sendTestNotification()" class="text-sky-400 hover:underline font-semibold">Probar aviso</button>
+          </div>
+        </article>
+      </div>
+
+      <!-- 1. SEMÁFORO CLÍNICO -->
       <div>
         <h3 class="text-base font-bold text-white mb-2.5">🚦 1. Guía del Semáforo Clínico L5-S1 (Cómo evaluar tu espalda cada mañana)</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div class="ex-card p-4 border-t-4 border-t-emerald-500">
-            <div class="font-bold text-emerald-400 text-sm mb-1">🟢 Luz Verde (Óptimo)</div>
+            <div class="font-bold text-emerald-400 text-sm mb-1">🟢 Luz Verde (Óptimo • Dolor 0–2/10)</div>
             <p class="text-xs text-slate-300">Fatiga muscular normal en glúteos, piernas o abdomen. Cero irradiación hacia la pierna derecha; puedes mantener o progresar suavemente las cargas.</p>
           </div>
           <div class="ex-card p-4 border-t-4 border-t-amber-500">
-            <div class="font-bold text-amber-400 text-sm mb-1">🟡 Luz Amarilla (Ajustar)</div>
+            <div class="font-bold text-amber-400 text-sm mb-1">🟡 Luz Amarilla (Ajustar • Dolor 3–5/10)</div>
             <p class="text-xs text-slate-300">Amaneces con rigidez o pesadez lumbar tras gimnasio o ruta en moto. Hoy prioriza la Rutina de Casa + Movilidad y reduce un 20% el peso en gimnasio.</p>
           </div>
           <div class="ex-card p-4 border-t-4 border-t-rose-500">
-            <div class="font-bold text-rose-400 text-sm mb-1">🔴 Luz Roja (Pausar Fuerza)</div>
+            <div class="font-bold text-rose-400 text-sm mb-1">🔴 Luz Roja (Pausar Fuerza • Dolor 6–10/10)</div>
             <p class="text-xs text-slate-300">Dolor eléctrico punzante hacia glúteo/gemelo derecho u hormigueo. Pausa el gimnasio y haz solo descompresión suave (Retroversión + Psoas).</p>
           </div>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-        <!-- 2. Formulario Check-In Diario -->
+        <!-- 2. Formulario Check-In Diario con EVA 0-10 y Zonas -->
         <article class="ex-card p-4 sm:p-5 md:col-span-5 space-y-3">
-          <h2 class="text-base font-bold text-white">📝 2. Registrar Check-in de Hoy</h2>
+          <h2 class="text-base font-bold text-white">📝 2. Registrar Check-in Clínico de Hoy</h2>
           <div>
             <label class="block text-xs text-slate-400 mb-1.5">A. ¿En qué color del semáforo amaneció tu L5-S1 hoy?</label>
             <div class="grid grid-cols-3 gap-2" id="semaphoreSelectGroup">
@@ -958,8 +1168,34 @@
             </div>
           </div>
 
+          <!-- Escala de Dolor 0-10 y Zona Anatómica -->
+          <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-3 space-y-2.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-300 font-semibold">B. Nivel de molestia / dolor (0–10):</span>
+              <span id="painScaleValueBadge" class="font-extrabold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">1 / 10 (Mínimo)</span>
+            </div>
+            <input id="painScaleSlider" type="range" min="0" max="10" step="1" value="1" oninput="updatePainScaleUI(this.value)" class="w-full accent-sky-400 cursor-pointer" />
+            <div>
+              <span class="block text-[11px] text-slate-400 mb-1.5">Zona donde notas la sensación (si hay alguna):</span>
+              <div class="grid grid-cols-2 gap-1.5">
+                <label class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 px-2 py-1.5 rounded text-[11px] text-slate-200 cursor-pointer">
+                  <input type="checkbox" id="zoneNone" class="accent-emerald-400" checked /> ✅ Sin dolor / Libre
+                </label>
+                <label class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 px-2 py-1.5 rounded text-[11px] text-slate-200 cursor-pointer">
+                  <input type="checkbox" id="zoneLumbar" class="accent-amber-400" /> 🎯 Cintura / Lumbar L5
+                </label>
+                <label class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 px-2 py-1.5 rounded text-[11px] text-slate-200 cursor-pointer">
+                  <input type="checkbox" id="zoneGlute" class="accent-amber-400" /> 🍑 Glúteo Derecho
+                </label>
+                <label class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 px-2 py-1.5 rounded text-[11px] text-slate-200 cursor-pointer">
+                  <input type="checkbox" id="zoneLeg" class="accent-rose-400" /> ⚡ Muslo / Gemelo Der.
+                </label>
+              </div>
+            </div>
+          </div>
+
           <div>
-            <label class="block text-xs text-slate-400 mb-1.5">B. ¿Qué actividades hiciste hoy / ayer? (Marca todas las que correspondan):</label>
+            <label class="block text-xs text-slate-400 mb-1.5">C. ¿Qué actividades hiciste hoy / ayer?</label>
             <div class="grid grid-cols-2 gap-2">
               <label class="flex items-center gap-1.5 bg-slate-900 border border-emerald-500/40 px-2.5 py-2 rounded-lg text-xs text-emerald-300 font-semibold cursor-pointer">
                 <input type="checkbox" id="actCasa" class="accent-emerald-400" checked /> 🏠 Rutina Diaria Casa
@@ -980,7 +1216,7 @@
           </div>
 
           <div>
-            <label class="block text-xs text-slate-400 mb-1">C. Nota rápida (opcional):</label>
+            <label class="block text-xs text-slate-400 mb-1">D. Nota rápida (opcional):</label>
             <input id="dailyNoteInput" type="text" placeholder="Ej: Hice rutina diaria + gym, espalda muy estable..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-400" />
           </div>
 
@@ -996,8 +1232,8 @@
               <h2 class="text-base font-bold text-white">📈 3. Tus Cargas de Gimnasio & Historial Diario</h2>
               <p class="text-[11px] text-slate-400">Los pesos se actualizan solos cuando los cambias en la pestaña Gimnasio.</p>
             </div>
-            <div class="flex items-center gap-2">
-              <span id="streakCounter" class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-md">0 registros</span>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="streakCounter" class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-md">🔥 Racha: 0 días</span>
               <button onclick="clearAllJournalEntries()" class="text-[11px] text-rose-300 hover:text-white bg-rose-500/15 hover:bg-rose-500/30 border border-rose-500/30 px-2.5 py-1 rounded-md transition" title="Borrar todo el historial">
                 🗑️ Vaciar todo
               </button>
@@ -1016,7 +1252,7 @@
       <!-- Explicación clara de Copia de Seguridad (Exportar / Importar) -->
       <div class="bg-slate-900/90 border border-slate-800 p-3.5 rounded-xl flex flex-wrap items-center justify-between gap-3 text-xs text-slate-300">
         <div class="max-w-2xl">
-          💾 <strong>Copia de Seguridad (¿Qué es Exportar / Importar?):</strong> Como esta app es 100% privada y sin servidores externos, tus pesos y tu diario se guardan en la memoria interna de este navegador. Si algún día cambias de móvil o quieres pasar tu historial del PC al teléfono, pulsa <strong>Guardar Copia</strong> (descarga un archivito con tus datos) y ábrelo en el otro dispositivo con <strong>Restaurar Copia</strong>.
+          💾 <strong>Copia de Seguridad (¿Qué es Guardar / Restaurar Copia?):</strong> Como esta app es 100% privada y sin servidores externos, tus pesos y tu diario se guardan en la memoria interna de este navegador. Si algún día cambias de móvil o quieres pasar tu historial del PC al teléfono, pulsa <strong>Guardar Copia</strong> (descarga un archivito con tus datos) y ábrelo en el otro dispositivo con <strong>Restaurar Copia</strong>.
         </div>
         <div class="flex items-center gap-2">
           <button onclick="exportClinicalData()" class="bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
@@ -1029,6 +1265,11 @@
         </div>
       </div>
     </section>
+
+    <!-- AVISO MÉDICO Y PREVENTIVO UNIVERSAL -->
+    <footer class="mt-6 mb-4 bg-slate-900/80 border border-slate-800 rounded-xl p-3.5 text-[11px] text-slate-400 leading-relaxed">
+      ⚕️ <strong>Aviso Clínico y Preventivo:</strong> Esta aplicación es una guía interactiva de apoyo biomecánico e higiene postural para el segmento L5-S1 (anterolistesis grado I, protrusión discal y compromiso foraminal). No sustituye la valoración presencial, diagnóstico ni pauta individualizada de tu médico rehabilitador, traumatólogo o fisioterapeuta. Si experimentas síntomas de alerta (pérdida de fuerza progresiva en el pie, anestesia en silla de montar o dolor radicular agudo), suspende el ejercicio y consulta a un profesional sanitario.
+    </footer>
   </main>
 
   <!-- TEMPORIZADOR FLOTANTE INFERIOR -->
@@ -3283,23 +3524,23 @@
       }, 1000);
     }
 
-    // 4.3 Periodización Automática por Fases
+    // 4.3 Periodización Automática por Fases (incluye los 10 ejercicios de gimnasio)
     const PHASE_CONFIG = {
       estandar: {
         banner: 'Modo activo: Día Estándar (Todas las series disponibles)',
         highlight: []
       },
       postmoto: {
-        banner: '🏍️ Modo Post-Moto / Descarga: Prioriza Retroversión (#1), Puente (#4), Psoas (#5) y Neurodinamia',
-        highlight: ['casa-1', 'casa-4', 'casa-5', 'mov-3']
+        banner: '🏍️ Modo Post-Moto / Descarga: Prioriza Retroversión (#1), Puente (#4), Psoas (#5), Open Book y Neurodinamia',
+        highlight: ['casa-1', 'casa-4', 'casa-5', 'mov-1', 'mov-3']
       },
       consolidacion: {
-        banner: '🏋️ Modo Consolidación Fuerza: Prioriza Bloque Unilateral de Gimnasio + Peso Muerto B-Stance',
-        highlight: ['gym-1', 'gym-2', 'gym-4', 'gym-5', 'gym-6']
+        banner: '🏋️ Modo Consolidación Fuerza: Prioriza el bloque completo de Gimnasio sin cizallamiento (#1 a #10)',
+        highlight: ['gym-1', 'gym-2', 'gym-3', 'gym-4', 'gym-5', 'gym-6', 'gym-7', 'gym-8', 'gym-9', 'gym-10']
       },
       pretrekking: {
-        banner: '🥾 Modo Pre-Trekking: Activación rápida de Glúteo Medio (Monster Walks), Psoas y Cadera 90/90',
-        highlight: ['casa-1', 'casa-3', 'casa-5', 'mov-2']
+        banner: '🥾 Modo Pre-Trekking: Activación rápida de Glúteo Medio (Monster Walks), Psoas, Cadera 90/90 y Step-Up',
+        highlight: ['casa-1', 'casa-3', 'casa-5', 'mov-2', 'gym-1']
       }
     };
 
@@ -3391,20 +3632,43 @@
       });
     }
 
-    // 4.5 Diario del Semáforo Clínico L5-S1, Borrado de Registros y Copia de Seguridad
+    // 4.5 Diario del Semáforo Clínico L5-S1, Escala de Dolor EVA 0-10, Zonas y Racha
     let currentSemaphoreSelection = 'verde';
+
+    function updatePainScaleUI(val) {
+      const v = parseInt(val, 10) || 0;
+      const badge = document.getElementById('painScaleValueBadge');
+      if (!badge) return;
+      let label = 'Sin dolor';
+      let cls = 'font-extrabold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded';
+      if (v >= 1 && v <= 2) {
+        label = 'Mínimo / Fatiga';
+      } else if (v >= 3 && v <= 5) {
+        label = 'Rigidez Moderada';
+        cls = 'font-extrabold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded';
+      } else if (v >= 6) {
+        label = 'Alerta / Irradiación';
+        cls = 'font-extrabold text-rose-400 bg-rose-500/15 border border-rose-500/30 px-2 py-0.5 rounded';
+      }
+      badge.className = cls;
+      badge.textContent = `${v} / 10 (${label})`;
+    }
 
     function selectDailySemaphore(color, btn) {
       currentSemaphoreSelection = color;
       document.querySelectorAll('#semaphoreSelectGroup .sem-btn').forEach(b => {
         b.className = 'sem-btn bg-slate-900 border border-slate-700 text-slate-300 py-2 rounded-lg text-xs font-bold';
       });
+      const slider = document.getElementById('painScaleSlider');
       if (color === 'verde') {
         btn.className = 'sem-btn active bg-emerald-500/20 border border-emerald-500 text-emerald-300 py-2 rounded-lg text-xs font-bold';
+        if (slider && slider.value > 2) { slider.value = 1; updatePainScaleUI(1); }
       } else if (color === 'amarillo') {
         btn.className = 'sem-btn active bg-amber-500/20 border border-amber-500 text-amber-300 py-2 rounded-lg text-xs font-bold';
+        if (slider && (slider.value < 3 || slider.value > 5)) { slider.value = 4; updatePainScaleUI(4); }
       } else {
         btn.className = 'sem-btn active bg-rose-500/20 border border-rose-500 text-rose-300 py-2 rounded-lg text-xs font-bold';
+        if (slider && slider.value < 6) { slider.value = 7; updatePainScaleUI(7); }
       }
     }
 
@@ -3412,9 +3676,41 @@
       try { return JSON.parse(localStorage.getItem(JOURNAL_KEY) || '[]'); } catch (e) { return []; }
     }
 
+    // Cálculo de Racha de Días Consecutivos (🔥)
+    function computeRoutineStreak(entries) {
+      if (!entries || entries.length === 0) return 0;
+      const uniqueDays = [];
+      entries.forEach(e => {
+        const dKey = e.isoDate || e.date;
+        if (dKey && !uniqueDays.includes(dKey)) uniqueDays.push(dKey);
+      });
+      // Si tiene isoDate (YYYY-MM-DD), verifica días consecutivos reales; si no, cuenta días únicos registrados
+      let streak = 1;
+      for (let i = 0; i < uniqueDays.length - 1; i++) {
+        const cur = new Date(uniqueDays[i]);
+        const prev = new Date(uniqueDays[i + 1]);
+        if (!isNaN(cur) && !isNaN(prev)) {
+          const diffDays = Math.round((cur - prev) / (1000 * 60 * 60 * 24));
+          if (diffDays <= 1) streak++;
+          else break;
+        } else {
+          streak++;
+        }
+      }
+      return streak;
+    }
+
     function saveDailyJournalEntry() {
       const entries = loadJournalEntries();
       const note = document.getElementById('dailyNoteInput').value.trim();
+      const painLevel = parseInt(document.getElementById('painScaleSlider')?.value || '1', 10);
+
+      const zones = [];
+      if (document.getElementById('zoneNone')?.checked)   zones.push('✅ Libre');
+      if (document.getElementById('zoneLumbar')?.checked) zones.push('🎯 Lumbar L5');
+      if (document.getElementById('zoneGlute')?.checked)  zones.push('🍑 Glúteo Der.');
+      if (document.getElementById('zoneLeg')?.checked)    zones.push('⚡ Pierna Der.');
+
       const acts = [];
       if (document.getElementById('actCasa')?.checked) acts.push('🏠 Rutina Casa');
       if (document.getElementById('actMov')?.checked)  acts.push('🔓 Movilidad');
@@ -3422,11 +3718,17 @@
       if (document.getElementById('actMoto')?.checked) acts.push('🏍️ Moto');
       if (document.getElementById('actTrek')?.checked) acts.push('🥾 Trekking');
 
-      const todayStr = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
+      const now = new Date();
+      const todayStr = now.toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
+      const isoDate = now.toISOString().slice(0, 10);
+
       entries.unshift({
         id: Date.now(),
+        isoDate,
         date: todayStr,
         status: currentSemaphoreSelection,
+        pain: painLevel,
+        zones: zones.length ? zones : ['✅ Libre'],
         activities: acts,
         note: note || 'Control diario registrado',
         weights: loadGymWeights()
@@ -3464,8 +3766,12 @@
       }
 
       const entries = loadJournalEntries();
+      const streak = computeRoutineStreak(entries);
+      const streakText = `🔥 Racha: ${streak} ${streak === 1 ? 'día' : 'días'} (${entries.length} reg.)`;
       const streakEl = document.getElementById('streakCounter');
-      if (streakEl) streakEl.textContent = `${entries.length} registros`;
+      if (streakEl) streakEl.textContent = streakText;
+      const headerStreak = document.getElementById('headerStreakChip');
+      if (headerStreak) headerStreak.textContent = `🔥 Racha: ${streak} ${streak === 1 ? 'día' : 'días'}`;
 
       const listEl = document.getElementById('journalHistoryList');
       if (!listEl) return;
@@ -3480,23 +3786,160 @@
           : item.status === 'amarillo'
           ? '<span class="text-amber-400 font-bold">🟡 Amarilla</span>'
           : '<span class="text-rose-400 font-bold">🔴 Roja</span>';
+        const painBadge = (item.pain !== undefined)
+          ? `<span class="bg-slate-800 border border-slate-700 text-slate-200 px-1.5 py-0.5 rounded text-[10.5px] font-bold">EVA: ${item.pain}/10</span>`
+          : '';
+        const zonesStr = (item.zones && item.zones.length) ? ` • ${item.zones.join(', ')}` : '';
         const acts = (item.activities && item.activities.length) ? item.activities.join(' • ') : 'Sin actividad marcada';
         return `
           <div class="bg-slate-900/80 border border-slate-800 rounded-lg p-2.5 flex flex-col gap-1">
-            <div class="flex items-center justify-between gap-2">
-              <div class="flex items-center gap-2">
+            <div class="flex items-center justify-between gap-2 flex-wrap">
+              <div class="flex items-center gap-2 flex-wrap">
                 <span class="font-semibold text-white">${item.date}</span>
                 ${badge}
+                ${painBadge}
               </div>
               <button onclick="deleteJournalEntry(${idx})" class="text-[11px] text-rose-400 hover:text-rose-200 bg-rose-500/10 hover:bg-rose-500/25 border border-rose-500/20 px-2 py-0.5 rounded transition" title="Borrar este registro">
                 🗑️ Borrar
               </button>
             </div>
-            <div class="text-[11px] text-sky-300 font-medium">${acts}</div>
+            <div class="text-[11px] text-sky-300 font-medium">${acts}${zonesStr}</div>
             <div class="text-slate-300">${item.note}</div>
           </div>
         `;
       }).join('');
+    }
+
+    // 4.6 Planificador Semanal L5-S1 (Lunes a Domingo)
+    const WEEKLY_PLAN = [
+      { dayIdx: 1, short: 'LUN', title: 'Casa + Gym A', desc: 'Pierna Unilateral + Core', tab: 'gym', color: 'border-sky-400 text-sky-300' },
+      { dayIdx: 2, short: 'MAR', title: 'Casa + Movilidad', desc: 'Open Book + Ciático', tab: 'movilidad', color: 'border-emerald-400 text-emerald-300' },
+      { dayIdx: 3, short: 'MIÉ', title: 'Casa + Gym B', desc: 'Remo 45° + Hip Thrust', tab: 'gym', color: 'border-sky-400 text-sky-300' },
+      { dayIdx: 4, short: 'JUE', title: 'Casa + Descarga', desc: 'Psoas + Cadera 90/90', tab: 'casa', color: 'border-emerald-400 text-emerald-300' },
+      { dayIdx: 5, short: 'VIE', title: 'Casa + Gym C', desc: 'B-Stance + Bird-Dog', tab: 'gym', color: 'border-sky-400 text-sky-300' },
+      { dayIdx: 6, short: 'SÁB', title: 'Trekking / Moto', desc: 'Protocolo Post-Ruta', tab: 'ergo', color: 'border-amber-400 text-amber-300' },
+      { dayIdx: 0, short: 'DOM', title: 'Recuperación', desc: 'Rutina Casa Suave', tab: 'casa', color: 'border-emerald-400 text-emerald-300' }
+    ];
+
+    function renderWeeklyCalendar() {
+      const grid = document.getElementById('weeklyCalendarGrid');
+      if (!grid) return;
+      const todayDay = new Date().getDay(); // 0 Dom .. 6 Sab
+      const todayPlan = WEEKLY_PLAN.find(d => d.dayIdx === todayDay) || WEEKLY_PLAN[0];
+      const badge = document.getElementById('todayScheduleBadge');
+      if (badge) badge.textContent = `Hoy (${todayPlan.short}): ${todayPlan.title}`;
+
+      grid.innerHTML = WEEKLY_PLAN.map(item => {
+        const isToday = item.dayIdx === todayDay;
+        const activeCls = isToday
+          ? 'bg-sky-500/20 border-2 border-sky-400 shadow-lg'
+          : 'bg-slate-900/85 border border-slate-800 hover:border-slate-700';
+        return `
+          <div onclick="openTab('${item.tab}', document.querySelectorAll('.tab-btn')[['casa','movilidad','gym','ergo','diario'].indexOf('${item.tab}')])"
+               class="${activeCls} rounded-lg p-2 cursor-pointer transition flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-[10.5px] font-extrabold ${isToday ? 'text-sky-300' : 'text-slate-400'}">${item.short}</span>
+              ${isToday ? '<span class="text-[9px] bg-sky-400 text-slate-950 font-extrabold px-1.5 rounded">HOY</span>' : ''}
+            </div>
+            <div class="text-xs font-bold text-white mt-1 leading-tight">${item.title}</div>
+            <div class="text-[10px] text-slate-400 mt-0.5 leading-tight">${item.desc}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 4.7 Recordatorio Diario con Notificaciones Nativas + Alarma Sonora
+    const REMINDER_KEY = 'l5s1_daily_reminder_usuario_v1';
+    let reminderCheckInterval = null;
+
+    function loadReminderSettings() {
+      try {
+        return JSON.parse(localStorage.getItem(REMINDER_KEY) || '{"enabled":false,"time":"20:00","lastFiredDate":""}');
+      } catch (e) {
+        return { enabled: false, time: '20:00', lastFiredDate: '' };
+      }
+    }
+
+    function updateReminderUI() {
+      const cfg = loadReminderSettings();
+      const input = document.getElementById('reminderTimeInput');
+      const btn = document.getElementById('reminderToggleBtn');
+      const status = document.getElementById('reminderStatusText');
+      if (input && cfg.time) input.value = cfg.time;
+      if (!btn || !status) return;
+      if (cfg.enabled) {
+        btn.textContent = 'Desactivar 🔕';
+        btn.className = 'bg-rose-500 hover:bg-rose-400 text-white font-extrabold px-3 py-2 rounded-lg text-xs whitespace-nowrap transition';
+        status.textContent = `Activo todos los días a las ${cfg.time}`;
+        status.className = 'text-emerald-400 font-semibold';
+      } else {
+        btn.textContent = 'Activar 🔔';
+        btn.className = 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold px-3 py-2 rounded-lg text-xs whitespace-nowrap transition';
+        status.textContent = 'Estado: Desactivado';
+        status.className = 'text-slate-400';
+      }
+    }
+
+    function saveReminderSettings() {
+      const cfg = loadReminderSettings();
+      const input = document.getElementById('reminderTimeInput');
+      if (input) cfg.time = input.value || '20:00';
+      try { localStorage.setItem(REMINDER_KEY, JSON.stringify(cfg)); } catch (e) {}
+      updateReminderUI();
+    }
+
+    async function toggleDailyReminder() {
+      const cfg = loadReminderSettings();
+      const input = document.getElementById('reminderTimeInput');
+      if (input) cfg.time = input.value || '20:00';
+
+      if (!cfg.enabled) {
+        if ('Notification' in window && Notification.permission !== 'granted') {
+          try { await Notification.requestPermission(); } catch (e) {}
+        }
+        cfg.enabled = true;
+      } else {
+        cfg.enabled = false;
+      }
+      try { localStorage.setItem(REMINDER_KEY, JSON.stringify(cfg)); } catch (e) {}
+      updateReminderUI();
+    }
+
+    function triggerReminderAlert(title, body) {
+      playBeep();
+      if ('Notification' in window && Notification.permission === 'granted') {
+        try {
+          new Notification(title, { body, icon: './icon.svg' });
+          return;
+        } catch (e) {}
+      }
+      alert(`${title}\n\n${body}`);
+    }
+
+    function sendTestNotification() {
+      triggerReminderAlert(
+        '🦴 Plan Clínico L5-S1 | Recordatorio',
+        '¡Hora de tus 12 minutos de descompresión L5-S1 y registrar tu Semáforo del día!'
+      );
+    }
+
+    function startReminderWatcher() {
+      if (reminderCheckInterval) clearInterval(reminderCheckInterval);
+      reminderCheckInterval = setInterval(() => {
+        const cfg = loadReminderSettings();
+        if (!cfg.enabled || !cfg.time) return;
+        const now = new Date();
+        const hhmm = now.toTimeString().slice(0, 5);
+        const todayIso = now.toISOString().slice(0, 10);
+        if (hhmm === cfg.time && cfg.lastFiredDate !== todayIso) {
+          cfg.lastFiredDate = todayIso;
+          try { localStorage.setItem(REMINDER_KEY, JSON.stringify(cfg)); } catch (e) {}
+          triggerReminderAlert(
+            '🦴 Hora de tu Rutina L5-S1',
+            'Dedica 12 minutos a descomprimir tu columna y guarda tu Check-in en el Semáforo Clínico.'
+          );
+        }
+      }, 20000);
     }
 
     function exportClinicalData() {
@@ -3537,6 +3980,9 @@
     window.addEventListener('DOMContentLoaded', () => {
       loadProgress();
       injectGymWeightInputs();
+      renderWeeklyCalendar();
+      updateReminderUI();
+      startReminderWatcher();
       renderJournalAndWeights();
       const savedPhase = localStorage.getItem(PHASE_KEY) || 'estandar';
       const phaseSel = document.getElementById('phaseModeSelect');
