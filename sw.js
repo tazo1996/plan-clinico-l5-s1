@@ -1,4 +1,4 @@
-const CACHE_NAME = 'plan-l5s1-usuario-v6';
+const CACHE_NAME = 'plan-l5s1-usuario-v7';
 const ASSETS = [
   './',
   './index.html',
