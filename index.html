@@ -205,8 +205,8 @@
       <button class="tab-btn active" onclick="openTab('casa', this)">🏠 Rutina Casa (Diaria)</button>
       <button class="tab-btn" onclick="openTab('movilidad', this)">🔓 Movilidad & Nervio (Extra)</button>
       <button class="tab-btn" onclick="openTab('gym', this)">🏋️ Gimnasio + Consolidación</button>
-      <button class="tab-btn" onclick="openTab('ergo', this)">🏍️ Moto, Trekking & Semáforo</button>
-      <button class="tab-btn" onclick="openTab('diario', this)">📊 Diario & Evolución L5-S1</button>
+      <button class="tab-btn" onclick="openTab('ergo', this)">🏍️ Moto & Trekking</button>
+      <button class="tab-btn" onclick="openTab('diario', this)">🚦 Semáforo & Diario L5-S1</button>
     </div>
 
     <!-- ==========================================
@@ -688,7 +688,7 @@
         <article class="ex-card p-4 sm:p-5" data-ex="gym-6">
           <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
             <div>
-              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Bloque C • Core Anti-Rotación y Anti-Inclinación</span>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Bloque C1 • Core Anti-Rotación y Anti-Inclinación</span>
               <h2 class="text-base sm:text-lg font-bold text-white">6. Press Pallof en Polea + Paseo del Granjero a 1 Mano</h2>
             </div>
             <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 12 reps + 25m/mano</span>
@@ -717,11 +717,147 @@
             </div>
           </div>
         </article>
+
+        <!-- Gym 7: Hip Thrust con Espalda Apoyada -->
+        <article class="ex-card p-4 sm:p-5" data-ex="gym-7">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Bloque A4 • Fuerza Máxima de Glúteo Mayor (Freno Pélvico)</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">7. Hip Thrust en Banco con Mancuerna o Barra (Tope Horizontal)</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 10–12 reps (2s pausa arriba)</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="hip_thrust"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Apoya la parte inferior de las escápulas en el borde de un banco estable. Con el peso sobre la pelvis, sube en bloque mirando al frente (mentón recogido, costillas bajas) hasta que el tronco quede paralelo al suelo y las tibias verticales a 90°.</p>
+              <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs p-2.5 rounded-lg">
+                🍑 <strong>Por qué es clave para L5-S1:</strong> Desarrolla fuerza máxima en el glúteo mayor sin cargar peso sobre los hombros (0% compresión vertical en la columna). No arquees la espalda al llegar arriba.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(60, 'Descanso Hip Thrust (60s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Descanso 60s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Gym 8: Sentadilla Goblet / Landmine al Cajón -->
+        <article class="ex-card p-4 sm:p-5" data-ex="gym-8">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-sky-400">Bloque A5 • Sentadilla Bilateral Segura con Tope de Profundidad</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">8. Sentadilla Goblet al Cajón (Box Squat con Mancuerna al Pecho)</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 10–12 reps</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="goblet_box_squat"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Sujeta una mancuerna o pesa rusa pegada al esternón (actúa como contrapeso anterior para mantener el torso vertical). Baja controlado hasta rozar suavemente un banco o cajón a 90° sin dejarte desplomar y sube empujando el suelo.</p>
+              <div class="bg-sky-500/10 border border-sky-500/30 text-sky-200 text-xs p-2.5 rounded-lg">
+                📦 <strong>Por qué usar cajón + carga frontal:</strong> El cajón frena la bajada justo antes del punto donde la pelvis se redondea ("butt-wink"), y el peso al pecho activa el core anterior reduciendo un 60% el cizallamiento respecto a la barra tras nuca.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(60, 'Descanso Goblet Box Squat (60s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Descanso 60s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Gym 9: Press Inclinado con Mancuernas + Pies Elevados -->
+        <article class="ex-card p-4 sm:p-5" data-ex="gym-9">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-sky-400">Bloque B2 • Empuje Pectoral/Hombro Sin Arco Lumbar</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">9. Press de Pecho con Mancuernas (Banco 15°–30° + Pies en Soportes)</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 10–12 reps</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="incline_press"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>Tumbado en un banco plano o ligeramente inclinado (15°–30°), sube los pies al borde del banco o sobre dos discos altos en el suelo. Empuja las mancuernas manteniendo la zona lumbar baja y las costillas cerradas contra el respaldo.</p>
+              <div class="bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs p-2.5 rounded-lg">
+                🚫 <strong>Sustitución del Press Militar de pie:</strong> Empujar peso por encima de la cabeza de pie suele arquear L5-S1 cuando te fatigas. En banco a 30° con pies elevados blindas tu columna al 100%.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(60, 'Descanso Press Mancuernas (60s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Descanso 60s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Gym 10: Bird-Dog + Plancha Lateral McGill -->
+        <article class="ex-card p-4 sm:p-5" data-ex="gym-10">
+          <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Bloque C2 • Estabilizadores Profundos (Multífidos + Cuadrado Lumbar)</span>
+              <h2 class="text-base sm:text-lg font-bold text-white">10. Bird-Dog Controlado + Plancha Lateral McGill</h2>
+            </div>
+            <span class="text-xs font-semibold bg-slate-800 text-sky-300 border border-slate-700 px-2.5 py-1 rounded-md">3 series × 8 reps (5s hold) / lado</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+            <div class="md:col-span-5 canvas-stage h-52 sm:h-56 w-full">
+              <canvas class="bio-canvas w-full h-full block" data-anim="bird_dog"></canvas>
+            </div>
+            <div class="md:col-span-7 space-y-2.5 text-sm text-slate-300">
+              <p>En cuadrupedia con columna neutra y abdomen firme, extiende brazo y pierna contraria hacia atrás (empujando con el talón, <strong>sin levantar el pie más alto que la cadera</strong>). Alterna con 20s de plancha lateral apoyando codo y rodillas.</p>
+              <div class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs p-2.5 rounded-lg">
+                🔬 <strong>Estándar de Oro Dr. Stuart McGill:</strong> Activa los músculos multífidos que "cosen" la vértebra L5 al sacro S1 con menos de un 15% de compresión discal.
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs text-slate-400 mr-1">Series:</span>
+                  <button class="serie-btn" onclick="toggleSerie(this)">1</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">2</button>
+                  <button class="serie-btn" onclick="toggleSerie(this)">3</button>
+                </div>
+                <button onclick="startTimer(45, 'Descanso Bird-Dog / McGill (45s)')" class="bg-sky-500/15 hover:bg-sky-400 hover:text-slate-950 text-sky-300 border border-sky-400/30 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+                  ⏱️ Descanso 45s
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
     <!-- ==========================================
-         PESTAÑA 4: MOTO, TREKKING & SEMÁFORO
+         PESTAÑA 4: MOTO & TREKKING (ERGONOMÍA)
          ========================================== -->
     <section id="ergo" class="tab-content space-y-4 mt-2">
       <div class="bg-amber-500/10 border-l-4 border-amber-400 p-3.5 rounded-r-xl text-xs sm:text-sm text-slate-200">
@@ -784,52 +920,37 @@
           </p>
         </article>
       </div>
-
-      <!-- Semáforo Clínico -->
-      <div class="pt-2">
-        <h3 class="text-base font-bold text-white mb-3">🚦 Semáforo Clínico de Control de Síntomas</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div class="ex-card p-4 border-t-4 border-t-emerald-500">
-            <div class="font-bold text-emerald-400 text-sm mb-1">🟢 Luz Verde (Óptimo)</div>
-            <p class="text-xs text-slate-300">Fatiga muscular en glúteos, cuádriceps o abdomen. Ligera sensación de trabajo en la cintura que desaparece en menos de 15–20 minutos tras terminar.</p>
-          </div>
-          <div class="ex-card p-4 border-t-4 border-t-amber-500">
-            <div class="font-bold text-amber-400 text-sm mb-1">🟡 Luz Amarilla (Ajustar)</div>
-            <p class="text-xs text-slate-300">Notar rigidez o sobrecarga lumbar a la mañana siguiente del gimnasio. Reduce un 20% el peso de las mancuernas o acorta 5 cm la bajada.</p>
-          </div>
-          <div class="ex-card p-4 border-t-4 border-t-rose-500">
-            <div class="font-bold text-rose-400 text-sm mb-1">🔴 Luz Roja (Pausar)</div>
-            <p class="text-xs text-slate-300">Dolor eléctrico punzante que baje hacia el glúteo/gemelo derecho, hormigueo continuo en el pie o pérdida de fuerza al ponerte de puntillas o talones.</p>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- ==========================================
-         PESTAÑA 5: DIARIO & EVOLUCIÓN L5-S1
+         PESTAÑA 5: SEMÁFORO CLÍNICO & DIARIO L5-S1
          ========================================== -->
     <section id="diario" class="tab-content space-y-4 mt-2">
-      <div class="bg-emerald-500/10 border-l-4 border-emerald-400 p-3.5 rounded-r-xl flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-slate-200">
-        <div>
-          <strong>Registro Biométrico y Control de Cargas del Usuario:</strong> Cruza la respuesta matutina de tu disco L5-S1 con los pesos del gimnasio y tus salidas en moto o montaña.
-        </div>
-        <div class="flex items-center gap-2">
-          <button onclick="exportClinicalData()" class="bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
-            ⬇️ Exportar JSON
-          </button>
-          <label class="bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
-            ⬆️ Importar JSON
-            <input type="file" accept=".json" class="hidden" onchange="importClinicalData(event)" />
-          </label>
+      <!-- 1. SEMÁFORO CLÍNICO ARRIBA DEL TODO -->
+      <div>
+        <h3 class="text-base font-bold text-white mb-2.5">🚦 1. Guía del Semáforo Clínico L5-S1 (Cómo evaluar tu espalda cada mañana)</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="ex-card p-4 border-t-4 border-t-emerald-500">
+            <div class="font-bold text-emerald-400 text-sm mb-1">🟢 Luz Verde (Óptimo)</div>
+            <p class="text-xs text-slate-300">Fatiga muscular normal en glúteos, piernas o abdomen. Cero irradiación hacia la pierna derecha; puedes mantener o progresar suavemente las cargas.</p>
+          </div>
+          <div class="ex-card p-4 border-t-4 border-t-amber-500">
+            <div class="font-bold text-amber-400 text-sm mb-1">🟡 Luz Amarilla (Ajustar)</div>
+            <p class="text-xs text-slate-300">Amaneces con rigidez o pesadez lumbar tras gimnasio o ruta en moto. Hoy prioriza la Rutina de Casa + Movilidad y reduce un 20% el peso en gimnasio.</p>
+          </div>
+          <div class="ex-card p-4 border-t-4 border-t-rose-500">
+            <div class="font-bold text-rose-400 text-sm mb-1">🔴 Luz Roja (Pausar Fuerza)</div>
+            <p class="text-xs text-slate-300">Dolor eléctrico punzante hacia glúteo/gemelo derecho u hormigueo. Pausa el gimnasio y haz solo descompresión suave (Retroversión + Psoas).</p>
+          </div>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-        <!-- Formulario Check-In Diario -->
+        <!-- 2. Formulario Check-In Diario -->
         <article class="ex-card p-4 sm:p-5 md:col-span-5 space-y-3">
-          <h2 class="text-base font-bold text-white">📝 Check-in Clínico de Hoy</h2>
+          <h2 class="text-base font-bold text-white">📝 2. Registrar Check-in de Hoy</h2>
           <div>
-            <label class="block text-xs text-slate-400 mb-1.5">1. ¿Cómo amaneció tu segmento L5-S1 hoy?</label>
+            <label class="block text-xs text-slate-400 mb-1.5">A. ¿En qué color del semáforo amaneció tu L5-S1 hoy?</label>
             <div class="grid grid-cols-3 gap-2" id="semaphoreSelectGroup">
               <button type="button" onclick="selectDailySemaphore('verde', this)" class="sem-btn active bg-emerald-500/20 border border-emerald-500 text-emerald-300 py-2 rounded-lg text-xs font-bold">🟢 Verde</button>
               <button type="button" onclick="selectDailySemaphore('amarillo', this)" class="sem-btn bg-slate-900 border border-slate-700 text-amber-300 py-2 rounded-lg text-xs font-bold">🟡 Amarilla</button>
@@ -838,44 +959,74 @@
           </div>
 
           <div>
-            <label class="block text-xs text-slate-400 mb-1.5">2. Actividad de impacto en las últimas 24h:</label>
-            <div class="flex flex-wrap gap-2">
-              <label class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-2.5 py-1.5 rounded-lg text-xs text-slate-200 cursor-pointer">
+            <label class="block text-xs text-slate-400 mb-1.5">B. ¿Qué actividades hiciste hoy / ayer? (Marca todas las que correspondan):</label>
+            <div class="grid grid-cols-2 gap-2">
+              <label class="flex items-center gap-1.5 bg-slate-900 border border-emerald-500/40 px-2.5 py-2 rounded-lg text-xs text-emerald-300 font-semibold cursor-pointer">
+                <input type="checkbox" id="actCasa" class="accent-emerald-400" checked /> 🏠 Rutina Diaria Casa
+              </label>
+              <label class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-2.5 py-2 rounded-lg text-xs text-slate-200 cursor-pointer">
+                <input type="checkbox" id="actMov" class="accent-sky-400" /> 🔓 Movilidad / Nervio
+              </label>
+              <label class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-2.5 py-2 rounded-lg text-xs text-slate-200 cursor-pointer">
+                <input type="checkbox" id="actGym" class="accent-amber-400" /> 🏋️ Gimnasio Fuerza
+              </label>
+              <label class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-2.5 py-2 rounded-lg text-xs text-slate-200 cursor-pointer">
                 <input type="checkbox" id="actMoto" class="accent-sky-400" /> 🏍️ Ruta en Moto
               </label>
-              <label class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-2.5 py-1.5 rounded-lg text-xs text-slate-200 cursor-pointer">
-                <input type="checkbox" id="actTrek" class="accent-emerald-400" /> 🥾 Trekking / Montaña
-              </label>
-              <label class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-2.5 py-1.5 rounded-lg text-xs text-slate-200 cursor-pointer">
-                <input type="checkbox" id="actGym" class="accent-amber-400" /> 🏋️ Gimnasio Fuerza
+              <label class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-2.5 py-2 rounded-lg text-xs text-slate-200 cursor-pointer col-span-2">
+                <input type="checkbox" id="actTrek" class="accent-emerald-400" /> 🥾 Trekking / Subida de Montaña
               </label>
             </div>
           </div>
 
           <div>
-            <label class="block text-xs text-slate-400 mb-1">3. Notas (sensaciones, pesadez o mejoras):</label>
-            <input id="dailyNoteInput" type="text" placeholder="Ej: Cero dolor en subida tras estirar psoas..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-400" />
+            <label class="block text-xs text-slate-400 mb-1">C. Nota rápida (opcional):</label>
+            <input id="dailyNoteInput" type="text" placeholder="Ej: Hice rutina diaria + gym, espalda muy estable..." class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-400" />
           </div>
 
-          <button onclick="saveDailyJournalEntry()" class="w-full bg-sky-400 hover:bg-sky-300 text-slate-950 font-extrabold py-2 rounded-lg text-xs transition">
-            💾 Guardar Registro del Día
+          <button onclick="saveDailyJournalEntry()" class="w-full bg-sky-400 hover:bg-sky-300 text-slate-950 font-extrabold py-2.5 rounded-lg text-xs transition shadow-md">
+            💾 Guardar Día en mi Historial
           </button>
         </article>
 
-        <!-- Resumen de Pesos de Gimnasio + Historial -->
+        <!-- 3. Resumen de Pesos de Gimnasio + Historial con borrado -->
         <article class="ex-card p-4 sm:p-5 md:col-span-7 space-y-3">
-          <div class="flex items-center justify-between">
-            <h2 class="text-base font-bold text-white">📈 Evolución Reciente & Cargas de Gimnasio</h2>
-            <span id="streakCounter" class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-md">0 registros</span>
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h2 class="text-base font-bold text-white">📈 3. Tus Cargas de Gimnasio & Historial Diario</h2>
+              <p class="text-[11px] text-slate-400">Los pesos se actualizan solos cuando los cambias en la pestaña Gimnasio.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="streakCounter" class="text-xs font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-md">0 registros</span>
+              <button onclick="clearAllJournalEntries()" class="text-[11px] text-rose-300 hover:text-white bg-rose-500/15 hover:bg-rose-500/30 border border-rose-500/30 px-2.5 py-1 rounded-md transition" title="Borrar todo el historial">
+                🗑️ Vaciar todo
+              </button>
+            </div>
           </div>
 
-          <div id="weightsSummaryBox" class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1"></div>
+          <div id="weightsSummaryBox" class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1"></div>
 
           <div class="border-t border-slate-800 pt-3">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Historial del Semáforo L5-S1</h3>
-            <div id="journalHistoryList" class="space-y-2 max-h-56 overflow-y-auto pr-1 text-xs"></div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Registros Guardados (Pulsa 🗑️ para borrar uno si te equivocaste)</h3>
+            <div id="journalHistoryList" class="space-y-2 max-h-64 overflow-y-auto pr-1 text-xs"></div>
           </div>
         </article>
+      </div>
+
+      <!-- Explicación clara de Copia de Seguridad (Exportar / Importar) -->
+      <div class="bg-slate-900/90 border border-slate-800 p-3.5 rounded-xl flex flex-wrap items-center justify-between gap-3 text-xs text-slate-300">
+        <div class="max-w-2xl">
+          💾 <strong>Copia de Seguridad (¿Qué es Exportar / Importar?):</strong> Como esta app es 100% privada y sin servidores externos, tus pesos y tu diario se guardan en la memoria interna de este navegador. Si algún día cambias de móvil o quieres pasar tu historial del PC al teléfono, pulsa <strong>Guardar Copia</strong> (descarga un archivito con tus datos) y ábrelo en el otro dispositivo con <strong>Restaurar Copia</strong>.
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="exportClinicalData()" class="bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition">
+            ⬇️ Guardar Copia (.json)
+          </button>
+          <label class="bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer">
+            ⬆️ Restaurar Copia
+            <input type="file" accept=".json" class="hidden" onchange="importClinicalData(event)" />
+          </label>
+        </div>
       </div>
     </section>
   </main>
@@ -2708,6 +2859,263 @@
           drawHUD(ctx, w, h, 'Zancada Corta (-30%) + Cinturón en Pelvis', 'Pisa con todo el talón y descarga un 20% con bastones', progress, '🥾 PASO CORTO ACTIVO');
           break;
         }
+
+        /* 17. HIP THRUST EN BANCO (TOPE HORIZONTAL 180°) */
+        case 'hip_thrust': {
+          const floorY = h - 34;
+          drawGridAndMat(ctx, w, h, floorY, false);
+
+          // Banco de apoyo escapular a la izquierda
+          const benchX = cx - 86;
+          const benchY = floorY - 38;
+          ctx.fillStyle = '#1e293b';
+          ctx.strokeStyle = '#38bdf8';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.roundRect(benchX, benchY, 38, 38, 5);
+          ctx.fill();
+          ctx.stroke();
+
+          const shoulder = { x: benchX + 32, y: benchY - 4 };
+          const knee = { x: cx + 42, y: benchY - 4 };
+          const foot = { x: cx + 42, y: floorY - 3 };
+
+          // La pelvis sube desde abajo hasta quedar en línea horizontal perfecta con hombro y rodilla
+          const hip = {
+            x: (shoulder.x + knee.x) / 2,
+            y: (floorY - 14) - s * ((floorY - 14) - (benchY - 4))
+          };
+          const l5s1 = {
+            x: (shoulder.x + hip.x) / 2,
+            y: (shoulder.y + hip.y) / 2
+          };
+
+          // Línea horizontal verde de tope 180°
+          ctx.save();
+          ctx.strokeStyle = 'rgba(16, 185, 129, 0.5)';
+          ctx.lineWidth = 1.6;
+          ctx.setLineDash([5, 3]);
+          ctx.beginPath();
+          ctx.moveTo(shoulder.x - 10, benchY - 10);
+          ctx.lineTo(knee.x + 16, benchY - 10);
+          ctx.stroke();
+          ctx.restore();
+
+          drawMuscleGlow(ctx, hip.x, hip.y + 8, 18, 12, 0, s, '#10b981');
+
+          // Torso, muslo y tibia vertical a 90°
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 17, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+          drawLimb(ctx, hip.x, hip.y, knee.x, knee.y, 14, '#f8fafc');
+          drawLimb(ctx, knee.x, knee.y, foot.x, foot.y, 10.5, '#cbd5e1');
+
+          // Carga acolchada sobre la pelvis
+          ctx.fillStyle = '#f59e0b';
+          ctx.beginPath();
+          ctx.arc(hip.x, hip.y - 9, 8.5, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (s > 0.65) {
+            drawCallout(ctx, hip.x, hip.y - 10, cx - 24, benchY - 44, 'Mesa 180° + Tibia Vertical', '#10b981');
+          }
+
+          drawHead(ctx, shoulder.x - 14, shoulder.y - 12, 11, 0.25); // Mirada al frente (mentón recogido)
+          drawJoint(ctx, shoulder.x, shoulder.y, 4.5);
+          drawJoint(ctx, hip.x, hip.y, 5, '#10b981');
+          drawJoint(ctx, knee.x, knee.y, 4.5);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Hip Thrust • Glúteo al 100% Sin Carga Axial', s > 0.7 ? 'PAUSA 2s ARRIBA: Costillas cerradas y mirada al frente' : 'Baja en bisagra manteniendo el mentón recogido', s, s > 0.6 ? '💨 APRIETA GLÚTEO' : '🫁 BAJA EN BLOQUE');
+          break;
+        }
+
+        /* 18. SENTADILLA GOBLET AL CAJÓN (BOX SQUAT) */
+        case 'goblet_box_squat': {
+          const floorY = h - 34;
+          drawGridAndMat(ctx, w, h, floorY, false);
+
+          // Cajón de tope trasero a 90°
+          const boxX = cx - 44;
+          const boxY = floorY - 34;
+          ctx.fillStyle = '#1e293b';
+          ctx.strokeStyle = s > 0.75 ? '#10b981' : '#64748b';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.roundRect(boxX, boxY, 30, 34, 4);
+          ctx.fill();
+          ctx.stroke();
+
+          const foot = { x: cx + 14, y: floorY - 3 };
+          const hip = {
+            x: (cx + 2) - s * 22,
+            y: (floorY - 68) + s * 30
+          };
+          const shoulder = {
+            x: hip.x + 8,
+            y: hip.y - 48
+          };
+          const l5s1 = {
+            x: hip.x + 2,
+            y: hip.y - 16
+          };
+
+          const knee = solveTwoBoneIK(hip.x, hip.y, foot.x, foot.y, 35, 35, false);
+
+          drawMuscleGlow(ctx, hip.x - 4, hip.y + 4, 15, 13, 0, s, '#10b981');
+
+          // Torso vertical gracias al contrapeso anterior + vértebras
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 17, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+
+          // Piernas
+          drawLimb(ctx, hip.x, hip.y, knee.jx, knee.jy, 14, '#f8fafc');
+          drawLimb(ctx, knee.jx, knee.jy, foot.x, foot.y, 10.5, '#cbd5e1');
+
+          // Brazos sosteniendo la mancuerna en copa pegada al esternón
+          const goblet = { x: shoulder.x + 15, y: shoulder.y + 10 };
+          drawLimb(ctx, shoulder.x, shoulder.y + 4, goblet.x - 3, goblet.y + 12, 8, '#e2e8f0');
+          drawLimb(ctx, goblet.x - 3, goblet.y + 12, goblet.x, goblet.y, 8, '#f8fafc');
+          ctx.fillStyle = '#38bdf8';
+          ctx.beginPath();
+          ctx.roundRect(goblet.x - 5, goblet.y - 8, 12, 18, 3);
+          ctx.fill();
+
+          if (s > 0.7) {
+            drawCallout(ctx, hip.x, hip.y + 4, boxX - 38, boxY - 32, 'Roza cajón (Frena butt-wink)', '#10b981');
+          } else {
+            drawCallout(ctx, goblet.x + 4, goblet.y, goblet.x + 18, goblet.y - 22, 'Contrapeso al pecho', '#38bdf8');
+          }
+
+          drawHead(ctx, shoulder.x + 2, shoulder.y - 16, 11, 0);
+          drawJoint(ctx, hip.x, hip.y, 5, '#10b981');
+          drawJoint(ctx, knee.jx, knee.jy, 4.5);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Goblet Box Squat • Tope Seguro a 90°', 'Toca suavemente el cajón sin relajarte y sube empujando el suelo', s, s > 0.6 ? '📦 TOPE CAJÓN 90°' : '💨 SUBE VERTICAL');
+          break;
+        }
+
+        /* 19. PRESS DE PECHO EN BANCO 30° CON PIES ELEVADOS */
+        case 'incline_press': {
+          const floorY = h - 34;
+          drawGridAndMat(ctx, w, h, floorY, false);
+
+          // Respaldo inclinado a 25-30° y asiento con plataforma de pies
+          ctx.strokeStyle = '#475569';
+          ctx.lineWidth = 6;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(cx - 72, floorY - 46);
+          ctx.lineTo(cx - 6, floorY - 16);
+          ctx.lineTo(cx + 22, floorY - 22);
+          ctx.stroke();
+
+          // Caja de apoyo para elevar los pies (protege L5-S1 de arquearse)
+          ctx.fillStyle = '#1e293b';
+          ctx.strokeStyle = '#10b981';
+          ctx.lineWidth = 1.8;
+          ctx.beginPath();
+          ctx.roundRect(cx + 42, floorY - 26, 32, 26, 4);
+          ctx.fill();
+          ctx.stroke();
+
+          const shoulder = { x: cx - 58, y: floorY - 44 };
+          const hip = { x: cx - 8, y: floorY - 21 };
+          const l5s1 = { x: cx - 28, y: floorY - 30 };
+          const knee = { x: cx + 26, y: floorY - 52 };
+          const foot = { x: cx + 56, y: floorY - 28 };
+
+          // Torso apoyado sin arco lumbar + piernas con pies altos
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 16.5, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+          drawLimb(ctx, hip.x, hip.y, knee.x, knee.y, 13, '#cbd5e1');
+          drawLimb(ctx, knee.x, knee.y, foot.x, foot.y, 10, '#94a3b8');
+
+          // Brazos empujando mancuernas hacia el techo
+          const hand = {
+            x: shoulder.x + 6,
+            y: (shoulder.y - 12) - s * 38
+          };
+          const elbow = {
+            x: shoulder.x + 14 - s * 6,
+            y: (shoulder.y + 8) - s * 22
+          };
+
+          drawMuscleGlow(ctx, shoulder.x + 10, shoulder.y - 4, 16, 10, 0.3, s, '#38bdf8');
+          drawLimb(ctx, shoulder.x, shoulder.y, elbow.x, elbow.y, 9.5, '#e2e8f0');
+          drawLimb(ctx, elbow.x, elbow.y, hand.x, hand.y, 8.5, '#f8fafc');
+          ctx.fillStyle = '#f59e0b';
+          ctx.fillRect(hand.x - 9, hand.y - 3, 18, 6);
+
+          drawCallout(ctx, foot.x, foot.y, cx + 6, floorY - 82, 'Pies elevados = Lumbar pegada', '#10b981');
+
+          drawHead(ctx, shoulder.x - 14, shoulder.y - 8, 11, -0.35);
+          drawJoint(ctx, shoulder.x, shoulder.y, 4.5);
+          drawJoint(ctx, elbow.x, elbow.y, 4);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Press Mancuernas • Pies Elevados (0% Arco L5)', 'Empuja cerrando costillas contra el respaldo', s, s > 0.5 ? '💨 EMPUJA ARRIBA' : '🫁 BAJA CONTROLADO');
+          break;
+        }
+
+        /* 20. BIRD-DOG CONTROLADO (PROTOCOLO DR. MCGILL) */
+        case 'bird_dog': {
+          const matY = h - 38;
+          drawGridAndMat(ctx, w, h, matY, true);
+
+          const shoulder = { x: cx + 26, y: matY - 48 };
+          const hip = { x: cx - 28, y: matY - 48 };
+          const l5s1 = { x: cx - 10, y: matY - 48 };
+
+          // Línea horizontal de tope de cadera (la pierna NUNCA sube más que el tronco)
+          ctx.save();
+          ctx.strokeStyle = 'rgba(16, 185, 129, 0.5)';
+          ctx.lineWidth = 1.6;
+          ctx.setLineDash([4, 3]);
+          ctx.beginPath();
+          ctx.moveTo(20, matY - 56);
+          ctx.lineTo(w - 20, matY - 56);
+          ctx.stroke();
+          ctx.restore();
+
+          // Extremidades de base fijas en la esterilla
+          drawLimb(ctx, hip.x, hip.y, hip.x - 4, matY - 5, 12, '#64748b'); // muslo de apoyo
+          drawLimb(ctx, hip.x - 4, matY - 5, hip.x - 28, matY - 4, 9.5, '#64748b');
+          drawLimb(ctx, shoulder.x, shoulder.y, shoulder.x + 2, matY - 4, 8.5, '#64748b'); // brazo de apoyo
+
+          // Brillo en multífidos y glúteo
+          drawMuscleGlow(ctx, l5s1.x, l5s1.y - 4, 22, 10, 0, 0.4 + s * 0.6, '#10b981');
+
+          // Torso horizontal como una mesa + vértebras
+          drawLimb(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 16.5, '#334155');
+          drawVertebrae(ctx, shoulder.x, shoulder.y, hip.x, hip.y, 6, 0, false);
+
+          // Pierna trasera extendiéndose horizontalmente (empujando con el talón hacia atrás)
+          const footExtX = (hip.x - 6) - s * 56;
+          const footExtY = (matY - 12) - s * 36;
+          const kneeExtX = (hip.x - 2) - s * 28;
+          const kneeExtY = (matY - 10) - s * 38;
+          drawLimb(ctx, hip.x, hip.y, kneeExtX, kneeExtY, 12.5, '#f8fafc');
+          drawLimb(ctx, kneeExtX, kneeExtY, footExtX, footExtY, 10, '#e2e8f0', 'rgba(16,185,129,0.35)');
+
+          // Brazo contrario extendiéndose al frente
+          const handExtX = shoulder.x + 4 + s * 48;
+          const handExtY = (matY - 12) - s * 36;
+          drawLimb(ctx, shoulder.x, shoulder.y, handExtX, handExtY, 8.5, '#38bdf8', 'rgba(56,189,248,0.35)');
+
+          if (s > 0.6) {
+            drawArrow(ctx, footExtX + 12, footExtY, footExtX - 8, footExtY, '#10b981');
+            drawCallout(ctx, footExtX, footExtY, 14, matY - 94, 'Empuja talón atrás (Sin subir de más)', '#10b981');
+          }
+
+          drawHead(ctx, shoulder.x + 16, shoulder.y - 2, 10.5, Math.PI / 2); // Mirada al suelo (cuello neutro)
+          drawJoint(ctx, hip.x, hip.y, 5, '#10b981');
+          drawJoint(ctx, shoulder.x, shoulder.y, 4.5);
+          drawL5S1Badge(ctx, l5s1.x, l5s1.y, t);
+
+          drawHUD(ctx, w, h, 'Bird-Dog McGill • Multífidos L5-S1', s > 0.65 ? 'HOLD 5s: Hazte largo de mano a talón sin hundir cintura' : 'Extiende brazo y pierna opuesta rozando el tope horizontal', s, s > 0.65 ? '⏱️ HOLD 5s RECTO' : '💨 ALARGA EJE');
+          break;
+        }
       }
     }
 
@@ -2921,19 +3329,37 @@
 
     // 4.4 selectores de Peso (kg) en los ejercicios de Gimnasio
     const GYM_EX_NAMES = {
-      'gym-1': 'Step-Up Cajón',
-      'gym-2': 'Sentadilla Búlgara',
-      'gym-3': 'Prensa 1 Pierna',
-      'gym-4': 'Remo Banco 45°',
-      'gym-5': 'Peso Muerto B-Stance',
-      'gym-6': 'Press Pallof / Granjero'
+      'gym-1': '1. Step-Up Cajón',
+      'gym-2': '2. Sentadilla Búlgara',
+      'gym-3': '3. Prensa 1 Pierna',
+      'gym-4': '4. Remo Banco 45°',
+      'gym-5': '5. Peso Muerto B-Stance',
+      'gym-6': '6. Press Pallof / Granjero',
+      'gym-7': '7. Hip Thrust Banco',
+      'gym-8': '8. Goblet Box Squat',
+      'gym-9': '9. Press Mancuernas 30°',
+      'gym-10': '10. Bird-Dog / McGill'
+    };
+
+    const DEFAULT_GYM_WEIGHTS = {
+      'gym-1': 10,
+      'gym-2': 12,
+      'gym-3': 45,
+      'gym-4': 16,
+      'gym-5': 14,
+      'gym-6': 15,
+      'gym-7': 30,
+      'gym-8': 16,
+      'gym-9': 14,
+      'gym-10': 0
     };
 
     function loadGymWeights() {
       try {
-        return JSON.parse(localStorage.getItem(WEIGHTS_KEY) || '{"gym-1":10,"gym-2":12,"gym-3":45,"gym-4":16,"gym-5":14,"gym-6":15}');
+        const saved = JSON.parse(localStorage.getItem(WEIGHTS_KEY) || '{}');
+        return Object.assign({}, DEFAULT_GYM_WEIGHTS, saved);
       } catch (e) {
-        return {};
+        return Object.assign({}, DEFAULT_GYM_WEIGHTS);
       }
     }
 
@@ -2956,7 +3382,7 @@
         wrap.className = 'weight-control flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-2.5 py-1 rounded-lg';
         wrap.innerHTML = `
           <span class="text-[11px] text-slate-400 font-medium">Carga:</span>
-          <input type="number" step="0.5" min="0" max="250" value="${weights[exId] || 10}"
+          <input type="number" step="0.5" min="0" max="250" value="${weights[exId] ?? 0}"
             onchange="saveGymWeight('${exId}', this.value)"
             class="w-14 bg-slate-950 text-emerald-400 font-bold text-xs text-center border border-slate-700 rounded py-0.5 focus:outline-none focus:border-sky-400" />
           <span class="text-[11px] text-slate-400 font-semibold">kg</span>
@@ -2965,7 +3391,7 @@
       });
     }
 
-    // 4.5 Diario del Semáforo Clínico L5-S1 y Exportación JSON
+    // 4.5 Diario del Semáforo Clínico L5-S1, Borrado de Registros y Copia de Seguridad
     let currentSemaphoreSelection = 'verde';
 
     function selectDailySemaphore(color, btn) {
@@ -2990,21 +3416,38 @@
       const entries = loadJournalEntries();
       const note = document.getElementById('dailyNoteInput').value.trim();
       const acts = [];
-      if (document.getElementById('actMoto').checked) acts.push('🏍️ Moto');
-      if (document.getElementById('actTrek').checked) acts.push('🥾 Trekking');
-      if (document.getElementById('actGym').checked) acts.push('🏋️ Gym');
+      if (document.getElementById('actCasa')?.checked) acts.push('🏠 Rutina Casa');
+      if (document.getElementById('actMov')?.checked)  acts.push('🔓 Movilidad');
+      if (document.getElementById('actGym')?.checked)  acts.push('🏋️ Gym Fuerza');
+      if (document.getElementById('actMoto')?.checked) acts.push('🏍️ Moto');
+      if (document.getElementById('actTrek')?.checked) acts.push('🥾 Trekking');
 
       const todayStr = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' });
       entries.unshift({
+        id: Date.now(),
         date: todayStr,
         status: currentSemaphoreSelection,
         activities: acts,
-        note: note || 'Control rutinario completado',
+        note: note || 'Control diario registrado',
         weights: loadGymWeights()
       });
 
-      try { localStorage.setItem(JOURNAL_KEY, JSON.stringify(entries.slice(0, 60))); } catch (e) {}
+      try { localStorage.setItem(JOURNAL_KEY, JSON.stringify(entries.slice(0, 90))); } catch (e) {}
       document.getElementById('dailyNoteInput').value = '';
+      renderJournalAndWeights();
+    }
+
+    function deleteJournalEntry(idx) {
+      const entries = loadJournalEntries();
+      if (idx < 0 || idx >= entries.length) return;
+      entries.splice(idx, 1);
+      try { localStorage.setItem(JOURNAL_KEY, JSON.stringify(entries)); } catch (e) {}
+      renderJournalAndWeights();
+    }
+
+    function clearAllJournalEntries() {
+      if (!confirm('¿Seguro que quieres borrar todos los registros guardados en el historial?')) return;
+      try { localStorage.removeItem(JOURNAL_KEY); } catch (e) {}
       renderJournalAndWeights();
     }
 
@@ -3013,38 +3456,43 @@
       const wBox = document.getElementById('weightsSummaryBox');
       if (wBox) {
         wBox.innerHTML = Object.keys(GYM_EX_NAMES).map(k => `
-          <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-2.5">
-            <div class="text-[11px] text-slate-400 truncate">${GYM_EX_NAMES[k]}</div>
-            <div class="text-sm font-extrabold text-sky-400 mt-0.5">${weights[k] || 0} kg</div>
+          <div class="bg-slate-900/90 border border-slate-800 rounded-lg p-2">
+            <div class="text-[10.5px] text-slate-400 truncate" title="${GYM_EX_NAMES[k]}">${GYM_EX_NAMES[k]}</div>
+            <div class="text-xs sm:text-sm font-extrabold text-sky-400 mt-0.5">${weights[k] ?? 0} kg</div>
           </div>
         `).join('');
       }
 
       const entries = loadJournalEntries();
       const streakEl = document.getElementById('streakCounter');
-      if (streakEl) streakEl.textContent = `${entries.length} registros guardados`;
+      if (streakEl) streakEl.textContent = `${entries.length} registros`;
 
       const listEl = document.getElementById('journalHistoryList');
       if (!listEl) return;
       if (entries.length === 0) {
-        listEl.innerHTML = `<div class="text-slate-400 bg-slate-900/60 border border-slate-800 rounded-lg p-3">Aún no hay registros en tu diario clínico. Guarda tu primer Check-in a la izquierda.</div>`;
+        listEl.innerHTML = `<div class="text-slate-400 bg-slate-900/60 border border-slate-800 rounded-lg p-3">Aún no hay registros en tu diario clínico. Marca tus actividades a la izquierda y pulsa <strong>Guardar Día en mi Historial</strong>.</div>`;
         return;
       }
 
-      listEl.innerHTML = entries.map(item => {
+      listEl.innerHTML = entries.map((item, idx) => {
         const badge = item.status === 'verde'
           ? '<span class="text-emerald-400 font-bold">🟢 Verde</span>'
           : item.status === 'amarillo'
           ? '<span class="text-amber-400 font-bold">🟡 Amarilla</span>'
           : '<span class="text-rose-400 font-bold">🔴 Roja</span>';
-        const acts = (item.activities && item.activities.length) ? item.activities.join(' • ') : 'Día estándar';
+        const acts = (item.activities && item.activities.length) ? item.activities.join(' • ') : 'Sin actividad marcada';
         return `
           <div class="bg-slate-900/80 border border-slate-800 rounded-lg p-2.5 flex flex-col gap-1">
-            <div class="flex items-center justify-between">
-              <span class="font-semibold text-white">${item.date}</span>
-              ${badge}
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="font-semibold text-white">${item.date}</span>
+                ${badge}
+              </div>
+              <button onclick="deleteJournalEntry(${idx})" class="text-[11px] text-rose-400 hover:text-rose-200 bg-rose-500/10 hover:bg-rose-500/25 border border-rose-500/20 px-2 py-0.5 rounded transition" title="Borrar este registro">
+                🗑️ Borrar
+              </button>
             </div>
-            <div class="text-[11px] text-sky-300">${acts}</div>
+            <div class="text-[11px] text-sky-300 font-medium">${acts}</div>
             <div class="text-slate-300">${item.note}</div>
           </div>
         `;
